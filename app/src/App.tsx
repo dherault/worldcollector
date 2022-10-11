@@ -11,6 +11,8 @@ import FullScreenSpinner from './components/FullScreenSpinner'
 
 const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
+const CreateItem = lazy(() => import('./scenes/CreateItem'))
+const Item = lazy(() => import('./scenes/Item'))
 
 function App() {
   return (
@@ -42,6 +44,18 @@ function App() {
                 element={(
                   <Authentication isSignUp />
                 )}
+              />
+              <Route
+                path="create"
+                element={(
+                  <AuthenticationBouncer>
+                    <CreateItem />
+                  </AuthenticationBouncer>
+                )}
+              />
+              <Route
+                path="~/:id"
+                element={<Item />}
               />
             </Route>
           </Routes>

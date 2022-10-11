@@ -12,6 +12,7 @@ import { db } from '../firebase'
 function CreateItem() {
   const { viewer } = useContext(ViewerContext)
   const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -21,8 +22,10 @@ function CreateItem() {
     if (!viewer || loading) return
 
     const formatedName = name.trim()
+    const formatedDescription = description.trim()
 
     if (!formatedName) return
+    if (!formatedDescription) return
 
     setLoading(true)
 
@@ -32,6 +35,8 @@ function CreateItem() {
       const item: ItemType = {
         id,
         name: formatedName,
+        description: formatedDescription,
+        imageUrls: [],
         ownerId: viewer.id,
         userId: viewer.id,
         createdAt: now,
@@ -48,7 +53,7 @@ function CreateItem() {
       setLoading(false)
       alert('An error occurred while creating the item.')
     }
-  }, [viewer, loading, name, navigate])
+  }, [viewer, loading, name, description, navigate])
 
   return (
     <>
@@ -57,9 +62,15 @@ function CreateItem() {
         <Input
           value={name}
           onChange={event => setName(event.target.value)}
-          placeholder="name"
+          placeholder="Name"
+        />
+        <Input
+          value={description}
+          onChange={event => setDescription(event.target.value)}
+          placeholder="Description"
         />
         <Button
+          disabled={!(name && description)}
           type="submit"
           loading={loading}
           onClick={handleSubmit}

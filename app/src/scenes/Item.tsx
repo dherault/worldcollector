@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { H1 } from 'honorable'
+import { Div, H1 } from 'honorable'
 import { doc, getDoc } from 'firebase/firestore'
 
 import { ItemType } from '../types'
@@ -27,7 +27,10 @@ function Item() {
   }
 
   return (
-    <H1>{item.name}</H1>
+    <>
+      <H1>{item.name}</H1>
+      <Div>{item.description}</Div>
+    </>
   )
 }
 

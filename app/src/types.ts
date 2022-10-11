@@ -10,8 +10,10 @@ export type UserMetadataType = {
 export type ItemType = {
   id: string
   name: string
-  ownerId: string,
-  userId: string,
+  description: string
+  imageUrls: string[]
+  ownerId: string
+  userId: string
   createdAt: string
   updatedAt: string
 }

@@ -1,11 +1,11 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { FacebookAuthProvider, GoogleAuthProvider, browserLocalPersistence, connectAuthEmulator, getAuth, setPersistence } from 'firebase/auth'
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
+import { connectStorageEmulator, getStorage } from 'firebase/storage'
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions'
+import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyBVDc2EEqZM8IeBXN6Xts2EjXDnXiy5DnU',
   authDomain: 'worldcollector-1bd61.firebaseapp.com',
@@ -16,6 +16,26 @@ const firebaseConfig = {
   measurementId: 'G-LZDLB8V7W8',
 }
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+
+initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeVe-AgAAAAALgxB_TevHVyGadpodHUrivz3if0'),
+  isTokenAutoRefreshEnabled: true,
+})
+
+export const db = getFirestore(app)
+export const storage = getStorage(app)
+export const analytics = getAnalytics(app)
+export const authentication = getAuth(app)
+export const functions = getFunctions(app)
+
+export const persistancePromise = setPersistence(authentication, browserLocalPersistence)
+export const googleProvider = new GoogleAuthProvider()
+export const facebookProvider = new FacebookAuthProvider()
+
+if (import.meta.env.MODE === 'development') {
+  connectFirestoreEmulator(db, 'localhost', 8080)
+  connectStorageEmulator(storage, 'localhost', 9199)
+  connectFunctionsEmulator(functions, 'localhost', 5001)
+  connectAuthEmulator(authentication, 'http://localhost:9099', { disableWarnings: true })
+}

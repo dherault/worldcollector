@@ -39,6 +39,10 @@
     "rules": "storage.rules"
   },
   "emulators": {
+    "hosting": {
+      "host": "localhost",
+      "port": "1110"
+    },
     "auth": {
       "port": 9099
     },

@@ -4,7 +4,118 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>World Collector</title>
+    <style>
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-BlackItalic.eot');
+        src: url('/src/fonts/Formular-BlackItalic.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-BlackItalic.woff2') format('woff2'),
+             url('/src/fonts/Formular-BlackItalic.woff') format('woff'),
+             url('/src/fonts/Formular-BlackItalic.ttf') format('truetype');
+        font-weight: 900;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-MediumItalic.eot');
+        src: url('/src/fonts/Formular-MediumItalic.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-MediumItalic.woff2') format('woff2'),
+             url('/src/fonts/Formular-MediumItalic.woff') format('woff'),
+             url('/src/fonts/Formular-MediumItalic.ttf') format('truetype');
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-Italic.eot');
+        src: url('/src/fonts/Formular-Italic.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-Italic.woff2') format('woff2'),
+             url('/src/fonts/Formular-Italic.woff') format('woff'),
+             url('/src/fonts/Formular-Italic.ttf') format('truetype');
+        font-weight: normal;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-LightItalic.eot');
+        src: url('/src/fonts/Formular-LightItalic.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-LightItalic.woff2') format('woff2'),
+             url('/src/fonts/Formular-LightItalic.woff') format('woff'),
+             url('/src/fonts/Formular-LightItalic.ttf') format('truetype');
+        font-weight: 300;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-Black.eot');
+        src: url('/src/fonts/Formular-Black.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-Black.woff2') format('woff2'),
+             url('/src/fonts/Formular-Black.woff') format('woff'),
+             url('/src/fonts/Formular-Black.ttf') format('truetype');
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-Light.eot');
+        src: url('/src/fonts/Formular-Light.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-Light.woff2') format('woff2'),
+             url('/src/fonts/Formular-Light.woff') format('woff'),
+             url('/src/fonts/Formular-Light.ttf') format('truetype');
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular.eot');
+        src: url('/src/fonts/Formular.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular.woff2') format('woff2'),
+             url('/src/fonts/Formular.woff') format('woff'),
+             url('/src/fonts/Formular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-Medium.eot');
+        src: url('/src/fonts/Formular-Medium.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-Medium.woff2') format('woff2'),
+             url('/src/fonts/Formular-Medium.woff') format('woff'),
+             url('/src/fonts/Formular-Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-BoldItalic.eot');
+        src: url('/src/fonts/Formular-BoldItalic.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-BoldItalic.woff2') format('woff2'),
+             url('/src/fonts/Formular-BoldItalic.woff') format('woff'),
+             url('/src/fonts/Formular-BoldItalic.ttf') format('truetype');
+        font-weight: bold;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: 'Formular';
+        src: url('/src/fonts/Formular-Bold.eot');
+        src: url('/src/fonts/Formular-Bold.eot') format('embedded-opentype'),
+             url('/src/fonts/Formular-Bold.woff2') format('woff2'),
+             url('/src/fonts/Formular-Bold.woff') format('woff'),
+             url('/src/fonts/Formular-Bold.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

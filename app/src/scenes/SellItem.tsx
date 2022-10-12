@@ -13,7 +13,9 @@ import { MarketplaceItemType } from '../types'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenForbidden from '../components/FullScreenForbidden'
+import FullScreenNotFound from '../components/FullScreenNotFound'
 import { db } from '../firebase'
+import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
 
 function boundDigits(n: number) {
   return Number(n.toFixed(2))
@@ -22,7 +24,8 @@ function boundDigits(n: number) {
 function SellItem() {
   const { id = '' } = useParams()
   const { viewer } = useContext(ViewerContext)
-  const item = useItemById(id)
+  const { item, loadingItem } = useItemById(id)
+  const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
   const [prices, setPrices] = useState<any>({ seller: 0, fee: 0, buyer: 0 })
   const navigate = useNavigate()
 
@@ -82,13 +85,19 @@ function SellItem() {
     })
   }, [])
 
-  if (!item) {
+  if (loadingItem || loadingMarketplaceItem) {
     return (
       <FullScreenSpinner />
     )
   }
 
-  if (item.ownerId !== viewer?.id) {
+  if (!item) {
+    return (
+      <FullScreenNotFound />
+    )
+  }
+
+  if (item.ownerId !== viewer?.id || marketplaceItem) {
     return (
       <FullScreenForbidden />
     )

@@ -5,19 +5,22 @@ import { db } from '../firebase'
 import { ItemType } from '../types'
 
 function useItemById(id: string) {
+  const [loadingItem, setLoadingItem] = useState(true)
   const [item, setItem] = useState<ItemType | null>(null)
 
   const fetchItem = useCallback(async () => {
-    const itemResult = await getDoc(doc(db, 'items', id))
+    const querySnapshot = await getDoc(doc(db, 'items', id))
 
-    setItem(itemResult.data() as ItemType)
+    if (querySnapshot.exists()) setItem(querySnapshot.data() as ItemType)
+
+    setLoadingItem(false)
   }, [id])
 
   useEffect(() => {
     fetchItem()
   }, [fetchItem])
 
-  return item
+  return { item, loadingItem }
 }
 
 export default useItemById

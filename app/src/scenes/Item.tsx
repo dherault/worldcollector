@@ -4,17 +4,27 @@ import { Button, Div, H1 } from 'honorable'
 
 import ViewerContext from '../contexts/ViewerContext'
 
-import FullScreenSpinner from '../components/FullScreenSpinner'
 import useItemById from '../hooks/useItemById'
+import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
+
+import FullScreenSpinner from '../components/FullScreenSpinner'
+import FullScreenNotFound from '../components/FullScreenNotFound'
 
 function Item() {
   const { id = '' } = useParams()
   const { viewer } = useContext(ViewerContext)
-  const item = useItemById(id)
+  const { item, loadingItem } = useItemById(id)
+  const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
+
+  if (loadingItem || loadingMarketplaceItem) {
+    return (
+      <FullScreenSpinner />
+    )
+  }
 
   if (!item) {
     return (
-      <FullScreenSpinner />
+      <FullScreenNotFound />
     )
   }
 
@@ -28,11 +38,29 @@ function Item() {
           gap={1}
         >
           <Div>You own that item</Div>
+          {!marketplaceItem && (
+            <Button
+              as={Link}
+              to={`/~/${id}/sell`}
+            >
+              Sell
+            </Button>
+          )}
+        </Div>
+      )}
+      {marketplaceItem && (
+        <Div
+          xflex="x4"
+          gap={1}
+        >
+          <Div>
+            Price: {marketplaceItem.price}
+          </Div>
           <Button
             as={Link}
-            to={`/~/${id}/sell`}
+            to={`/~/${id}/buy`}
           >
-            Sell
+            Buy
           </Button>
         </Div>
       )}

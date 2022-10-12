@@ -17,3 +17,12 @@ export type ItemType = {
   createdAt: string
   updatedAt: string
 }
+
+export type MarketplaceItemType = {
+  id: string
+  itemId: string
+  userId: string
+  price: number
+  createdAt: string
+  updatedAt: string
+}

@@ -56,7 +56,7 @@ function Portfolio() {
             mb={1}
             key={item.id}
           >
-            <Link to={`/${item.id}`}>
+            <Link to={`/~/${item.id}`}>
               {item.name}
             </Link>
           </Div>

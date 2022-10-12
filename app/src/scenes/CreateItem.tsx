@@ -45,7 +45,7 @@ function CreateItem() {
 
       await setDoc(doc(db, 'items', id), item)
 
-      navigate(`/i/${id}`)
+      navigate(`/~/${id}`)
     }
     catch (error) {
       console.error(error)

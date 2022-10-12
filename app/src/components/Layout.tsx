@@ -20,10 +20,11 @@ function Layout() {
         gap={1}
         mb={2}
       >
-        <Link to="create">Create</Link>
+        <Link to="/create">Create</Link>
+        <Link to="/marketplace">Marketplace</Link>
         <Div flexGrow={1} />
-        {viewer && <Link to={`u/${viewer.id}`}>Portfolio</Link>}
-        <Link to="sign-in">Sign in</Link>
+        {viewer && <Link to={`/u/${viewer.id}`}>Portfolio</Link>}
+        <Link to="/sign-in">Sign in</Link>
       </Nav>
       <Outlet />
     </Div>

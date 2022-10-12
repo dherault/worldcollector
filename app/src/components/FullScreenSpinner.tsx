@@ -5,7 +5,6 @@ function FullScreenSpinner() {
     <Div
       xflex="x5"
       flexGrow={1}
-      height="100vh"
       backgroundColor="background"
       zIndex={999999}
     >

@@ -1,14 +1,14 @@
-import { PropsWithChildren, useContext } from 'react'
-import { Navigate } from 'react-router-dom'
+import { PropsWithChildren } from 'react'
 
-import ViewerContext from '../contexts/ViewerContext'
+import useViewer from '../hooks/useViewer'
 
 import FullScreenSpinner from './FullScreenSpinner'
+import FullScreenForbidden from './FullScreenForbidden'
 
 type AuthenticationBouncerProps = PropsWithChildren<Record<string, any>>
 
 function AuthenticationBouncer({ children }: AuthenticationBouncerProps) {
-  const { viewer, loadingViewer } = useContext(ViewerContext)
+  const { viewer, loadingViewer } = useViewer()
 
   if (loadingViewer) {
     return (
@@ -18,7 +18,7 @@ function AuthenticationBouncer({ children }: AuthenticationBouncerProps) {
 
   if (!viewer) {
     return (
-      <Navigate to="/" />
+      <FullScreenForbidden />
     )
   }
 

@@ -1,9 +1,7 @@
-import { useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Button, Div, H1 } from 'honorable'
 
-import ViewerContext from '../contexts/ViewerContext'
-
+import useViewer from '../hooks/useViewer'
 import useItemById from '../hooks/useItemById'
 import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
 
@@ -12,7 +10,7 @@ import FullScreenNotFound from '../components/FullScreenNotFound'
 
 function Item() {
   const { id = '' } = useParams()
-  const { viewer } = useContext(ViewerContext)
+  const { viewer } = useViewer()
   const { item, loadingItem } = useItemById(id)
   const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
 

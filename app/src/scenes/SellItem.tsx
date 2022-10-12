@@ -63,7 +63,7 @@ function SellItem() {
     setPrices({
       seller: boundDigits(value),
       fee: boundDigits(value * MARKETPLACE_FEE_RATIO),
-      buyer: boundDigits(value * (1 - MARKETPLACE_FEE_RATIO)),
+      buyer: boundDigits(value * (1 + MARKETPLACE_FEE_RATIO)),
     })
   }, [])
 
@@ -76,7 +76,7 @@ function SellItem() {
       return
     }
 
-    const seller = value / (1 - MARKETPLACE_FEE_RATIO)
+    const seller = value / (1 + MARKETPLACE_FEE_RATIO)
 
     setPrices({
       seller: boundDigits(seller),
@@ -106,16 +106,18 @@ function SellItem() {
   return (
     <>
       <H1>Sell {item.name}</H1>
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={handleSubmit}
+        xflex="x4"
+        gap={1}
+      >
         <Input
-          display="block"
           type="number"
           value={prices.seller.toString()}
           onChange={handleSellerChange}
         />
         <Div>Fee: {prices.fee}</Div>
         <Input
-          display="block"
           type="number"
           value={prices.buyer.toString()}
           onChange={handleBuyerChange}

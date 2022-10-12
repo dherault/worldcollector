@@ -1,16 +1,16 @@
-import { FormEvent, useCallback, useContext, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form, H1, Input } from 'honorable'
 import { nanoid } from 'nanoid'
 import { doc, setDoc } from 'firebase/firestore'
 
-import ViewerContext from '../contexts/ViewerContext'
+import useViewer from '../hooks/useViewer'
 
 import { ItemType } from '../types'
 import { db } from '../firebase'
 
 function CreateItem() {
-  const { viewer } = useContext(ViewerContext)
+  const { viewer } = useViewer()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(false)

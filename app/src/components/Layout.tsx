@@ -1,11 +1,10 @@
 import { Div, Nav } from 'honorable'
-import { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
-import ViewerContext from '../contexts/ViewerContext'
+import useViewer from '../hooks/useViewer'
 
 function Layout() {
-  const { viewer } = useContext(ViewerContext)
+  const { viewer } = useViewer()
 
   return (
     <Div

@@ -8,13 +8,14 @@ import Layout from './components/Layout'
 import AuthenticationProvider from './components/AuthenticationProvider'
 import AuthenticationBouncer from './components/AuthenticationBouncer'
 import FullScreenSpinner from './components/FullScreenSpinner'
-import SellItem from './scenes/SellItem'
 
 const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
 const CreateItem = lazy(() => import('./scenes/CreateItem'))
 const Item = lazy(() => import('./scenes/Item'))
 const Portfolio = lazy(() => import('./scenes/Portfolio'))
+const SellItem = lazy(() => import('./scenes/SellItem'))
+const BuyItem = lazy(() => import('./scenes/BuyItem'))
 
 function App() {
   return (
@@ -68,6 +69,14 @@ function App() {
                   element={(
                     <AuthenticationBouncer>
                       <SellItem />
+                    </AuthenticationBouncer>
+                  )}
+                />
+                <Route
+                  path="buy"
+                  element={(
+                    <AuthenticationBouncer>
+                      <BuyItem />
                     </AuthenticationBouncer>
                   )}
                 />

@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, createContext } from 'react'
-import { User } from 'firebase/auth'
 
-import { UserMetadataType } from '../types'
+import { UserType } from '../types'
 
 export type ViewerContextType = {
-  viewer: UserMetadataType | null
+  viewer: UserType | null
   // viewerMetadata: UserMetadataType | null
   loadingViewer: boolean
-  setViewer: Dispatch<SetStateAction<UserMetadataType | null>>
+  setViewer: Dispatch<SetStateAction<UserType | null>>
   // setViewerMetadata: Dispatch<SetStateAction<UserMetadataType | null>>
 }
 

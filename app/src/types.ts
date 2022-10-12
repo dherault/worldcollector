@@ -1,4 +1,4 @@
-export type UserMetadataType = {
+export type UserType = {
   id: string
   pseudonyme: string
   email: string

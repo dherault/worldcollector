@@ -8,7 +8,7 @@ import { MdEmail, MdPerson } from 'react-icons/md'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
 import { authentication, db, googleProvider } from '../firebase'
-import { UserMetadataType } from '../types'
+import { UserType } from '../types'
 
 import GoogleIcon from '../icons/GoogleIcon'
 
@@ -50,9 +50,9 @@ function Authentication({ isSignUp }: any) {
       }
 
       const existingUserDocument = await getDoc(doc(db, 'users', result.user.uid))
-      const existingUser = existingUserDocument.data() as UserMetadataType
+      const existingUser = existingUserDocument.data() as UserType
 
-      const userMetadata: UserMetadataType = {
+      const userMetadata: UserType = {
         id: result.user.uid,
         pseudonyme: result.user.displayName || existingUser?.pseudonyme || 'A user',
         email: result.user.email || existingUser?.email || '',
@@ -129,7 +129,7 @@ function Authentication({ isSignUp }: any) {
     )
     .then(viewer => {
       if (isSignUp) {
-        const user: UserMetadataType = {
+        const user: UserType = {
           id: viewer.user.uid,
           pseudonyme,
           email: normalizedEmail,

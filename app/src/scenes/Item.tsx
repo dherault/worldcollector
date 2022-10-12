@@ -16,6 +16,7 @@ function Item() {
 
     setItem(itemResult.data() as ItemType)
   }, [id])
+
   useEffect(() => {
     fetchItem()
   }, [fetchItem])

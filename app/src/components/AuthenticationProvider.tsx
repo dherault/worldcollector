@@ -5,10 +5,10 @@ import { doc, getDoc } from 'firebase/firestore'
 import ViewerContext, { ViewerContextType } from '../contexts/ViewerContext'
 import { authentication, db, persistancePromise } from '../firebase'
 
-import { UserMetadataType } from '../types'
+import { UserType } from '../types'
 
 function AuthenticationProvider({ children }: any) {
-  const [viewer, setViewer] = useState<UserMetadataType | null>(null)
+  const [viewer, setViewer] = useState<UserType | null>(null)
   const [loadingViewer, setViewerLoading] = useState(true)
   const viewerContextValue = useMemo<ViewerContextType>(() => ({ viewer, setViewer, loadingViewer }), [viewer, loadingViewer])
 
@@ -19,7 +19,7 @@ function AuthenticationProvider({ children }: any) {
       if (viewer) {
         const result = await getDoc(doc(db, 'users', viewer.uid))
 
-        setViewer(result.data() as UserMetadataType)
+        setViewer(result.data() as UserType)
       }
 
       setViewerLoading(false)

@@ -13,6 +13,7 @@ const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
 const CreateItem = lazy(() => import('./scenes/CreateItem'))
 const Item = lazy(() => import('./scenes/Item'))
+const Portfolio = lazy(() => import('./scenes/Portfolio'))
 
 function App() {
   return (
@@ -54,8 +55,12 @@ function App() {
                 )}
               />
               <Route
-                path="~/:id"
+                path="i/:id"
                 element={<Item />}
+              />
+              <Route
+                path="u/:id"
+                element={<Portfolio />}
               />
             </Route>
           </Routes>

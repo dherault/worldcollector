@@ -1,8 +1,10 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from 'honorable'
+import { InstantSearch } from 'react-instantsearch-hooks-web'
 
 import theme from './theme'
+import searchClient from './algolia'
 
 import Layout from './components/Layout'
 import AuthenticationProvider from './components/AuthenticationProvider'
@@ -21,74 +23,79 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Suspense fallback={<FullScreenSpinner />}>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={(
-                <AuthenticationProvider>
-                  <Layout />
-                </AuthenticationProvider>
-              )}
-            >
+      <InstantSearch
+        searchClient={searchClient}
+        indexName="worldcollector-items"
+      >
+        <Suspense fallback={<FullScreenSpinner />}>
+          <BrowserRouter>
+            <Routes>
               <Route
-                index
-                element={<Home />}
-              />
-              <Route
-                path="sign-in"
+                path="/"
                 element={(
-                  <Authentication />
+                  <AuthenticationProvider>
+                    <Layout />
+                  </AuthenticationProvider>
                 )}
-              />
-              <Route
-                path="sign-up"
-                element={(
-                  <Authentication isSignUp />
-                )}
-              />
-              <Route
-                path="create"
-                element={(
-                  <AuthenticationBouncer>
-                    <CreateItem />
-                  </AuthenticationBouncer>
-                )}
-              />
-              <Route
-                path="~/:id"
-                element={<Outlet />}
               >
                 <Route
                   index
-                  element={<Item />}
+                  element={<Home />}
                 />
                 <Route
-                  path="sell"
+                  path="sign-in"
+                  element={(
+                    <Authentication />
+                  )}
+                />
+                <Route
+                  path="sign-up"
+                  element={(
+                    <Authentication isSignUp />
+                  )}
+                />
+                <Route
+                  path="create"
                   element={(
                     <AuthenticationBouncer>
-                      <SellItem />
+                      <CreateItem />
                     </AuthenticationBouncer>
                   )}
                 />
                 <Route
-                  path="buy"
-                  element={(
-                    <AuthenticationBouncer>
-                      <BuyItem />
-                    </AuthenticationBouncer>
-                  )}
+                  path="~/:id"
+                  element={<Outlet />}
+                >
+                  <Route
+                    index
+                    element={<Item />}
+                  />
+                  <Route
+                    path="sell"
+                    element={(
+                      <AuthenticationBouncer>
+                        <SellItem />
+                      </AuthenticationBouncer>
+                    )}
+                  />
+                  <Route
+                    path="buy"
+                    element={(
+                      <AuthenticationBouncer>
+                        <BuyItem />
+                      </AuthenticationBouncer>
+                    )}
+                  />
+                </Route>
+                <Route
+                  path="u/:id"
+                  element={<Portfolio />}
                 />
               </Route>
-              <Route
-                path="u/:id"
-                element={<Portfolio />}
-              />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </Suspense>
+            </Routes>
+          </BrowserRouter>
+        </Suspense>
+      </InstantSearch>
     </ThemeProvider>
   )
 }

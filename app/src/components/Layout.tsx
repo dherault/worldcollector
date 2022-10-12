@@ -1,5 +1,6 @@
 import { Div, Nav } from 'honorable'
 import { Link, Outlet } from 'react-router-dom'
+import { SearchBox, useHits } from 'react-instantsearch-hooks-web'
 
 import useViewer from '../hooks/useViewer'
 
@@ -21,11 +22,38 @@ function Layout() {
       >
         <Link to="/create">Create</Link>
         <Link to="/marketplace">Marketplace</Link>
+        <SearchBox />
+        <HitsBox />
         <Div flexGrow={1} />
         {viewer && <Link to={`/u/${viewer.id}`}>Portfolio</Link>}
         <Link to="/sign-in">Sign in</Link>
       </Nav>
       <Outlet />
+    </Div>
+  )
+}
+
+function HitsBox() {
+  const { hits, results } = useHits()
+
+  if (!results?.query) return null
+
+  return (
+    <Div
+      position="absolute"
+      top={0}
+      left={0}
+    >
+      {hits.map((hit: any) => (
+        <Div
+          key={hit.objectID}
+          mb={0.5}
+        >
+          <Link to={`/~/${hit.objectID}`}>
+            {hit.name}
+          </Link>
+        </Div>
+      ))}
     </Div>
   )
 }

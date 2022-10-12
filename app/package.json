@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "algoliasearch": "^4.14.2",
     "firebase": "^9.11.0",
     "flexpad": "^4.0.1",
     "honorable": "^0.140.0",
@@ -23,6 +24,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-instantsearch-hooks-web": "^6.36.0",
     "react-router-dom": "^6.4.2"
   },
   "devDependencies": {

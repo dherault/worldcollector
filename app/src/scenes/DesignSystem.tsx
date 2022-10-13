@@ -1,10 +1,8 @@
 import { Div, H1, H2, H3, H4, P } from 'honorable'
 
-import BlurryDot from '../components/BlurryDot'
-
 function DesignSystem() {
   return (
-    <>
+    <Div pb={12}>
       <H1>
         Design System
       </H1>
@@ -16,11 +14,7 @@ function DesignSystem() {
         Typography
       </H2>
       <Typography />
-      <H2 mt={2}>
-        Blurry dots
-      </H2>
-      <BlurryDots />
-    </>
+    </Div>
   )
 }
 
@@ -116,24 +110,11 @@ function Typography() {
   return (
     <>
       <H1 mt={1}>Title H1 Lorem Ipsum</H1>
-      <H2 mt={1}>Title H2 Lorem Ipsum</H2>
-      <H3 mt={1}>Title H3 Lorem Ipsum</H3>
-      <H4 mt={1}>Title H4 Lorem Ipsum</H4>
-      <P mt={1}>Paragraph P default</P>
+      <H2 mt={2}>Title H2 Lorem Ipsum</H2>
+      <H3 mt={2}>Title H3 Lorem Ipsum</H3>
+      <H4 mt={2}>Title H4 Lorem Ipsum</H4>
+      <P mt={2}>Paragraph P default</P>
     </>
-  )
-}
-
-function BlurryDots() {
-  return (
-    <Div
-      mt={1}
-      position="relative"
-      minHeight="25vh"
-    >
-      <BlurryDot colors={['#6923ff', '#6923ff', '#0df']} />
-      <BlurryDot colors={['#fa0', '#f0a', '#f0a']} />
-    </Div>
   )
 }
 

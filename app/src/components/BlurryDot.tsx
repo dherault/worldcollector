@@ -48,7 +48,7 @@ function BlurryDot({ size = 128 + 64, colors = ['primary'] }) {
       left={`calc(${center.x}% + ${radius * Math.sin(circleAngle)}px)`}
       transform={`rotate(${selfAngle}rad) scale(${scale})`}
       transition="all 250ms linear"
-      filter="blur(100px)"
+      filter={`blur(${1.5 * size}px)`}
       zIndex={-1}
     >
       {dots.map((dot, i) => (

@@ -12,6 +12,7 @@ export type ItemType = {
   name: string
   description: string
   imageUrls: string[]
+  verified: boolean
   ownerId: string
   userId: string
   createdAt: string

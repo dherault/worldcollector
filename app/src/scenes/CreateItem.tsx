@@ -9,6 +9,8 @@ import useViewer from '../hooks/useViewer'
 import { ItemType } from '../types'
 import { db } from '../firebase'
 
+import SimilarItems from '../components/SimilarItems'
+
 function CreateItem() {
   const { viewer } = useViewer()
   const [name, setName] = useState('')
@@ -37,6 +39,7 @@ function CreateItem() {
         name: formatedName,
         description: formatedDescription,
         imageUrls: [],
+        verified: false,
         ownerId: viewer.id,
         userId: viewer.id,
         createdAt: now,
@@ -78,6 +81,7 @@ function CreateItem() {
           Create collectible
         </Button>
       </Form>
+      <SimilarItems itemName={name} />
     </>
   )
 }

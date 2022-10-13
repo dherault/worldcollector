@@ -5,7 +5,6 @@ function FullScreenotFound() {
     <Div
       xflex="x5"
       flexGrow={1}
-      backgroundColor="background"
       zIndex={999999}
     >
       Not found

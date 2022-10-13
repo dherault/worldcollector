@@ -4,6 +4,8 @@ import { SearchBox, useHits } from 'react-instantsearch-hooks-web'
 
 import useViewer from '../hooks/useViewer'
 
+import BlurryDot from './BlurryDot'
+
 function Layout() {
   const { viewer } = useViewer()
 
@@ -13,12 +15,12 @@ function Layout() {
       height="100vh"
       width="100vw"
       overflow="hidden"
-      p={2}
     >
       <Nav
         xflex="x4"
+        flexShrink={0}
         gap={1}
-        mb={2}
+        p={2}
       >
         <Link to="/design-system">Design System</Link>
         <Link to="/create">Create</Link>
@@ -29,7 +31,17 @@ function Layout() {
         {viewer && <Link to={`/u/${viewer.id}`}>Portfolio</Link>}
         <Link to="/sign-in">Sign in</Link>
       </Nav>
-      <Outlet />
+      <Div
+        xflex="y2s"
+        flexGrow={1}
+        overflow="auto"
+        p={2}
+        position="relative"
+      >
+        <BlurryDot colors={['#6923ff', '#6923ff', '#0df']} />
+        <BlurryDot colors={['#fa0', '#f0a', '#f0a']} />
+        <Outlet />
+      </Div>
     </Div>
   )
 }

@@ -1,5 +1,7 @@
 import { Div, H1, H2, H3, H4, P } from 'honorable'
 
+import BlurryDot from '../components/BlurryDot'
+
 function DesignSystem() {
   return (
     <>
@@ -14,38 +16,96 @@ function DesignSystem() {
         Typography
       </H2>
       <Typography />
+      <H2 mt={2}>
+        Blurry dots
+      </H2>
+      <BlurryDots />
     </>
   )
 }
 
 function Colors() {
   const colors = [
-    'primary',
-    'gold.300',
-    'gold.400',
-    'gold.500',
-    'gold.600',
-    'gold.700',
+    [
+      'primary',
+    ],
+    [
+      'yellow.50',
+      'yellow.100',
+      'yellow.200',
+      'yellow.300',
+      'yellow.400',
+      'yellow.500',
+      'yellow.600',
+      'yellow.700',
+      'yellow.800',
+      'yellow.900',
+    ],
+    [
+      'green.50',
+      'green.100',
+      'green.200',
+      'green.300',
+      'green.400',
+      'green.500',
+      'green.600',
+      'green.700',
+      'green.800',
+      'green.900',
+    ],
+    [
+      'red.50',
+      'red.100',
+      'red.200',
+      'red.300',
+      'red.400',
+      'red.500',
+      'red.600',
+      'red.700',
+      'red.800',
+      'red.900',
+    ],
+    [
+      'grey.50',
+      'grey.100',
+      'grey.200',
+      'grey.300',
+      'grey.400',
+      'grey.500',
+      'grey.600',
+      'grey.700',
+      'grey.800',
+      'grey.900',
+    ],
+    [
+      'gold',
+      'rainbow',
+    ],
   ]
 
   return (
-    <Div
-      xflex="x11"
-      gap={1}
-      mt={1}
-    >
-      {colors.map(color => (
+    <Div>
+      {colors.map((colorBatch, i) => (
         <Div
-          key={color}
-          xflex="y2"
+          key={i}
+          xflex="x4"
+          gap={1}
+          mt={1}
         >
-          <Div
-            borderRadius="medium"
-            width={64}
-            height={64}
-            backgroundColor={color}
-          />
-          <P mt={0.5}>{color}</P>
+          {colorBatch.map(color => (
+            <Div
+              key={color}
+              xflex="y2"
+            >
+              <Div
+                borderRadius="medium"
+                width={96}
+                height={96}
+                background={color}
+              />
+              <P mt={0.5}>{color}</P>
+            </Div>
+          ))}
         </Div>
       ))}
     </Div>
@@ -63,4 +123,18 @@ function Typography() {
     </>
   )
 }
+
+function BlurryDots() {
+  return (
+    <Div
+      mt={1}
+      position="relative"
+      minHeight="25vh"
+    >
+      <BlurryDot colors={['#6923ff', '#6923ff', '#0df']} />
+      <BlurryDot colors={['#fa0', '#f0a', '#f0a']} />
+    </Div>
+  )
+}
+
 export default DesignSystem

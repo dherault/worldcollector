@@ -8,18 +8,18 @@ function DesignSystem() {
       <H1>
         Design System
       </H1>
-      <H2 mt={2}>
+      <H2 mt={4}>
         Colors
       </H2>
       <Colors />
-      <H2 mt={2}>
+      <H2 mt={4}>
         Typography
       </H2>
       <Typography />
-      <H2 mt={2}>
-        Buttons
+      <H2 mt={4}>
+        GradientButtons
       </H2>
-      <Buttons />
+      <GradientButtons />
     </Div>
   )
 }
@@ -124,7 +124,7 @@ function Typography() {
   )
 }
 
-function Buttons() {
+function GradientButtons() {
   return (
     <Div
       xflex="y1"

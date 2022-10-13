@@ -12,7 +12,7 @@ function GradientButton({ gradient = 'gold', fill = false, ...props }) {
     >
       <Button
         backgroundColor={fill ? 'transparent' : 'background'}
-        borderRadius="large"
+        borderRadius="medium"
         _hover={{ backgroundColor: 'transparent' }}
         _active={{ backgroundColor: 'transparent' }}
         {...props}

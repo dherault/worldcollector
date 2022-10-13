@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WORLDCOLLECTOR_1BD61 }}'
           channelId: live
           projectId: worldcollector-1bd61
+          entryPoint: app

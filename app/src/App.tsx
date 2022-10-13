@@ -18,6 +18,7 @@ const Item = lazy(() => import('./scenes/Item'))
 const Portfolio = lazy(() => import('./scenes/Portfolio'))
 const SellItem = lazy(() => import('./scenes/SellItem'))
 const BuyItem = lazy(() => import('./scenes/BuyItem'))
+const DesignSystem = lazy(() => import('./scenes/DesignSystem'))
 
 function App() {
   return (
@@ -90,6 +91,10 @@ function App() {
                 <Route
                   path="u/:id"
                   element={<Portfolio />}
+                />
+                <Route
+                  path="design-system"
+                  element={<DesignSystem />}
                 />
               </Route>
             </Routes>

@@ -20,6 +20,7 @@ function Layout() {
         gap={1}
         mb={2}
       >
+        <Link to="/design-system">Design System</Link>
         <Link to="/create">Create</Link>
         <Link to="/marketplace">Marketplace</Link>
         <SearchBox />

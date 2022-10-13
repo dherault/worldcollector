@@ -13,7 +13,7 @@ function SimilarItems({ itemName, ...props }: any) {
     setQuery(itemName)
   }, [setQuery, itemName])
 
-  console.log('hits', hits)
+  // console.log('hits', hits)
 
   if (!results?.query) return null
 

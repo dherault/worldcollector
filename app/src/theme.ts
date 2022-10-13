@@ -10,8 +10,22 @@ const borderRadii = {
   large: 6,
 }
 
+const gold = {
+  50: '#FFFFE7',
+  100: '#FEFFC1',
+  200: '#FFFE86',
+  300: '#FFF541',
+  400: '#FFE60D',
+  500: '#EFCA00',
+  600: '#D19F00',
+  700: '#A67202',
+  800: '#89580A',
+  900: '#74480F',
+}
+
 export default mergeTheme(defaultTheme, {
   name: 'WorldCollector',
+  mode: 'dark',
   stylesheet: {
     html: [
       {
@@ -25,9 +39,15 @@ export default mergeTheme(defaultTheme, {
         overscrollBehaviorX: 'none',
       },
     ],
+    a: [
+      {
+        color: 'white',
+      },
+    ],
   },
   colors: {
-    primary: '#4864D5',
+    primary: 'white',
+    gold,
   },
   global: [
     mpRecipe(),

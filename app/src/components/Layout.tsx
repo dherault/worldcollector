@@ -1,4 +1,4 @@
-import { Div, Nav } from 'honorable'
+import { Div, Nav, useMediaQuery } from 'honorable'
 import { Link, Outlet } from 'react-router-dom'
 import { SearchBox, useHits } from 'react-instantsearch-hooks-web'
 
@@ -8,6 +8,7 @@ import BlurryDot from './BlurryDot'
 
 function Layout() {
   const { viewer } = useViewer()
+  const isMobile = useMediaQuery('down', 'tablet')
 
   return (
     <Div
@@ -17,10 +18,16 @@ function Layout() {
       overflow="hidden"
       position="relative"
     >
-      <BlurryDot colors={['#6923ff', '#6923ff', '#0df']} />
-      <BlurryDot colors={['#fa0', '#f0a', '#f0a']} />
+      <BlurryDot
+        colors={['#6923ff', '#6923ff', '#0df']}
+        size={isMobile ? 64 : 128 + 64}
+      />
+      <BlurryDot
+        colors={['#fa0', '#f0a', '#f0a']}
+        size={isMobile ? 64 : 128 + 64}
+      />
       <Nav
-        xflex="x4"
+        xflex="x41"
         flexShrink={0}
         gap={1}
         p={2}

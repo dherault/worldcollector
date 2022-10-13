@@ -1,5 +1,7 @@
 import { Div, H1, H2, H3, H4, P } from 'honorable'
 
+import GradientButton from '../components/GradientButton'
+
 function DesignSystem() {
   return (
     <Div pb={12}>
@@ -14,6 +16,10 @@ function DesignSystem() {
         Typography
       </H2>
       <Typography />
+      <H2 mt={2}>
+        Buttons
+      </H2>
+      <Buttons />
     </Div>
   )
 }
@@ -115,6 +121,26 @@ function Typography() {
       <H4 mt={2}>Title H4 Lorem Ipsum</H4>
       <P mt={2}>Paragraph P default</P>
     </>
+  )
+}
+
+function Buttons() {
+  return (
+    <Div
+      xflex="y1"
+      gap={1}
+      mt={1}
+    >
+      <GradientButton>Gold</GradientButton>
+      <GradientButton fill>Gold fill</GradientButton>
+      <GradientButton gradient="rainbow">Rainbow</GradientButton>
+      <GradientButton
+        fill
+        gradient="rainbow"
+      >
+        Rainbow fill
+      </GradientButton>
+    </Div>
   )
 }
 

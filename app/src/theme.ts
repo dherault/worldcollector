@@ -91,7 +91,7 @@ export default mergeTheme(defaultTheme, {
   colors: {
     primary: 'white',
     background: 'grey.900',
-    gold: 'linear-gradient(145deg, rgba(239,202,0,1) 0%, rgba(209,159,0,1) 40%, rgba(209,159,0,1) 60%, rgba(239,202,0,1) 100%)',
+    gold: 'linear-gradient(145deg, rgba(239,202,0,1) 0%, rgba(209,159,0,1) 45%, rgba(209,159,0,1) 55%, rgba(239,202,0,1) 100%)',
     rainbow: 'linear-gradient(180deg,hsla(0,0%,100%,.2),hsla(0,0%,100%,.2)),linear-gradient(145deg,#0fa,#0af 25%,#9f6eff 50%,#fd66cb 75%,#fa0)',
     yellow,
     green,

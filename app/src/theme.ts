@@ -10,6 +10,19 @@ const borderRadii = {
   large: 6,
 }
 
+const blue = {
+  50: '#eff9ff',
+  100: '#def1ff',
+  200: '#b6e5ff',
+  300: '#75d3ff',
+  400: '#2cbdff',
+  500: '#00aaff',
+  600: '#0083d4',
+  700: '#0068ab',
+  800: '#00588d',
+  900: '#064974',
+}
+
 const yellow = {
   900: '#74480F',
   800: '#89580A',
@@ -66,9 +79,21 @@ const grey = {
   900: '#101013',
 }
 
+const pink = {
+  50: '#fef1fa',
+  100: '#fde6f6',
+  200: '#feccef',
+  300: '#ffa2e2',
+  400: '#fd66cb',
+  500: '#f73db4',
+  600: '#e81a94',
+  700: '#ca0c77',
+  800: '#a60e61',
+  900: '#8a1154',
+}
+
 export default mergeTheme(defaultTheme, {
   name: 'WorldCollector',
-  mode: 'dark',
   stylesheet: {
     html: [
       {
@@ -78,25 +103,32 @@ export default mergeTheme(defaultTheme, {
     body: [
       {
         overflow: 'hidden',
-        fontFamily: 'Formular, sans-serif',
+        fontFamily: "'Inter', sans-serif",
         overscrollBehaviorX: 'none',
       },
     ],
     a: [
       {
-        color: 'white',
+        color: 'primary',
       },
     ],
+    // '::placeholder': [
+    //   {
+    //     color: 'grey.200',
+    //   },
+    // ],
   },
   colors: {
-    primary: 'white',
-    background: 'grey.900',
-    gold: 'linear-gradient(145deg, rgba(239,202,0,1) 0%, rgba(209,159,0,1) 45%, rgba(209,159,0,1) 55%, rgba(239,202,0,1) 100%)',
-    rainbow: 'linear-gradient(180deg,hsla(0,0%,100%,.2),hsla(0,0%,100%,.2)),linear-gradient(145deg,#0fa,#0af 25%,#9f6eff 50%,#fd66cb 75%,#fa0)',
-    yellow,
+    primary: 'blue.500',
+    // background: 'grey.900',
+    blue,
     green,
+    yellow,
     red,
     grey,
+    pink,
+    gold: 'linear-gradient(145deg, rgba(239,202,0,1) 0%, rgba(209,159,0,1) 45%, rgba(209,159,0,1) 55%, rgba(239,202,0,1) 100%)',
+    rainbow: 'linear-gradient(180deg,hsla(0,0%,100%,.2),hsla(0,0%,100%,.2)),linear-gradient(145deg,#0fa,#0af 25%,#9f6eff 50%,#fd66cb 75%,#fa0)',
   },
   global: [
     mpRecipe(),
@@ -127,20 +159,13 @@ export default mergeTheme(defaultTheme, {
   //     },
   //   ],
   // },
-  // Input: {
-  //   Root: [
-  //     ({ large }: any) => large && {
-  //       minHeight: 48,
-  //       fontSize: 18,
-  //     },
-  //   ],
-  //   StartIcon: [
-  //     ({ large }: any) => large && {
-  //       marginLeft: 8,
-  //       marginRight: 6,
-  //     },
-  //   ],
-  // },
+  Input: {
+    Root: [
+      {
+        border: '1px solid primary',
+      },
+    ],
+  },
   // Flex: {
   //   Root: [
   //     ({ column }: any) => column && {
@@ -180,6 +205,52 @@ export default mergeTheme(defaultTheme, {
     Root: [
       {
         marginBottom: 0,
+      },
+    ],
+  },
+  H1: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
+        fontSize: 48,
+      },
+    ],
+  },
+  H2: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
+        fontSize: 40,
+      },
+    ],
+  },
+  H3: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
+        fontSize: 32,
+      },
+    ],
+  },
+  H4: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
+        fontSize: 24,
+      },
+    ],
+  },
+  H5: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
+      },
+    ],
+  },
+  H6: {
+    Root: [
+      {
+        fontFamily: "'Cormorant', serif",
       },
     ],
   },

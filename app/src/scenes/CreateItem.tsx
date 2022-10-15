@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button, Form, H1, Input } from 'honorable'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button, Div, Form, H1, Input, Label } from 'honorable'
 import { nanoid } from 'nanoid'
 import { doc, setDoc } from 'firebase/firestore'
 
@@ -10,6 +10,8 @@ import { ItemType } from '../types'
 import { db } from '../firebase'
 
 import SimilarItems from '../components/SimilarItems'
+import LayoutContainer from '../components/LayoutContainer'
+import GradientButton from '../components/GradientButton'
 
 function CreateItem() {
   const { viewer } = useViewer()
@@ -59,30 +61,60 @@ function CreateItem() {
   }, [viewer, loading, name, description, navigate])
 
   return (
-    <>
-      <H1>Collect anything</H1>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          value={name}
-          onChange={event => setName(event.target.value)}
-          placeholder="Name"
-        />
-        <Input
-          value={description}
-          onChange={event => setDescription(event.target.value)}
-          placeholder="Description"
-        />
-        <Button
-          disabled={!(name && description)}
-          type="submit"
-          loading={loading}
-          onClick={handleSubmit}
+    <LayoutContainer>
+      <Div xflex="x4">
+        <H1>Collect anything</H1>
+        <Div
+          flexGrow={1}
+          xflex="x6"
         >
-          Create collectible
-        </Button>
+          <Link to="/onboarding">
+            Run tutorial again
+          </Link>
+        </Div>
+      </Div>
+      <Form onSubmit={handleSubmit}>
+        <Div mt={2}>
+          <Label>
+            Name
+          </Label>
+          <Input
+            width="100%"
+            value={name}
+            onChange={event => setName(event.target.value)}
+            placeholder="Mona Lisa"
+            mt={0.5}
+          />
+        </Div>
+        <Div mt={2}>
+          <Label>
+            Description
+          </Label>
+          <Input
+            multiline
+            minRows={3}
+            width="100%"
+            value={description}
+            onChange={event => setDescription(event.target.value)}
+            placeholder="A famous painting made by Leonardo Da Vinci in 1503"
+            mt={0.5}
+          />
+        </Div>
+        <Div xflex="x6">
+          <GradientButton
+            fill
+            gradient="rainbow"
+            type="submit"
+            loading={loading}
+            onClick={handleSubmit}
+            mt={2}
+          >
+            Create collectible
+          </GradientButton>
+        </Div>
       </Form>
       <SimilarItems itemName={name} />
-    </>
+    </LayoutContainer>
   )
 }
 

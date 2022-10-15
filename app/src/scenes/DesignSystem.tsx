@@ -30,16 +30,16 @@ function Colors() {
       'primary',
     ],
     [
-      'yellow.50',
-      'yellow.100',
-      'yellow.200',
-      'yellow.300',
-      'yellow.400',
-      'yellow.500',
-      'yellow.600',
-      'yellow.700',
-      'yellow.800',
-      'yellow.900',
+      'blue.50',
+      'blue.100',
+      'blue.200',
+      'blue.300',
+      'blue.400',
+      'blue.500',
+      'blue.600',
+      'blue.700',
+      'blue.800',
+      'blue.900',
     ],
     [
       'green.50',
@@ -54,6 +54,18 @@ function Colors() {
       'green.900',
     ],
     [
+      'yellow.50',
+      'yellow.100',
+      'yellow.200',
+      'yellow.300',
+      'yellow.400',
+      'yellow.500',
+      'yellow.600',
+      'yellow.700',
+      'yellow.800',
+      'yellow.900',
+    ],
+    [
       'red.50',
       'red.100',
       'red.200',
@@ -64,6 +76,18 @@ function Colors() {
       'red.700',
       'red.800',
       'red.900',
+    ],
+    [
+      'pink.50',
+      'pink.100',
+      'pink.200',
+      'pink.300',
+      'pink.400',
+      'pink.500',
+      'pink.600',
+      'pink.700',
+      'pink.800',
+      'pink.900',
     ],
     [
       'grey.50',
@@ -132,14 +156,7 @@ function GradientButtons() {
       mt={1}
     >
       <GradientButton>Gold</GradientButton>
-      <GradientButton fill>Gold fill</GradientButton>
       <GradientButton gradient="rainbow">Rainbow</GradientButton>
-      <GradientButton
-        fill
-        gradient="rainbow"
-      >
-        Rainbow fill
-      </GradientButton>
     </Div>
   )
 }

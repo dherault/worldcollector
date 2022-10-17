@@ -1,6 +1,4 @@
-import { Div, H1, H2, H3, H4, P } from 'honorable'
-
-import GradientButton from '../components/GradientButton'
+import { Button, Div, H1, H2, H3, H4, P } from 'honorable'
 
 function DesignSystem() {
   return (
@@ -17,9 +15,9 @@ function DesignSystem() {
       </H2>
       <Typography />
       <H2 mt={4}>
-        GradientButtons
+        Buttons
       </H2>
-      <GradientButtons />
+      <Buttons />
     </Div>
   )
 }
@@ -148,15 +146,15 @@ function Typography() {
   )
 }
 
-function GradientButtons() {
+function Buttons() {
   return (
     <Div
       xflex="y1"
       gap={1}
       mt={1}
     >
-      <GradientButton>Gold</GradientButton>
-      <GradientButton gradient="rainbow">Rainbow</GradientButton>
+      <Button gradient="gold">Gold</Button>
+      <Button gradient="rainbow">Rainbow</Button>
     </Div>
   )
 }

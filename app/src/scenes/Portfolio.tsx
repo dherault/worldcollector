@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Div, H1 } from 'honorable'
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
 
-import { ItemType, UserType } from '../types'
+import { CollectibleType, UserType } from '../types'
 import { db } from '../firebase'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
@@ -11,7 +11,7 @@ import FullScreenSpinner from '../components/FullScreenSpinner'
 function Portfolio() {
   const { id = '' } = useParams()
   const [user, setUser] = useState<UserType | null>(null)
-  const [items, setItems] = useState<ItemType[]>([])
+  const [items, setItems] = useState<CollectibleType[]>([])
 
   const fetchUser = useCallback(async () => {
     const querySnapshot = await getDoc(doc(db, 'users', id))
@@ -23,10 +23,10 @@ function Portfolio() {
     const q = query(collection(db, 'items'), where('ownerId', '==', id))
     const querySnapshot = await getDocs(q)
 
-    const users: ItemType[] = []
+    const users: CollectibleType[] = []
 
     querySnapshot.forEach(doc => {
-      users.push(doc.data() as ItemType)
+      users.push(doc.data() as CollectibleType)
     })
 
     setItems(users)

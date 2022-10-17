@@ -9,7 +9,7 @@ import useItemById from '../hooks/useItemById'
 import ViewerContext from '../contexts/ViewerContext'
 
 import { MARKETPLACE_FEE_RATIO } from '../constants'
-import { MarketplaceItemType } from '../types'
+import { MarketplaceCollectibleType } from '../types'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenForbidden from '../components/FullScreenForbidden'
@@ -36,7 +36,7 @@ function SellItem() {
 
     const id = nanoid()
     const now = new Date().toISOString()
-    const marketplaceItem: MarketplaceItemType = {
+    const marketplaceItem: MarketplaceCollectibleType = {
       id,
       itemId: item.id,
       userId: viewer.id,

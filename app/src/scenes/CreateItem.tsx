@@ -6,12 +6,11 @@ import { doc, setDoc } from 'firebase/firestore'
 
 import useViewer from '../hooks/useViewer'
 
-import { ItemType } from '../types'
+import { CollectibleType } from '../types'
 import { db } from '../firebase'
 
 import SimilarItems from '../components/SimilarItems'
 import LayoutContainer from '../components/LayoutContainer'
-import GradientButton from '../components/GradientButton'
 
 function CreateItem() {
   const { viewer } = useViewer()
@@ -36,7 +35,7 @@ function CreateItem() {
     try {
       const id = nanoid()
       const now = new Date().toISOString()
-      const item: ItemType = {
+      const item: CollectibleType = {
         id,
         name: formatedName,
         description: formatedDescription,
@@ -101,8 +100,7 @@ function CreateItem() {
           />
         </Div>
         <Div xflex="x6">
-          <GradientButton
-            fill
+          <Button
             gradient="rainbow"
             type="submit"
             loading={loading}
@@ -110,7 +108,7 @@ function CreateItem() {
             mt={2}
           >
             Create collectible
-          </GradientButton>
+          </Button>
         </Div>
       </Form>
       <SimilarItems itemName={name} />

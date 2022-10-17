@@ -7,7 +7,7 @@ export type UserType = {
   updatedAt: string
 }
 
-export type ItemType = {
+export type CollectibleType = {
   id: string
   name: string
   description: string
@@ -19,7 +19,7 @@ export type ItemType = {
   updatedAt: string
 }
 
-export type MarketplaceItemType = {
+export type MarketplaceCollectibleType = {
   id: string
   itemId: string
   userId: string

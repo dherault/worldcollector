@@ -149,6 +149,17 @@ export default mergeTheme(defaultTheme, {
       borderRadius: borderRadii[borderRadius as keyof typeof borderRadii],
     },
   ],
+  Button: {
+    Root: [
+      ({ gradient }: any) => typeof gradient === 'string' && {
+        backgroundColor: 'transparent',
+        background: gradient,
+        transition: 'all 150ms ease',
+        _hover: { backgroundColor: 'transparent', transform: 'scale(1.04)' },
+        _active: { backgroundColor: 'transparent', transform: 'scale(1)' },
+      },
+    ],
+  },
   // IconButton: {
   //   Root: [
   //     ({ large }: any) => large && {

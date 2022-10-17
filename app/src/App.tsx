@@ -13,11 +13,12 @@ import FullScreenSpinner from './components/FullScreenSpinner'
 
 const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
-const CreateItem = lazy(() => import('./scenes/CreateItem'))
+const CreateCollectible = lazy(() => import('./scenes/CreateCollectible'))
 const Item = lazy(() => import('./scenes/Item'))
 const Portfolio = lazy(() => import('./scenes/Portfolio'))
 const SellItem = lazy(() => import('./scenes/SellItem'))
 const BuyItem = lazy(() => import('./scenes/BuyItem'))
+const CollectibleTutorial = lazy(() => import('./scenes/CollectibleTutorial'))
 const DesignSystem = lazy(() => import('./scenes/DesignSystem'))
 
 function App() {
@@ -56,10 +57,18 @@ function App() {
                   )}
                 />
                 <Route
-                  path="create"
+                  path="tutorial"
                   element={(
                     <AuthenticationBouncer>
-                      <CreateItem />
+                      <CollectibleTutorial />
+                    </AuthenticationBouncer>
+                  )}
+                />
+                <Route
+                  path="collect"
+                  element={(
+                    <AuthenticationBouncer>
+                      <CreateCollectible />
                     </AuthenticationBouncer>
                   )}
                 />

@@ -121,6 +121,7 @@ export default mergeTheme(defaultTheme, {
   colors: {
     primary: 'blue.500',
     // background: 'grey.900',
+    'background-light': '#f6fbff',
     blue,
     green,
     yellow,
@@ -151,12 +152,18 @@ export default mergeTheme(defaultTheme, {
   ],
   Button: {
     Root: [
-      ({ gradient }: any) => typeof gradient === 'string' && {
+      {
         backgroundColor: 'transparent',
-        background: gradient,
+        border: '1px solid primary',
+        color: 'primary',
         transition: 'all 150ms ease',
         _hover: { backgroundColor: 'transparent', transform: 'scale(1.04)' },
         _active: { backgroundColor: 'transparent', transform: 'scale(1)' },
+      },
+      ({ gradient }: any) => typeof gradient === 'string' && {
+        border: 'none',
+        color: 'white',
+        background: gradient,
       },
     ],
   },

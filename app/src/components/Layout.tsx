@@ -33,7 +33,7 @@ function Layout() {
         p={2}
       >
         <Link to="/design-system">Design System</Link>
-        <Link to="/create">Create</Link>
+        <Link to="/collect">Create</Link>
         <Link to="/marketplace">Marketplace</Link>
         <SearchBox />
         <HitsBox />

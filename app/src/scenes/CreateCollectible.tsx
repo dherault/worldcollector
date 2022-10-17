@@ -12,7 +12,7 @@ import { db } from '../firebase'
 import SimilarItems from '../components/SimilarItems'
 import LayoutContainer from '../components/LayoutContainer'
 
-function CreateItem() {
+function CreateCollectible() {
   const { viewer } = useViewer()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -47,7 +47,7 @@ function CreateItem() {
         updatedAt: now,
       }
 
-      await setDoc(doc(db, 'items', id), item)
+      await setDoc(doc(db, 'collectibles', id), item)
 
       navigate(`/~/${id}`)
     }
@@ -67,7 +67,7 @@ function CreateItem() {
           flexGrow={1}
           xflex="x6"
         >
-          <Link to="/onboarding">
+          <Link to="/tutorial">
             Run tutorial again
           </Link>
         </Div>
@@ -116,4 +116,4 @@ function CreateItem() {
   )
 }
 
-export default CreateItem
+export default CreateCollectible

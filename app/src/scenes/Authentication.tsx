@@ -64,7 +64,7 @@ function Authentication({ isSignUp }: any) {
 
       await setDoc(doc(db, 'users', userMetadata.id), userMetadata, { merge: true })
 
-      navigate(`/u/${id}`)
+      navigate(`/u/${result.user.uid}`)
     })
     .catch(error => {
       console.error(error)

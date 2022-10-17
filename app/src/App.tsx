@@ -14,10 +14,10 @@ import FullScreenSpinner from './components/FullScreenSpinner'
 const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
 const CreateCollectible = lazy(() => import('./scenes/CreateCollectible'))
-const Item = lazy(() => import('./scenes/Item'))
+const Collectible = lazy(() => import('./scenes/Collectible'))
 const Portfolio = lazy(() => import('./scenes/Portfolio'))
-const SellItem = lazy(() => import('./scenes/SellItem'))
-const BuyItem = lazy(() => import('./scenes/BuyItem'))
+const SellCollectible = lazy(() => import('./scenes/SellCollectible'))
+const BuyCollectible = lazy(() => import('./scenes/BuyCollectible'))
 const CollectibleTutorial = lazy(() => import('./scenes/CollectibleTutorial'))
 const DesignSystem = lazy(() => import('./scenes/DesignSystem'))
 
@@ -27,7 +27,7 @@ function App() {
       <CssBaseline />
       <InstantSearch
         searchClient={searchClient}
-        indexName="worldcollector-items"
+        indexName="worldcollector-collectibles"
       >
         <Suspense fallback={<FullScreenSpinner />}>
           <BrowserRouter>
@@ -78,13 +78,13 @@ function App() {
                 >
                   <Route
                     index
-                    element={<Item />}
+                    element={<Collectible />}
                   />
                   <Route
                     path="sell"
                     element={(
                       <AuthenticationBouncer>
-                        <SellItem />
+                        <SellCollectible />
                       </AuthenticationBouncer>
                     )}
                   />
@@ -92,7 +92,7 @@ function App() {
                     path="buy"
                     element={(
                       <AuthenticationBouncer>
-                        <BuyItem />
+                        <BuyCollectible />
                       </AuthenticationBouncer>
                     )}
                   />

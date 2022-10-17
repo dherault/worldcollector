@@ -1,56 +1,35 @@
-import { useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Div, H1 } from 'honorable'
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
 
-import { CollectibleType, UserType } from '../types'
-import { db } from '../firebase'
+import useUserById from '../hooks/useUserById'
+import useCollectiblesByOwnerId from '../hooks/useCollectiblesByOwnerId'
 
+import LayoutContainer from '../components/LayoutContainer'
 import FullScreenSpinner from '../components/FullScreenSpinner'
+import FullScreeNotFound from '../components/FullScreenNotFound'
 
 function Portfolio() {
   const { id = '' } = useParams()
-  const [user, setUser] = useState<UserType | null>(null)
-  const [items, setItems] = useState<CollectibleType[]>([])
+  const { user, loadingUser } = useUserById(id)
+  const { collectibles, loadingCollectibles } = useCollectiblesByOwnerId(id)
 
-  const fetchUser = useCallback(async () => {
-    const querySnapshot = await getDoc(doc(db, 'users', id))
-
-    setUser(querySnapshot.data() as UserType)
-  }, [id])
-
-  const fetchItems = useCallback(async () => {
-    const q = query(collection(db, 'items'), where('ownerId', '==', id))
-    const querySnapshot = await getDocs(q)
-
-    const users: CollectibleType[] = []
-
-    querySnapshot.forEach(doc => {
-      users.push(doc.data() as CollectibleType)
-    })
-
-    setItems(users)
-  }, [id])
-
-  useEffect(() => {
-    fetchUser()
-  }, [fetchUser])
-
-  useEffect(() => {
-    fetchItems()
-  }, [fetchItems])
-
-  if (!user) {
+  if (loadingUser || loadingCollectibles) {
     return (
       <FullScreenSpinner />
     )
   }
 
+  if (!user) {
+    return (
+      <FullScreeNotFound />
+    )
+  }
+
   return (
-    <>
+    <LayoutContainer>
       <H1>{user.pseudonyme}</H1>
       <Div>
-        {items.map(item => (
+        {collectibles.map(item => (
           <Div
             mr={1}
             mb={1}
@@ -62,7 +41,7 @@ function Portfolio() {
           </Div>
         ))}
       </Div>
-    </>
+    </LayoutContainer>
   )
 }
 

@@ -9,7 +9,7 @@ import { CollectibleType } from '../types'
 
 import CollectibleCard from './CollectibleCard'
 
-function SimilarItems({ itemName, ...props }: any) {
+function SimilarCollectibles({ itemName, ...props }: any) {
   const { refine: setQuery } = useSearchBox()
   const { hits, results } = useHits()
 
@@ -49,15 +49,15 @@ function SimilarItems({ itemName, ...props }: any) {
   )
 }
 
-function SimilarItemsWrapper(props: any) {
+function SimilarCollectiblesWrapper(props: any) {
   return (
     <InstantSearch
       searchClient={searchClient}
-      indexName="worldcollector-items"
+      indexName="worldcollector-collectibles"
     >
-      <SimilarItems {...props} />
+      <SimilarCollectibles {...props} />
     </InstantSearch>
   )
 }
 
-export default SimilarItemsWrapper
+export default SimilarCollectiblesWrapper

@@ -21,7 +21,7 @@ export type CollectibleType = {
 
 export type MarketplaceCollectibleType = {
   id: string
-  itemId: string
+  collectibleId: string
   userId: string
   price: number
   createdAt: string

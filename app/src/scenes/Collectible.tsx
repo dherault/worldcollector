@@ -2,25 +2,25 @@ import { Link, useParams } from 'react-router-dom'
 import { Button, Div, H1 } from 'honorable'
 
 import useViewer from '../hooks/useViewer'
-import useItemById from '../hooks/useItemById'
-import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
+import useCollectibleById from '../hooks/useCollectibleById'
+import useMarketplaceCollectibleByCollectibleId from '../hooks/useMarketplaceCollectibleByCollectibleId'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenNotFound from '../components/FullScreenNotFound'
 
-function Item() {
+function Collectible() {
   const { id = '' } = useParams()
   const { viewer } = useViewer()
-  const { item, loadingItem } = useItemById(id)
-  const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
+  const { collectible, loadingCollectible } = useCollectibleById(id)
+  const { marketplaceCollectible, loadingMarketplaceCollectible } = useMarketplaceCollectibleByCollectibleId(id)
 
-  if (loadingItem || loadingMarketplaceItem) {
+  if (loadingCollectible || loadingMarketplaceCollectible) {
     return (
       <FullScreenSpinner />
     )
   }
 
-  if (!item) {
+  if (!collectible) {
     return (
       <FullScreenNotFound />
     )
@@ -28,15 +28,15 @@ function Item() {
 
   return (
     <>
-      <H1>{item.name}</H1>
-      <Div>{item.description}</Div>
-      {item.ownerId === viewer?.id && (
+      <H1>{collectible.name}</H1>
+      <Div>{collectible.description}</Div>
+      {collectible.ownerId === viewer?.id && (
         <Div
           xflex="x4"
           gap={1}
         >
-          <Div>You own that item</Div>
-          {!marketplaceItem && (
+          <Div>You own that collectible</Div>
+          {!marketplaceCollectible && (
             <Button
               as={Link}
               to={`/~/${id}/sell`}
@@ -46,13 +46,13 @@ function Item() {
           )}
         </Div>
       )}
-      {marketplaceItem && (
+      {marketplaceCollectible && (
         <Div
           xflex="x4"
           gap={1}
         >
           <Div>
-            Price: {marketplaceItem.price}
+            Price: {marketplaceCollectible.price}
           </Div>
           <Button
             as={Link}
@@ -66,4 +66,4 @@ function Item() {
   )
 }
 
-export default Item
+export default Collectible

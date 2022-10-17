@@ -1,54 +1,54 @@
-import { ChangeEvent, FormEvent, useCallback, useContext, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Div, Form, H1, Input } from 'honorable'
 import { nanoid } from 'nanoid'
 
 import { doc, setDoc } from 'firebase/firestore'
 
-import useItemById from '../hooks/useItemById'
-import ViewerContext from '../contexts/ViewerContext'
+import useViewer from '../hooks/useViewer'
+import useCollectibleById from '../hooks/useCollectibleById'
+import useMarketplaceCollectibleByCollectibleId from '../hooks/useMarketplaceCollectibleByCollectibleId'
 
+import { db } from '../firebase'
 import { MARKETPLACE_FEE_RATIO } from '../constants'
 import { MarketplaceCollectibleType } from '../types'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenForbidden from '../components/FullScreenForbidden'
 import FullScreenNotFound from '../components/FullScreenNotFound'
-import { db } from '../firebase'
-import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
 
 function boundDigits(n: number) {
   return Number(n.toFixed(2))
 }
 
-function SellItem() {
+function SellCollectible() {
   const { id = '' } = useParams()
-  const { viewer } = useContext(ViewerContext)
-  const { item, loadingItem } = useItemById(id)
-  const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
+  const { viewer } = useViewer()
+  const { collectible, loadingCollectible } = useCollectibleById(id)
+  const { marketplaceCollectible, loadingMarketplaceCollectible } = useMarketplaceCollectibleByCollectibleId(id)
   const [prices, setPrices] = useState<any>({ seller: 0, fee: 0, buyer: 0 })
   const navigate = useNavigate()
 
   const handleSubmit = useCallback(async (event: FormEvent) => {
     event.preventDefault()
 
-    if (!(item && viewer)) return
+    if (!(collectible && viewer)) return
 
     const id = nanoid()
     const now = new Date().toISOString()
-    const marketplaceItem: MarketplaceCollectibleType = {
+    const marketplaceCollectible: MarketplaceCollectibleType = {
       id,
-      itemId: item.id,
+      collectibleId: collectible.id,
       userId: viewer.id,
       price: prices.buyer,
       createdAt: now,
       updatedAt: now,
     }
 
-    await setDoc(doc(db, 'marketplaceItems', id), marketplaceItem)
+    await setDoc(doc(db, 'marketplaceCollectibles', id), marketplaceCollectible)
 
-    navigate(`/~/${item.id}`)
-  }, [viewer, item, prices.buyer, navigate])
+    navigate(`/~/${collectible.id}`)
+  }, [viewer, collectible, prices.buyer, navigate])
 
   const handleSellerChange = useCallback((event: ChangeEvent) => {
     const value = Number((event.target as HTMLInputElement).value)
@@ -85,19 +85,19 @@ function SellItem() {
     })
   }, [])
 
-  if (loadingItem || loadingMarketplaceItem) {
+  if (loadingCollectible || loadingMarketplaceCollectible) {
     return (
       <FullScreenSpinner />
     )
   }
 
-  if (!item) {
+  if (!collectible) {
     return (
       <FullScreenNotFound />
     )
   }
 
-  if (item.ownerId !== viewer?.id || marketplaceItem) {
+  if (collectible.ownerId !== viewer?.id || marketplaceCollectible) {
     return (
       <FullScreenForbidden />
     )
@@ -105,7 +105,7 @@ function SellItem() {
 
   return (
     <>
-      <H1>Sell {item.name}</H1>
+      <H1>Sell {collectible.name}</H1>
       <Form
         onSubmit={handleSubmit}
         xflex="x4"
@@ -130,4 +130,4 @@ function SellItem() {
   )
 }
 
-export default SellItem
+export default SellCollectible

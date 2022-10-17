@@ -1,6 +1,6 @@
 import { Div } from 'honorable'
 
-function FullScreenotFound() {
+function FullScreenNotFound() {
   return (
     <Div
       xflex="x5"
@@ -12,4 +12,4 @@ function FullScreenotFound() {
   )
 }
 
-export default FullScreenotFound
+export default FullScreenNotFound

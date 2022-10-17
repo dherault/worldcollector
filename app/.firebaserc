@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "worldcollector-1bd61"
+  },
+  "targets": {},
+  "etags": {
+    "worldcollector-1bd61": {
+      "extensionInstances": {
+        "firestore-algolia-search": "924c4a56adc9f656194575c82e1fc500f1b7770d9ee03f2340e58d763cbcddc2"
+      }
+    }
   }
 }

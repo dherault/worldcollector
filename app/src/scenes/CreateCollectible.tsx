@@ -9,7 +9,7 @@ import useViewer from '../hooks/useViewer'
 import { CollectibleType } from '../types'
 import { db } from '../firebase'
 
-import SimilarItems from '../components/SimilarItems'
+import SimilarCollectibles from '../components/SimilarCollectibles'
 import LayoutContainer from '../components/LayoutContainer'
 
 function CreateCollectible() {
@@ -111,7 +111,7 @@ function CreateCollectible() {
           </Button>
         </Div>
       </Form>
-      <SimilarItems itemName={name} />
+      <SimilarCollectibles itemName={name} />
     </LayoutContainer>
   )
 }

@@ -43,6 +43,7 @@ function Authentication({ isSignUp }: any) {
     getRedirectResult(authentication)
     .then(async result => {
       console.log('result', result)
+
       if (!result) {
         setLoadingProvider(false)
 
@@ -63,7 +64,7 @@ function Authentication({ isSignUp }: any) {
 
       await setDoc(doc(db, 'users', userMetadata.id), userMetadata, { merge: true })
 
-      navigate('/marketplace')
+      navigate(`/u/${id}`)
     })
     .catch(error => {
       console.error(error)
@@ -127,7 +128,7 @@ function Authentication({ isSignUp }: any) {
         ? createUserWithEmailAndPassword(authentication, normalizedEmail, password)
         : signInWithEmailAndPassword(authentication, normalizedEmail, password)
     )
-    .then(viewer => {
+    .then(async viewer => {
       if (isSignUp) {
         const user: UserType = {
           id: viewer.user.uid,
@@ -138,11 +139,10 @@ function Authentication({ isSignUp }: any) {
           updatedAt: new Date().toISOString(),
         }
 
-        return setDoc(doc(db, 'users', viewer.user.uid), user)
+        await setDoc(doc(db, 'users', viewer.user.uid), user)
       }
-    })
-    .then(() => {
-      navigate('/marketplace')
+
+      navigate(`/u/${viewer.user.uid}`)
     })
     .catch(error => {
       switch (error.code) {

@@ -4,29 +4,29 @@ import { Button, Div, H1 } from 'honorable'
 import { useCallback } from 'react'
 
 import useViewer from '../hooks/useViewer'
-import useItemById from '../hooks/useItemById'
-import useMarketplaceItemByItemId from '../hooks/useMarketplaceItemByItemId'
+import useItemById from '../hooks/useCollectibleById'
+import useMarketplaceCollectibleByCollectibleId from '../hooks/useMarketplaceCollectibleByCollectibleId'
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenNotFound from '../components/FullScreenNotFound'
 
-function BuyItem() {
+function BuyCollectible() {
   const { id = '' } = useParams()
   const { viewer } = useViewer()
-  const { item, loadingItem } = useItemById(id)
-  const { marketplaceItem, loadingMarketplaceItem } = useMarketplaceItemByItemId(id)
+  const { collectible, loadingCollectible } = useItemById(id)
+  const { marketplaceCollectible, loadingMarketplaceCollectible } = useMarketplaceCollectibleByCollectibleId(id)
 
   const handleBuy = useCallback(() => {
 
   }, [])
 
-  if (loadingItem || loadingMarketplaceItem) {
+  if (loadingCollectible || loadingMarketplaceCollectible) {
     return (
       <FullScreenSpinner />
     )
   }
 
-  if (!(item && marketplaceItem)) {
+  if (!(collectible && marketplaceCollectible)) {
     return (
       <FullScreenNotFound />
     )
@@ -34,11 +34,11 @@ function BuyItem() {
 
   return (
     <>
-      <H1>Buy {item.name}</H1>
+      <H1>Buy {collectible.name}</H1>
       <Div>
-        Price: {marketplaceItem.price}
+        Price: {marketplaceCollectible.price}
       </Div>
-      {viewer?.id !== marketplaceItem.userId && (
+      {viewer?.id !== marketplaceCollectible.userId && (
         <Button onClick={handleBuy}>
           Buy
         </Button>
@@ -47,4 +47,4 @@ function BuyItem() {
   )
 }
 
-export default BuyItem
+export default BuyCollectible

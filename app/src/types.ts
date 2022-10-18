@@ -3,6 +3,7 @@ export type UserType = {
   pseudonyme: string
   email: string
   imageUrl: string
+  isAdministrator: boolean
   createdAt: string
   updatedAt: string
 }

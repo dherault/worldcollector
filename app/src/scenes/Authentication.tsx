@@ -58,6 +58,7 @@ function Authentication({ isSignUp }: any) {
         pseudonyme: result.user.displayName || existingUser?.pseudonyme || 'A user',
         email: result.user.email || existingUser?.email || '',
         imageUrl: result.user.photoURL || existingUser?.imageUrl || '',
+        isAdministrator: false,
         createdAt: existingUser?.createdAt || new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }
@@ -135,6 +136,7 @@ function Authentication({ isSignUp }: any) {
           pseudonyme,
           email: normalizedEmail,
           imageUrl: '',
+          isAdministrator: false,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         }

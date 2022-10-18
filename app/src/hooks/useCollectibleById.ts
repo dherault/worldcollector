@@ -9,6 +9,12 @@ function useCollectibleById(id: string) {
   const [collectible, setCollectible] = useState<CollectibleType | null>(null)
 
   const fetchCollectible = useCallback(async () => {
+    if (!id) {
+      setLoadingCollectible(false)
+
+      return
+    }
+
     const querySnapshot = await getDoc(doc(db, 'collectibles', id))
 
     if (querySnapshot.exists()) setCollectible(querySnapshot.data() as CollectibleType)

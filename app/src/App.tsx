@@ -9,7 +9,9 @@ import searchClient from './algolia'
 import Layout from './components/Layout'
 import AuthenticationProvider from './components/AuthenticationProvider'
 import AuthenticationBouncer from './components/AuthenticationBouncer'
+import AdministratorBouncer from './components/AdministratorBouncer'
 import FullScreenSpinner from './components/FullScreenSpinner'
+import FullScreenNotFound from './components/FullScreenNotFound'
 
 const Home = lazy(() => import('./scenes/Home'))
 const Authentication = lazy(() => import('./scenes/Authentication'))
@@ -19,6 +21,7 @@ const Portfolio = lazy(() => import('./scenes/Portfolio'))
 const SellCollectible = lazy(() => import('./scenes/SellCollectible'))
 const BuyCollectible = lazy(() => import('./scenes/BuyCollectible'))
 const CollectibleTutorial = lazy(() => import('./scenes/CollectibleTutorial'))
+const VerifyCollectibles = lazy(() => import('./scenes/VerifyCollectibles'))
 const DesignSystem = lazy(() => import('./scenes/DesignSystem'))
 
 function App() {
@@ -102,8 +105,28 @@ function App() {
                   element={<Portfolio />}
                 />
                 <Route
+                  path="verify"
+                  element={(
+                    <AdministratorBouncer>
+                      <VerifyCollectibles />
+                    </AdministratorBouncer>
+                  )}
+                />
+                <Route
+                  path="verify/:id"
+                  element={(
+                    <AdministratorBouncer>
+                      <VerifyCollectibles />
+                    </AdministratorBouncer>
+                  )}
+                />
+                <Route
                   path="design-system"
                   element={<DesignSystem />}
+                />
+                <Route
+                  path="*"
+                  element={<FullScreenNotFound />}
                 />
               </Route>
             </Routes>

@@ -1,15 +1,15 @@
-import { useCallback } from 'react'
+import { Dispatch, SetStateAction, useCallback } from 'react'
 import { Div, DivProps, Img } from 'honorable'
 import { useDropzone } from 'react-dropzone'
 
 type ImageDropProps = Omit<DivProps, 'onChange'> & {
   value: File[]
-  onChange: (value: File[]) => void
+  onChange: Dispatch<SetStateAction<File[]>>
 }
 
 function ImageDrop({ value, onChange, ...props }: ImageDropProps) {
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    onChange(acceptedFiles)
+    onChange((x: File[]) => [...x, ...acceptedFiles])
   }, [onChange])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

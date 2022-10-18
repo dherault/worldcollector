@@ -7,6 +7,7 @@ import useCollectiblesByOwnerId from '../hooks/useCollectiblesByOwnerId'
 import LayoutContainer from '../components/LayoutContainer'
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreeNotFound from '../components/FullScreenNotFound'
+import CollectibleCard from '../components/CollectibleCard'
 
 function Portfolio() {
   const { id = '' } = useParams()
@@ -28,16 +29,17 @@ function Portfolio() {
   return (
     <LayoutContainer>
       <H1>{user.pseudonyme}</H1>
-      <Div>
-        {collectibles.map(item => (
+      <Div
+        xflex="x11"
+        mt={2}
+      >
+        {collectibles.map(collectible => (
           <Div
             mr={1}
             mb={1}
-            key={item.id}
+            key={collectible.id}
           >
-            <Link to={`/~/${item.id}`}>
-              {item.name}
-            </Link>
+            <CollectibleCard collectible={collectible} />
           </Div>
         ))}
       </Div>

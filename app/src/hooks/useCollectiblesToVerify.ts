@@ -13,7 +13,7 @@ function useCollectiblesToVerify() {
   const fetchCollectibles = useCallback(async () => {
     setLoadingCollectibles(true)
 
-    const q = query(collection(db, 'collectibles'), where('verificationStatus', '==', 'pending'), orderBy('createdAt'), startAfter(cursor), limit(1))
+    const q = query(collection(db, 'collectibles'), where('verificationStatus', '==', 'pending'), orderBy('createdAt'), startAfter(cursor), limit(25))
     const querySnapshot = await getDocs(q)
 
     if (!querySnapshot.empty) {
@@ -38,7 +38,7 @@ function useCollectiblesToVerify() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { collectibles, loadingCollectibles, paginate: fetchCollectibles, ended }
+  return { collectibles, setCollectibles, loadingCollectibles, paginate: fetchCollectibles, ended }
 }
 
 export default useCollectiblesToVerify

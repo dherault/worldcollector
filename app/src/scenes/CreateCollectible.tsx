@@ -9,7 +9,7 @@ import useViewer from '../hooks/useViewer'
 import { CollectibleType } from '../types'
 import { db } from '../firebase'
 
-import SimilarCollectibles from '../components/SimilarCollectibles'
+import SimilarCollectibles from '../components/SimilarVerifiedCollectibles'
 import LayoutContainer from '../components/LayoutContainer'
 
 function CreateCollectible() {

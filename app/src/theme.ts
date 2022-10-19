@@ -165,6 +165,10 @@ export default mergeTheme(defaultTheme, {
         color: 'white',
         background: gradient,
       },
+      ({ danger }: any) => danger && ({
+        border: '1px solid red.500',
+        color: 'red.500',
+      }),
     ],
   },
   // IconButton: {

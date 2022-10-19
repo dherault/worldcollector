@@ -1,44 +1,48 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Div, H1 } from 'honorable'
+import { Button, Div, H1, Span } from 'honorable'
 import { doc, setDoc, updateDoc } from 'firebase/firestore'
 
 import { db } from '../firebase'
+import { CollectibleType } from '../types'
 
+import useCollectibleById from '../hooks/useCollectibleById'
 import useCollectiblesToVerify from '../hooks/useCollectiblesToVerify'
 
 import LayoutContainer from '../components/LayoutContainer'
 import FullScreenSpinner from '../components/FullScreenSpinner'
-import useCollectibleById from '../hooks/useCollectibleById'
 import FullScreenNotFound from '../components/FullScreenNotFound'
 import CollectibleCard from '../components/CollectibleCard'
-import SimilarCollectibles from '../components/SimilarCollectibles'
+import SimilarCollectibles from '../components/SimilarVerifiedCollectibles'
 
 function VerifyCollectibles() {
   const { id = '' } = useParams()
-  const { collectibles, loadingCollectibles, paginate, ended } = useCollectiblesToVerify()
+  const { collectibles, setCollectibles, loadingCollectibles, paginate, ended } = useCollectiblesToVerify()
   const { collectible, loadingCollectible } = useCollectibleById(id)
-  const [collectibleIndex, setCollectibleIndex] = useState(0)
   const navigate = useNavigate()
 
   console.log('collectibles', collectibles)
 
-  const handlePrevious = useCallback(() => {
-    if (collectibleIndex > 0) {
-      setCollectibleIndex(collectibleIndex - 1)
-    }
-  }, [collectibleIndex])
-
   const handleNext = useCallback(async () => {
-    if (collectibleIndex < collectibles.length - 1) {
-      setCollectibleIndex(collectibleIndex + 1)
+    const nextCollectible = collectibles[0]
+
+    if (nextCollectible) {
+      const nextCollectibles = collectibles.slice(1)
+
+      setCollectibles(nextCollectibles)
+
+      if (!nextCollectibles.length) {
+        await paginate()
+      }
+
+      navigate(`/verify/${nextCollectible.id}`)
     }
     else if (!ended) {
       await paginate()
 
-      setCollectibleIndex(collectibleIndex + 1)
+      navigate('/verify/next')
     }
-  }, [collectibleIndex, collectibles, ended, paginate])
+  }, [collectibles, setCollectibles, ended, paginate, navigate])
 
   const handleDeny = useCallback(() => {
     if (!collectible) return
@@ -68,10 +72,10 @@ function VerifyCollectibles() {
   }, [collectible, handleNext])
 
   useEffect(() => {
-    if (collectibles.length) {
-      navigate(`/verify/${collectibles[collectibleIndex].id}`)
+    if (collectibles.length && id === 'next') {
+      navigate(`/verify/${collectibles[0].id}`)
     }
-  }, [navigate, collectibles, collectibleIndex])
+  }, [collectibles, id, navigate])
 
   if (loadingCollectibles || loadingCollectible) {
     return (
@@ -110,43 +114,39 @@ function VerifyCollectibles() {
         mt={2}
       />
       <Div
-        xflex="x8b"
+        xflex="y2"
         mt={2}
       >
-        <Button
-          onClick={handlePrevious}
-          visibility={collectibleIndex > 0 ? 'visible' : 'hidden'}
+        <Div
+          textTransform="uppercase"
+          color={collectible.verificationStatus === 'accepted' ? 'green.500' : collectible.verificationStatus === 'rejected' ? 'red.500' : 'text'}
         >
-          Previous
-        </Button>
-        <Div xflex="y2">
-          <Div>
-            Status: {collectible.verificationStatus}
-          </Div>
-          <Div
-            xflex="x4"
-            mt={1}
-          >
-            <Button
-              onClick={handleDeny}
-              mr={1}
-            >
-              Deny
-            </Button>
-            <Button
-              gradient="rainbow"
-              onClick={handleVerify}
-            >
-              Verify
-            </Button>
-          </Div>
+          {collectible.verificationStatus}
         </Div>
-        <Button
-          onClick={handleNext}
-          visibility={collectibleIndex === collectibles.length - 1 && ended ? 'hidden' : 'visible'}
+        <Div
+          xflex="x4"
+          mt={1}
         >
-          Next
-        </Button>
+          <Button
+            onClick={handleNext}
+            mr={1}
+          >
+            Pass
+          </Button>
+          <Button
+            danger
+            onClick={handleDeny}
+            mr={1}
+          >
+            Deny
+          </Button>
+          <Button
+            gradient="rainbow"
+            onClick={handleVerify}
+          >
+            Verify
+          </Button>
+        </Div>
       </Div>
     </LayoutContainer>
   )

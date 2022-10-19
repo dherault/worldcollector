@@ -1,7 +1,8 @@
 import { Div, DivProps, H3 } from 'honorable'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useHits, useSearchBox } from 'react-instantsearch-hooks'
 import { InstantSearch } from 'react-instantsearch-hooks-web'
+import { MdCheck } from 'react-icons/md'
 
 import searchClient from '../algolia'
 
@@ -9,26 +10,27 @@ import { CollectibleType } from '../types'
 
 import CollectibleCard from './CollectibleCard'
 
-type SimilarCollectiblesProps = DivProps & {
+type SimilarVerifiedCollectiblesProps = DivProps & {
   collectible: CollectibleType
 }
 
-function SimilarCollectibles({ collectible, ...props }: SimilarCollectiblesProps) {
+function SimilarVerifiedCollectiblesInner({ collectible, ...props }: SimilarVerifiedCollectiblesProps) {
   const { refine: setQuery } = useSearchBox()
   const { hits, results } = useHits()
+  const hasResults = useMemo(() => !!(results?.query && hits.length), [results, hits])
 
   useEffect(() => {
     setQuery(collectible.name)
   }, [setQuery, collectible.name])
 
-  console.log('hits', hits)
-
   return (
     <Div {...props}>
-      <H3>Similar Verified Collectibles</H3>
-      {!!results?.query && (
+      <H3 mb={1}>
+        Similar Verified Collectibles
+      </H3>
+      {hasResults && (
         <>
-          <Div mt={2}>
+          <Div>
             Some similar collectibles were found, make sure you are the first one to collect this item.
           </Div>
           <Div
@@ -46,24 +48,29 @@ function SimilarCollectibles({ collectible, ...props }: SimilarCollectiblesProps
           </Div>
         </>
       )}
-      {!results?.query && (
-        <Div mt={2}>
-          No similar collectible was found, you are the first one to collect this item!
+      {!hasResults && (
+        <Div xflex="x4">
+          <Div color="green.500">
+            <MdCheck />
+          </Div>
+          <Div ml={1}>
+            No similar collectible was found, you are the first one to collect this item!
+          </Div>
         </Div>
       )}
     </Div>
   )
 }
 
-function SimilarCollectiblesWrapper(props: SimilarCollectiblesProps) {
+function SimilarVerifiedCollectibles(props: SimilarVerifiedCollectiblesProps) {
   return (
     <InstantSearch
       searchClient={searchClient}
       indexName="worldcollector-verified-collectibles"
     >
-      <SimilarCollectibles {...props} />
+      <SimilarVerifiedCollectiblesInner {...props} />
     </InstantSearch>
   )
 }
 
-export default SimilarCollectiblesWrapper
+export default SimilarVerifiedCollectibles

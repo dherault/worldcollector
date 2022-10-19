@@ -7,6 +7,7 @@ import useMarketplaceCollectibleByCollectibleId from '../hooks/useMarketplaceCol
 
 import FullScreenSpinner from '../components/FullScreenSpinner'
 import FullScreenNotFound from '../components/FullScreenNotFound'
+import LayoutContainer from '../components/LayoutContainer'
 
 function Collectible() {
   const { id = '' } = useParams()
@@ -27,13 +28,18 @@ function Collectible() {
   }
 
   return (
-    <>
-      <H1>{collectible.name}</H1>
-      <Div>{collectible.description}</Div>
+    <LayoutContainer>
+      <H1>
+        {collectible.name}
+      </H1>
+      <Div mt={2}>
+        {collectible.description}
+      </Div>
       {collectible.ownerId === viewer?.id && (
         <Div
           xflex="x4"
           gap={1}
+          mt={2}
         >
           <Div>You own that collectible</Div>
           {!marketplaceCollectible && (
@@ -50,6 +56,7 @@ function Collectible() {
         <Div
           xflex="x4"
           gap={1}
+          mt={2}
         >
           <Div>
             Price: {marketplaceCollectible.price}
@@ -62,7 +69,7 @@ function Collectible() {
           </Button>
         </Div>
       )}
-    </>
+    </LayoutContainer>
   )
 }
 

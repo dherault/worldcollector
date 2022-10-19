@@ -1,14 +1,12 @@
-import { Div, Nav } from 'honorable'
+import { Div, H4, Nav } from 'honorable'
 import { Link, Outlet } from 'react-router-dom'
-import { SearchBox, useHits } from 'react-instantsearch-hooks-web'
 
 import useViewer from '../hooks/useViewer'
 
-// import BlurryDot from './BlurryDot'
+import SearchBar from './SearchBar'
 
 function Layout() {
   const { viewer } = useViewer()
-  // const isMobile = useMediaQuery('down', 'tablet')
 
   return (
     <Div
@@ -18,63 +16,60 @@ function Layout() {
       overflow="hidden"
       position="relative"
     >
-      {/* <BlurryDot
-        colors={['#6923ff', '#6923ff', '#0df']}
-        size={isMobile ? 64 : 128 + 64}
-      />
-      <BlurryDot
-        colors={['#fa0', '#f0a', '#f0a']}
-        size={isMobile ? 64 : 128 + 64}
-      /> */}
       <Nav
         xflex="x41"
         flexShrink={0}
-        gap={1}
-        p={2}
+        pt={2}
+        px={2}
+        position="relative"
       >
-        <Link to="/design-system">Design System</Link>
-        <Link to="/collect">Create</Link>
-        <Link to="/marketplace">Marketplace</Link>
-        <SearchBox />
-        <HitsBox />
-        <Div flexGrow={1} />
-        {viewer && <Link to={`/u/${viewer.id}`}>Portfolio</Link>}
-        <Link to="/sign-in">Sign in</Link>
+        <Div
+          xflex="x4"
+          width="33.333%"
+        >
+          <H4>World Collector</H4>
+          <Div ml={2}>
+            <Link to="/collect">Create</Link>
+          </Div>
+          <Div ml={2}>
+            <Link to="/marketplace">Marketplace</Link>
+          </Div>
+        </Div>
+        <Div
+          xflex="x5"
+          width="33.333%"
+        >
+          <SearchBar />
+        </Div>
+        <Div
+          xflex="x6"
+          width="33.333%"
+        >
+          {viewer && <Link to={`/u/${viewer.id}`}>Portfolio</Link>}
+          <Div ml={2}>
+            <Link to="/sign-in">Sign in</Link>
+          </Div>
+        </Div>
       </Nav>
+      <Div
+        position="absolute"
+        top={70}
+        left={0}
+        right={0}
+        height={32}
+        background="linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%)"
+        zIndex={999999}
+      />
       <Div
         xflex="y2s"
         flexGrow={1}
         position="relative"
         overflow="auto"
-        p={2}
+        pt={6}
+        pb={2}
       >
         <Outlet />
       </Div>
-    </Div>
-  )
-}
-
-function HitsBox() {
-  const { hits, results } = useHits()
-
-  if (!results?.query) return null
-
-  return (
-    <Div
-      position="absolute"
-      top={0}
-      left={0}
-    >
-      {hits.map((hit: any) => (
-        <Div
-          key={hit.objectID}
-          mb={0.5}
-        >
-          <Link to={`/~/${hit.objectID}`}>
-            {hit.name}
-          </Link>
-        </Div>
-      ))}
     </Div>
   )
 }

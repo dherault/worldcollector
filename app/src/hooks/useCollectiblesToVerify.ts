@@ -13,7 +13,13 @@ function useCollectiblesToVerify() {
   const fetchCollectibles = useCallback(async () => {
     setLoadingCollectibles(true)
 
-    const q = query(collection(db, 'collectibles'), where('verificationStatus', '==', 'pending'), orderBy('createdAt'), startAfter(cursor), limit(25))
+    const q = query(
+      collection(db, 'collectibles'),
+      where('verificationStatus', '==', 'pending'),
+      orderBy('createdAt'),
+      startAfter(cursor),
+      limit(25)
+    )
     const querySnapshot = await getDocs(q)
 
     if (!querySnapshot.empty) {

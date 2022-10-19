@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Div, H1, Span } from 'honorable'
+import { Button, Div, H1 } from 'honorable'
 import { doc, setDoc, updateDoc } from 'firebase/firestore'
 
 import { db } from '../firebase'
-import { CollectibleType } from '../types'
 
 import useCollectibleById from '../hooks/useCollectibleById'
 import useCollectiblesToVerify from '../hooks/useCollectiblesToVerify'
@@ -20,8 +19,6 @@ function VerifyCollectibles() {
   const { collectibles, setCollectibles, loadingCollectibles, paginate, ended } = useCollectiblesToVerify()
   const { collectible, loadingCollectible } = useCollectibleById(id)
   const navigate = useNavigate()
-
-  console.log('collectibles', collectibles)
 
   const handleNext = useCallback(async () => {
     const nextCollectible = collectibles[0]

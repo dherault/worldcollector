@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "emulator": "firebase emulators:start",
+    "emulator": "firebase emulators:start --import=./emulator-data --export-on-exit=./emulator-data",
     "port": "lsof -nP -iTCP -sTCP:LISTEN | grep 8080"
   },
   "dependencies": {

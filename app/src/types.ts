@@ -12,8 +12,9 @@ export type CollectibleType = {
   id: string
   name: string
   description: string
-  imageUrls: string[]
-  verified: boolean
+  imageStoragePaths: string[]
+  verificationStatus: 'accepted' | 'rejected' | 'pending',
+  verificationMessage: string
   ownerId: string
   userId: string
   createdAt: string

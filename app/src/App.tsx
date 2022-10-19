@@ -22,6 +22,7 @@ const SellCollectible = lazy(() => import('./scenes/SellCollectible'))
 const BuyCollectible = lazy(() => import('./scenes/BuyCollectible'))
 const CollectibleTutorial = lazy(() => import('./scenes/CollectibleTutorial'))
 const VerifyCollectibles = lazy(() => import('./scenes/VerifyCollectibles'))
+const AdministratorDashboard = lazy(() => import('./scenes/AdministratorDashboard'))
 const DesignSystem = lazy(() => import('./scenes/DesignSystem'))
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
       <CssBaseline />
       <InstantSearch
         searchClient={searchClient}
-        indexName="worldcollector-collectibles"
+        indexName="worldcollector-verified-collectibles"
       >
         <Suspense fallback={<FullScreenSpinner />}>
           <BrowserRouter>
@@ -117,6 +118,14 @@ function App() {
                   element={(
                     <AdministratorBouncer>
                       <VerifyCollectibles />
+                    </AdministratorBouncer>
+                  )}
+                />
+                <Route
+                  path="administrate"
+                  element={(
+                    <AdministratorBouncer>
+                      <AdministratorDashboard />
                     </AdministratorBouncer>
                   )}
                 />

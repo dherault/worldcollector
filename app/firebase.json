@@ -61,6 +61,6 @@
     "singleProjectMode": true
   },
   "extensions": {
-    "firestore-algolia-search": "algolia/firestore-algolia-search@0.5.14"
+    "firestore-algolia-search-njaz": "algolia/firestore-algolia-search@0.5.14"
   }
 }

@@ -39,8 +39,9 @@ function CreateCollectible() {
         id,
         name: formatedName,
         description: formatedDescription,
-        imageUrls: [],
-        verified: false,
+        imageStoragePaths: [],
+        verificationStatus: 'pending',
+        verificationMessage: '',
         ownerId: viewer.id,
         userId: viewer.id,
         createdAt: now,
@@ -111,7 +112,7 @@ function CreateCollectible() {
           </Button>
         </Div>
       </Form>
-      <SimilarCollectibles itemName={name} />
+      <SimilarCollectibles collectible={{ name } as CollectibleType} />
     </LayoutContainer>
   )
 }

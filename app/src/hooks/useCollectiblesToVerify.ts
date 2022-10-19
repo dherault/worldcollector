@@ -1,4 +1,4 @@
-import { collection, getDocs, limit, orderBy, query, startAt, where } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query, startAfter, where } from 'firebase/firestore'
 import { useCallback, useEffect, useState } from 'react'
 
 import { db } from '../firebase'
@@ -13,7 +13,7 @@ function useCollectiblesToVerify() {
   const fetchCollectibles = useCallback(async () => {
     setLoadingCollectibles(true)
 
-    const q = query(collection(db, 'collectibles'), where('verified', '==', false), orderBy('createdAt'), startAt(cursor), limit(1))
+    const q = query(collection(db, 'collectibles'), where('verificationStatus', '==', 'pending'), orderBy('createdAt'), startAfter(cursor), limit(1))
     const querySnapshot = await getDocs(q)
 
     if (!querySnapshot.empty) {

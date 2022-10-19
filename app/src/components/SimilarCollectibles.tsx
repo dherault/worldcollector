@@ -1,4 +1,4 @@
-import { Div, H3 } from 'honorable'
+import { Div, DivProps, H3 } from 'honorable'
 import { useEffect } from 'react'
 import { useHits, useSearchBox } from 'react-instantsearch-hooks'
 import { InstantSearch } from 'react-instantsearch-hooks-web'
@@ -9,17 +9,23 @@ import { CollectibleType } from '../types'
 
 import CollectibleCard from './CollectibleCard'
 
-function SimilarCollectibles({ itemName, ...props }: any) {
+type SimilarCollectiblesProps = DivProps & {
+  collectible: CollectibleType
+}
+
+function SimilarCollectibles({ collectible, ...props }: SimilarCollectiblesProps) {
   const { refine: setQuery } = useSearchBox()
   const { hits, results } = useHits()
 
   useEffect(() => {
-    setQuery(itemName)
-  }, [setQuery, itemName])
+    setQuery(collectible.name)
+  }, [setQuery, collectible.name])
+
+  console.log('hits', hits)
 
   return (
     <Div {...props}>
-      <H3>Similar Collectibles</H3>
+      <H3>Similar Verified Collectibles</H3>
       {!!results?.query && (
         <>
           <Div mt={2}>
@@ -49,11 +55,11 @@ function SimilarCollectibles({ itemName, ...props }: any) {
   )
 }
 
-function SimilarCollectiblesWrapper(props: any) {
+function SimilarCollectiblesWrapper(props: SimilarCollectiblesProps) {
   return (
     <InstantSearch
       searchClient={searchClient}
-      indexName="worldcollector-collectibles"
+      indexName="worldcollector-verified-collectibles"
     >
       <SimilarCollectibles {...props} />
     </InstantSearch>

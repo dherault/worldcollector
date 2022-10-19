@@ -28,9 +28,14 @@ function Portfolio() {
 
   return (
     <LayoutContainer>
-      <H1>{user.pseudonyme}</H1>
+      <H1>
+        {user.pseudonyme}
+      </H1>
       <Div
-        xflex="x11"
+        display="grid"
+        gridTemplateColumns="repeat(3, 1fr)"
+        gridColumnGap="16px"
+        gridRowGap="16px"
         mt={2}
       >
         {collectibles.map(collectible => (

@@ -69,6 +69,12 @@ function VerifyCollectibles() {
   }, [collectible, handleNext])
 
   useEffect(() => {
+    if (collectibles.length && !id) {
+      navigate(`/verify/${collectibles[0].id}`)
+    }
+  }, [collectibles, id, navigate])
+
+  useEffect(() => {
     if (collectibles.length && id === 'next') {
       navigate(`/verify/${collectibles[0].id}`)
     }

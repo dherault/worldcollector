@@ -6,6 +6,7 @@
   "etags": {
     "worldcollector-1bd61": {
       "extensionInstances": {
+        "firestore-stripe-payments": "e7046449cea2cae36c90817e5e347351700d612f9a660860dd2d502b2eb2dcf0",
         "firestore-algolia-search-njaz": "901862b2746acf0352f5f5f0deffe21262b14b7f5a5cd6954b2b254221fc54df"
       }
     }

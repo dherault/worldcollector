@@ -1,9 +1,3 @@
-import { Box, NativeBaseProvider } from 'native-base'
+import Main from './src/Main'
 
-export default function App() {
-  return (
-    <NativeBaseProvider>
-      <Box>Hello world</Box>
-    </NativeBaseProvider>
-  )
-}
+export default Main

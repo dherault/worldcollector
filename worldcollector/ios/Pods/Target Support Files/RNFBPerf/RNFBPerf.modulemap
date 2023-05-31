@@ -1,0 +1,6 @@
+framework module RNFBPerf {
+  umbrella header "RNFBPerf-umbrella.h"
+
+  export *
+  module * { export * }
+}

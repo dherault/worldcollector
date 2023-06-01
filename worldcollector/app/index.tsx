@@ -5,8 +5,8 @@ function Main() {
   return (
     <Box>
       <Box>Hello world</Box>
-      <Link href="/authentication/signup">
-        Sign up
+      <Link href="/authentication">
+        Authentication
       </Link>
     </Box>
   )

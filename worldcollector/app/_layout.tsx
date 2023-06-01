@@ -1,16 +1,16 @@
 import { Slot } from 'expo-router'
 import { NativeBaseProvider } from 'native-base'
 
-import AuthenticationProvider from '../src/components/AuthenticationProvider'
-
 import theme from '../src/theme'
+
+import UserProvider from '../src/components/UserProvider'
 
 export default function HomeLayout() {
   return (
     <NativeBaseProvider theme={theme}>
-      <AuthenticationProvider>
+      <UserProvider>
         <Slot />
-      </AuthenticationProvider>
+      </UserProvider>
     </NativeBaseProvider>
   )
 }

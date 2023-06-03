@@ -3,7 +3,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { getHeaderTitle } from '@react-navigation/elements'
 
 function Header({ navigation, route, options }) {
-  console.log('route', route)
   const title = getHeaderTitle(options, route.name)
 
   return (

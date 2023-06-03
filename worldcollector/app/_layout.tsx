@@ -16,18 +16,8 @@ export default function HomeLayout() {
             headerShown: false,
           }}
         >
-          <Tabs.Screen
-            name="(home)"
-            options={{ title: 'Home' }}
-          />
-          <Tabs.Screen
-            name="marketplace"
-            options={{ title: 'Marketplace' }}
-          />
-          <Tabs.Screen
-            name="authentication"
-            options={{ title: 'Welcome, collector' }}
-          />
+          <Tabs.Screen name="(home)" />
+          <Tabs.Screen name="authentication" />
         </Tabs>
       </UserProvider>
     </NativeBaseProvider>

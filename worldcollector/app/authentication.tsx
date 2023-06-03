@@ -1,9 +1,8 @@
 import { Box, Button, Input } from 'native-base'
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { browserLocalPersistence, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useRouter } from 'expo-router'
-import { nanoid } from 'nanoid'
 
 import { authentication, db } from '../src/firebase'
 import UserContext from '../src/contexts/UserContext'
@@ -15,7 +14,7 @@ function Signup() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
-  const [existingUserName, setExistingUserName] = useState('')
+  const [existingName, setExistingName] = useState('')
   const [name, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -40,7 +39,7 @@ function Signup() {
     querySnapshot.forEach(doc => {
       const user = doc.data()
 
-      setExistingUserName(user.userName)
+      setExistingName(user.name)
     })
 
     setContinued(true)
@@ -66,9 +65,12 @@ function Signup() {
 
     setLoading(true)
 
+    let id = ''
+
     try {
-      await setPersistence(authentication, browserLocalPersistence)
-      await createUserWithEmailAndPassword(authentication, email, password)
+      const userCredentials = await createUserWithEmailAndPassword(authentication, email, password)
+
+      id = userCredentials.user.uid
     }
     catch (error) {
       console.log(error)
@@ -79,7 +81,6 @@ function Signup() {
     }
 
     const now = new Date().toISOString()
-    const id = nanoid()
     const user: User = {
       id,
       name,
@@ -167,10 +168,10 @@ function Signup() {
 
   const renderSignIn = useCallback(() => (
     <>
-      <Box>
+      <Box flexDirection="row">
         Welcome
         {' '}
-        {existingUserName}
+        {existingName}
       </Box>
       <Input
         type="password"
@@ -186,7 +187,7 @@ function Signup() {
         Sign in
       </Button>
     </>
-  ), [existingUserName, password, loading, handleSignIn])
+  ), [existingName, password, loading, handleSignIn])
 
   useEffect(() => {
     if (!user) return
@@ -198,8 +199,8 @@ function Signup() {
     <Box>
       <Box>Authentication</Box>
       {!continued && renderEmailPrompt()}
-      {continued && !existingUserName && renderSignUp()}
-      {continued && existingUserName && renderSignIn()}
+      {continued && !existingName && renderSignUp()}
+      {continued && existingName && renderSignIn()}
       {emailError && (
         <Box>
           {emailError}

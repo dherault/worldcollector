@@ -5,8 +5,7 @@ import theme from '../src/theme'
 
 import UserProvider from '../src/components/UserProvider'
 
-export default function HomeLayout() {
-
+function MainLayout() {
   return (
     <NativeBaseProvider theme={theme}>
       <UserProvider>
@@ -17,3 +16,5 @@ export default function HomeLayout() {
     </NativeBaseProvider>
   )
 }
+
+export default MainLayout

@@ -3,7 +3,7 @@ import { Drawer } from 'expo-router/drawer'
 import Header from '../../src/components/Header'
 import DrawerContent from '../../src/components/DrawerContent'
 
-function MainLayout() {
+function HomeLayout() {
   return (
     <Drawer
       initialRouteName="index"
@@ -24,4 +24,4 @@ function MainLayout() {
   )
 }
 
-export default MainLayout
+export default HomeLayout

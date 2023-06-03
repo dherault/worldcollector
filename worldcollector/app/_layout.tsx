@@ -1,5 +1,5 @@
 import { NativeBaseProvider } from 'native-base'
-import { Tabs } from 'expo-router'
+import { Navigator, Slot } from 'expo-router'
 
 import theme from '../src/theme'
 
@@ -10,15 +10,9 @@ export default function HomeLayout() {
   return (
     <NativeBaseProvider theme={theme}>
       <UserProvider>
-        <Tabs
-          initialRouteName="(home)"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Tabs.Screen name="(home)" />
-          <Tabs.Screen name="authentication" />
-        </Tabs>
+        <Navigator>
+          <Slot />
+        </Navigator>
       </UserProvider>
     </NativeBaseProvider>
   )

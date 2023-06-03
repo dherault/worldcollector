@@ -15,7 +15,7 @@ function DrawerContent(props) {
       <Box p={2}>
         <Button onPress={() => handleNavigation('/')}>Home</Button>
         <Button onPress={() => handleNavigation('/marketplace')}>Marketplace</Button>
-        <Button onPress={() => handleNavigation('/authentication')}>Authetication</Button>
+        <Button onPress={() => handleNavigation('/authentication')}>Authentication</Button>
       </Box>
     </DrawerContentScrollView>
   )

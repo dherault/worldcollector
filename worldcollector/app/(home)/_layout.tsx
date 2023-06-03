@@ -6,6 +6,7 @@ import DrawerContent from '../../src/components/DrawerContent'
 function MainLayout() {
   return (
     <Drawer
+      initialRouteName="index"
       screenOptions={{
         header: Header,
       }}

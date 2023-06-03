@@ -1,16 +1,16 @@
-import { Box, Button, Input } from 'native-base'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
-import { useRouter } from 'expo-router'
+import { Box, Button, Input } from 'native-base'
 
 import { authentication, db } from '../src/firebase'
+
 import UserContext from '../src/contexts/UserContext'
 
 import { User } from '../src/types'
 
-function Signup() {
-  const { viewer: user, setViewer: setUser } = useContext(UserContext)
+function Authentication() {
+  const { setViewer } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
@@ -21,7 +21,6 @@ function Signup() {
   const [passwordError, setPasswordError] = useState('')
   const [nameError, setNameError] = useState('')
   const [error, setError] = useState(false)
-  const router = useRouter()
 
   const handleCheckEmail = useCallback(async () => {
     setEmailError('')
@@ -93,8 +92,8 @@ function Signup() {
 
     await setDoc(doc(db, 'users', id), user)
 
-    setUser(user)
-  }, [email, name, password, setUser])
+    setViewer(user)
+  }, [email, name, password, setViewer])
 
   const handleSignIn = useCallback(async () => {
     let id = ''
@@ -116,12 +115,12 @@ function Signup() {
     try {
       const user = await getDoc(doc(db, 'users', id))
 
-      setUser(user.data() as User)
+      setViewer(user.data() as User)
     }
     catch (error) {
       console.log(error)
     }
-  }, [email, password, setUser])
+  }, [email, password, setViewer])
 
   const renderEmailPrompt = useCallback(() => (
     <>
@@ -190,12 +189,6 @@ function Signup() {
     </>
   ), [existingName, password, loading, handleSignIn])
 
-  useEffect(() => {
-    if (!user) return
-
-    router.push('/')
-  }, [user, router])
-
   return (
     <Box>
       <Box>Authentication</Box>
@@ -226,4 +219,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default Authentication

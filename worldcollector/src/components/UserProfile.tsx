@@ -1,6 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
-
-import { Box } from 'native-base'
+import { Box, HStack, Heading, VStack } from 'native-base'
 
 import UserContext from '../contexts/UserContext'
 
@@ -21,10 +20,23 @@ function UserProfile({ userId }: UserProfileProps) {
   if (!user) return <FullScreenNotFound />
 
   return (
-    <Box flexDir="row">
-      User
-      {' '}
-      {user.name}
+    <Box pt={4}>
+      <VStack alignItems="center">
+        <HStack
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box
+            bg="brand.500"
+            w={16}
+            h={16}
+            borderRadius="full"
+          />
+        </HStack>
+        <Heading mt={2}>
+          {user.name}
+        </Heading>
+      </VStack>
     </Box>
   )
 }

@@ -9,14 +9,14 @@ function Header({ navigation, route, options }) {
     <>
       <StatusBar
         animated
-        backgroundColor="brand.600"
+        backgroundColor="brand.500"
       />
       <Box
         safeAreaTop
-        bg="brand.800"
+        bg="brand.500"
       />
       <HStack
-        bg="brand.800"
+        bg="brand.500"
         px="1"
         py="3"
         justifyContent="space-between"

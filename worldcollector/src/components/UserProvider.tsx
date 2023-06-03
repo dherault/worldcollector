@@ -1,14 +1,13 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
+import { SplashScreen } from 'expo-router'
 
 import { authentication, db } from '../firebase'
 
 import UserContext from '../contexts/UserContext'
 
 import { User } from '../types'
-
-import FullScreenSpinner from './FullScreenSpinner'
 
 type AuthenticationProviderProps = {
   children: ReactNode
@@ -22,9 +21,11 @@ function UserProvider({ children }: AuthenticationProviderProps) {
 
   useEffect(() => {
     onAuthStateChanged(authentication, async userCredentials => {
-      setLoading(false)
+      if (!userCredentials) {
+        setLoading(false)
 
-      if (!userCredentials) return
+        return
+      }
 
       const docSnapshot = await getDoc(doc(db, 'users', userCredentials.uid))
 
@@ -33,6 +34,7 @@ function UserProvider({ children }: AuthenticationProviderProps) {
       const user = docSnapshot.data() as User
 
       setViewer(user)
+      setLoading(false)
 
       console.log(`Logged as ${user.name}`)
     })
@@ -40,7 +42,7 @@ function UserProvider({ children }: AuthenticationProviderProps) {
 
   if (loading) {
     return (
-      <FullScreenSpinner />
+      <SplashScreen />
     )
   }
 

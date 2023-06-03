@@ -33,7 +33,10 @@ function UserProfile({ userId }: UserProfileProps) {
             borderRadius="full"
           />
         </HStack>
-        <Heading mt={2}>
+        <Heading
+          selectable
+          mt={2}
+        >
           {user.name}
         </Heading>
       </VStack>

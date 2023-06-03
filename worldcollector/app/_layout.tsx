@@ -1,5 +1,5 @@
 import { Slot } from 'expo-router'
-import { NativeBaseProvider } from 'native-base'
+import { Box, NativeBaseProvider, StatusBar } from 'native-base'
 
 import theme from '../src/theme'
 
@@ -9,7 +9,13 @@ export default function HomeLayout() {
   return (
     <NativeBaseProvider theme={theme}>
       <UserProvider>
-        <Slot />
+        <StatusBar animated />
+        <Box
+          safeArea
+          p={2}
+        >
+          <Slot />
+        </Box>
       </UserProvider>
     </NativeBaseProvider>
   )

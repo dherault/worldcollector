@@ -10,7 +10,7 @@ import UserContext from '../src/contexts/UserContext'
 import { User } from '../src/types'
 
 function Signup() {
-  const { user, setUser } = useContext(UserContext)
+  const { viewer: user, setViewer: setUser } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
@@ -34,7 +34,8 @@ function Signup() {
 
     setLoading(true)
 
-    const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', email)))
+    const safeEmail = email.trim().toLowerCase()
+    const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', safeEmail)))
 
     querySnapshot.forEach(doc => {
       const user = doc.data()
@@ -66,9 +67,10 @@ function Signup() {
     setLoading(true)
 
     let id = ''
+    const safeEmail = email.trim().toLowerCase()
 
     try {
-      const userCredentials = await createUserWithEmailAndPassword(authentication, email, password)
+      const userCredentials = await createUserWithEmailAndPassword(authentication, safeEmail, password)
 
       id = userCredentials.user.uid
     }
@@ -84,7 +86,7 @@ function Signup() {
     const user: User = {
       id,
       name,
-      email,
+      email: safeEmail,
       createdAt: now,
       updatedAt: now,
     }
@@ -96,9 +98,10 @@ function Signup() {
 
   const handleSignIn = useCallback(async () => {
     let id = ''
+    const safeEmail = email.trim().toLowerCase()
 
     try {
-      const userCredentials = await signInWithEmailAndPassword(authentication, email, password)
+      const userCredentials = await signInWithEmailAndPassword(authentication, safeEmail, password)
 
       id = userCredentials.user.uid
     }
@@ -117,9 +120,7 @@ function Signup() {
     }
     catch (error) {
       console.log(error)
-
     }
-
   }, [email, password, setUser])
 
   const renderEmailPrompt = useCallback(() => (

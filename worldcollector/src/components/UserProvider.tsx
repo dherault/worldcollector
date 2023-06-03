@@ -8,18 +8,21 @@ import UserContext from '../contexts/UserContext'
 
 import { User } from '../types'
 
+import FullScreenSpinner from './FullScreenSpinner'
+
 type AuthenticationProviderProps = {
   children: ReactNode
 }
 
 function UserProvider({ children }: AuthenticationProviderProps) {
-  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [viewer, setViewer] = useState<User | null>(null)
 
-  const userContextValue = useMemo(() => ({ user, setUser }), [user])
+  const userContextValue = useMemo(() => ({ viewer, setViewer }), [viewer])
 
   useEffect(() => {
     onAuthStateChanged(authentication, async userCredentials => {
-      console.log('userCredentials', userCredentials)
+      setLoading(false)
 
       if (!userCredentials) return
 
@@ -29,11 +32,17 @@ function UserProvider({ children }: AuthenticationProviderProps) {
 
       const user = docSnapshot.data() as User
 
-      setUser(user)
+      setViewer(user)
 
       console.log(`Logged as ${user.name}`)
     })
   }, [])
+
+  if (loading) {
+    return (
+      <FullScreenSpinner />
+    )
+  }
 
   return (
     <UserContext.Provider value={userContextValue}>

@@ -1,6 +1,6 @@
 import { Drawer } from 'expo-router/drawer'
 
-import Header from '../../src/components/Header'
+import HeaderRight from '../../src/components/HeaderRight'
 import DrawerContent from '../../src/components/DrawerContent'
 
 function HomeLayout() {
@@ -8,7 +8,7 @@ function HomeLayout() {
     <Drawer
       initialRouteName="index"
       screenOptions={{
-        header: Header,
+        headerRight: HeaderRight,
       }}
       drawerContent={DrawerContent}
     >

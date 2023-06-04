@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, IconButton, StatusBar, Text } from 'native-base'
+import { Box, Button, HStack, Icon, IconButton, StatusBar, Text } from 'native-base'
 import { MaterialIcons } from '@expo/vector-icons'
 import { getHeaderTitle } from '@react-navigation/elements'
 
@@ -27,7 +27,7 @@ function Header({ navigation, route, options }) {
           <IconButton
             icon={(
               <Icon
-                size="md"
+                size="lg"
                 as={MaterialIcons}
                 name="menu"
                 color="white"
@@ -43,6 +43,9 @@ function Header({ navigation, route, options }) {
             {title}
           </Text>
         </HStack>
+        <Button>
+          Collect
+        </Button>
       </HStack>
     </>
   )

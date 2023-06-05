@@ -1,11 +1,12 @@
 import { Button, Heading, VStack } from 'native-base'
-import { Link, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 
 function Landing() {
   const router = useRouter()
 
   return (
     <VStack
+      safeAreaTop
       p={2}
       alignItems="center"
     >

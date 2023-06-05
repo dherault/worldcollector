@@ -1,4 +1,4 @@
-import { Box, NativeBaseProvider } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import { Navigator, Slot } from 'expo-router'
 
 import TabBar from '~components/TabBar'
@@ -11,13 +11,8 @@ function MainLayout() {
     <NativeBaseProvider theme={theme}>
       <UserProvider>
         <Navigator>
-          <Box
-            safeAreaTop
-            height="full"
-          >
-            <Slot />
-            <TabBar />
-          </Box>
+          <Slot />
+          <TabBar />
         </Navigator>
       </UserProvider>
     </NativeBaseProvider>

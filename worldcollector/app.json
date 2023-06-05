@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "worldcollector",
+    "name": "World Collector",
     "slug": "worldcollector",
     "scheme": "worldcollector",
     "version": "1.0.0",
@@ -33,6 +33,14 @@
         "projectId": "b29d610c-be88-4f1c-9de1-9b6b433e4a79"
       }
     },
-    "owner": "dherault"
+    "owner": "dherault",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow World Collector to access your camera."
+        }
+      ]
+    ]
   }
 }

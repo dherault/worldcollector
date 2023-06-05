@@ -245,6 +245,7 @@ function Authentication() {
 
   return (
     <VStack
+      safeAreaTop
       alignItems="center"
       p={2}
     >

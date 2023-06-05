@@ -2,7 +2,7 @@ import { Box } from 'native-base'
 
 function Marketplace() {
   return (
-    <Box>
+    <Box safeAreaTop>
       Marketplace
     </Box>
   )

@@ -1,11 +1,10 @@
 import { Box, NativeBaseProvider } from 'native-base'
 import { Navigator, Slot } from 'expo-router'
 
-import TabBar from '../src/components/TabBar'
+import TabBar from '~components/TabBar'
+import UserProvider from '~components/UserProvider'
 
 import theme from '../src/theme'
-
-import UserProvider from '../src/components/UserProvider'
 
 function MainLayout() {
   return (

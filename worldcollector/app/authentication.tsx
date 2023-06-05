@@ -3,11 +3,11 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { Box, Button, Input } from 'native-base'
 
-import { authentication, db } from '../src/firebase'
+import { User } from '~types'
 
-import UserContext from '../src/contexts/UserContext'
+import { authentication, db } from '~firebase'
 
-import { User } from '../src/types'
+import UserContext from '~contexts/UserContext'
 
 function Authentication() {
   const { setViewer } = useContext(UserContext)

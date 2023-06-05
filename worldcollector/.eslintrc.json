@@ -1,6 +1,72 @@
 {
   "extends": "dherault-typescript",
   "rules": {
-    "react/no-unstable-nested-components": "off"
+    "react/no-unstable-nested-components": "off",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling"
+        ],
+        "pathGroupsExcludedImportTypes": [],
+        "pathGroups": [
+          {
+            "pattern": "~types",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~constants",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~firebase",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~contexts/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~hooks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~components/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~scenes/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~emails/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "~data/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ]
+      }
+    ]
   }
 }

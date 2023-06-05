@@ -1,4 +1,17 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "~types": ["types.ts"],
+      "~constants": ["constants.ts"],
+      "~firebase": ["firebase.ts"],
+      "~contexts/*": ["contexts/*"],
+      "~hooks/*": ["hooks/*"],
+      "~utils/*": ["utils/*"],
+      "~components/*": ["components/*"],
+      "~emails/*": ["emails/*"],
+      "~data/*": ["data/*"]
+    }
+  },
   "extends": "expo/tsconfig.base"
 }

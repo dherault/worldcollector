@@ -1,14 +1,22 @@
-import { Box } from 'native-base'
-import { Link } from 'expo-router'
+import { Button, Heading, VStack } from 'native-base'
+import { Link, useRouter } from 'expo-router'
 
 function Landing() {
+  const router = useRouter()
+
   return (
-    <Box>
-      <Box mb={4}>World Collector</Box>
-      <Link href="/authentication">
-        Authentication
-      </Link>
-    </Box>
+    <VStack
+      p={2}
+      alignItems="center"
+    >
+      <Heading>World Collector</Heading>
+      <Button
+        mt={4}
+        onPress={() => router.push('/authentication')}
+      >
+        Authetication
+      </Button>
+    </VStack>
   )
 }
 

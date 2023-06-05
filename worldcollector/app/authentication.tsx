@@ -1,16 +1,18 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
-import { Box, Button, Input } from 'native-base'
+import { Box, Button, HStack, Heading, Input, Text, VStack } from 'native-base'
+import { validate as validateEmail } from 'email-validator'
+import { useRouter } from 'expo-router'
 
 import { User } from '~types'
 
 import { authentication, db } from '~firebase'
 
-import UserContext from '~contexts/UserContext'
+import ViewerContext from '~contexts/ViewerContext'
 
 function Authentication() {
-  const { setViewer } = useContext(UserContext)
+  const { viewer, setViewer } = useContext(ViewerContext)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
@@ -21,19 +23,34 @@ function Authentication() {
   const [passwordError, setPasswordError] = useState('')
   const [nameError, setNameError] = useState('')
   const [error, setError] = useState(false)
+  const router = useRouter()
+
+  const handleReset = useCallback(() => {
+    setEmail('')
+    setLoading(false)
+    setContinued(false)
+    setExistingName('')
+    setUserName('')
+    setPassword('')
+    setEmailError('')
+    setPasswordError('')
+    setNameError('')
+    setError(false)
+  }, [])
 
   const handleCheckEmail = useCallback(async () => {
     setEmailError('')
 
-    if (!email.trim()) {
-      setEmailError('Email is required')
+    const safeEmail = email.trim().toLowerCase()
+
+    if (!validateEmail(safeEmail)) {
+      setEmailError('Invalid email')
 
       return
     }
 
     setLoading(true)
 
-    const safeEmail = email.trim().toLowerCase()
     const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', safeEmail)))
 
     querySnapshot.forEach(doc => {
@@ -124,13 +141,17 @@ function Authentication() {
 
   const renderEmailPrompt = useCallback(() => (
     <>
+      <Text>Please enter your email to sign in or up:</Text>
       <Input
+        mt={2}
         placeholder="Email"
         w="100%"
         value={email}
         onChangeText={setEmail}
+        onSubmitEditing={handleCheckEmail}
       />
       <Button
+        mt={2}
         onPress={handleCheckEmail}
         isLoading={loading}
       >
@@ -141,57 +162,98 @@ function Authentication() {
 
   const renderSignUp = useCallback(() => (
     <>
-      <Box>
-        Welcome
-      </Box>
+      <Text>
+        New here? Sign up!
+      </Text>
       <Input
+        mt={2}
         placeholder="User name"
         w="100%"
         value={name}
         onChangeText={setUserName}
       />
       <Input
+        mt={2}
         type="password"
         placeholder="Password"
         w="100%"
         value={password}
         onChangeText={setPassword}
       />
-      <Button
-        onPress={handleSignUp}
-        isLoading={loading}
-      >
-        Sign up
-      </Button>
+      <HStack mt={2}>
+        <Button
+          variant="outline"
+          onPress={handleReset}
+          isLoading={loading}
+        >
+          Go back
+        </Button>
+        <Button
+          ml={2}
+          onPress={handleSignUp}
+          isLoading={loading}
+        >
+          Sign up
+        </Button>
+      </HStack>
     </>
-  ), [name, password, loading, handleSignUp])
+  ), [name, password, loading, handleReset, handleSignUp])
 
   const renderSignIn = useCallback(() => (
     <>
-      <Box flexDirection="row">
-        Welcome
+      <Text>
+        Good to see you again,
         {' '}
         {existingName}
-      </Box>
+      </Text>
+      <Text>
+        Enter your password to continue:
+      </Text>
       <Input
+        mt={2}
         type="password"
         placeholder="Password"
         w="100%"
         value={password}
         onChangeText={setPassword}
+        onSubmitEditing={handleSignIn}
       />
-      <Button
-        onPress={handleSignIn}
-        isLoading={loading}
-      >
-        Sign in
-      </Button>
+      <HStack mt={2}>
+        <Button
+          variant="outline"
+          onPress={handleReset}
+          isLoading={loading}
+        >
+          Go back
+        </Button>
+        <Button
+          ml={2}
+          onPress={handleSignIn}
+          isLoading={loading}
+        >
+          Sign in
+        </Button>
+      </HStack>
     </>
-  ), [existingName, password, loading, handleSignIn])
+  ), [existingName, password, loading, handleReset, handleSignIn])
+
+  useEffect(() => {
+    if (!viewer) return
+
+    router.push('/')
+  }, [viewer, router])
 
   return (
-    <Box>
-      <Box>Authentication</Box>
+    <VStack
+      alignItems="center"
+      p={2}
+    >
+      <Heading
+        mt={2}
+        mb={4}
+      >
+        Welcome, collector!
+      </Heading>
       {!continued && renderEmailPrompt()}
       {continued && !existingName && renderSignUp()}
       {continued && existingName && renderSignIn()}
@@ -215,7 +277,7 @@ function Authentication() {
           An error occured
         </Box>
       )}
-    </Box>
+    </VStack>
   )
 }
 

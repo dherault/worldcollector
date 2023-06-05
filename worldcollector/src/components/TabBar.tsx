@@ -1,6 +1,9 @@
 import { HStack, Icon, IconButton } from 'native-base'
 import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { usePathname, useRouter } from 'expo-router'
+import { useContext } from 'react'
+
+import ViewerContext from '~contexts/ViewerContext'
 
 const TAB_HOME = 0
 const TAB_COLLECT = 1
@@ -15,12 +18,14 @@ const pathnameToTab = {
 const includedTabs = [TAB_HOME, TAB_MARKETPLACE]
 
 function TabBar() {
+  const { viewer } = useContext(ViewerContext)
   const router = useRouter()
   const pathname = usePathname()
 
   const tab = pathnameToTab[pathname]
 
   if (!includedTabs.includes(tab)) return null
+  if (!viewer) return null
 
   return (
     <HStack

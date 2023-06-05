@@ -1,12 +1,10 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { SplashScreen } from 'expo-router'
+import { SplashScreen, usePathname, useRouter } from 'expo-router'
 
 import { authentication, db } from '../firebase'
-
-import UserContext from '../contexts/UserContext'
-
+import UserContext from '../contexts/ViewerContext'
 import { User } from '../types'
 
 type AuthenticationProviderProps = {
@@ -16,6 +14,8 @@ type AuthenticationProviderProps = {
 function UserProvider({ children }: AuthenticationProviderProps) {
   const [loading, setLoading] = useState(true)
   const [viewer, setViewer] = useState<User | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const userContextValue = useMemo(() => ({ viewer, setViewer }), [viewer])
 
@@ -39,6 +39,13 @@ function UserProvider({ children }: AuthenticationProviderProps) {
       console.log(`Logged as ${user.name}`)
     })
   }, [])
+
+  useEffect(() => {
+    if (viewer) return
+    if (pathname === '/authentication') return
+
+    router.push('/authentication')
+  }, [viewer, pathname, router])
 
   if (loading) {
     return (

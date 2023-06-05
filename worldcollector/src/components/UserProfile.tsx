@@ -1,7 +1,10 @@
-import { useContext, useMemo, useState } from 'react'
-import { Box, HStack, Heading, VStack } from 'native-base'
+import { useCallback, useContext, useMemo, useState } from 'react'
+import { Box, Button, HStack, Heading, VStack } from 'native-base'
+import { signOut } from 'firebase/auth'
 
-import UserContext from '../contexts/UserContext'
+import { authentication } from '~firebase'
+
+import UserContext from '../contexts/ViewerContext'
 
 import FullScreenSpinner from './FullScreenSpinner'
 import FullScreenNotFound from './FullScreenNotFound'
@@ -11,16 +14,24 @@ type UserProfileProps = {
 }
 
 function UserProfile({ userId }: UserProfileProps) {
-  const { viewer } = useContext(UserContext)
+  const { viewer, setViewer } = useContext(UserContext)
   const [loading, setLoading] = useState(userId !== viewer?.id)
 
   const user = useMemo(() => userId === viewer?.id ? viewer : null, [userId, viewer])
+
+  const handleSignOut = useCallback(() => {
+    signOut(authentication)
+    setViewer(null)
+  }, [setViewer])
 
   if (loading) return <FullScreenSpinner />
   if (!user) return <FullScreenNotFound />
 
   return (
-    <Box pt={4}>
+    <VStack
+      pt={4}
+      alignItems="center"
+    >
       <VStack alignItems="center">
         <HStack
           justifyContent="center"
@@ -40,7 +51,14 @@ function UserProfile({ userId }: UserProfileProps) {
           {user.name}
         </Heading>
       </VStack>
-    </Box>
+      <Button
+        colorScheme="brand"
+        mt={2}
+        onPress={handleSignOut}
+      >
+        Sign Out
+      </Button>
+    </VStack>
   )
 }
 

@@ -10,13 +10,12 @@ function Collect() {
       pt={4}
       position="relative"
     >
-
       <HStack justifyContent="center">
         <Heading size="xl">Collect</Heading>
       </HStack>
       <Box
         position="absolute"
-        top={3}
+        top={2.5}
         right={3}
       >
         <IconButton

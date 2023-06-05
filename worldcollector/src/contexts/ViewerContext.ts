@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction, createContext } from 'react'
 
 import { User } from '../types'
 
-export type UserContext = {
+export type ViewerContext = {
   viewer: User | null
   setViewer: Dispatch<SetStateAction<User | null>>
 }
 
-export default createContext<UserContext>({
+export default createContext<ViewerContext>({
   viewer: null,
   setViewer: () => {},
 })

@@ -1,141 +1,99 @@
+import { useCallback, useContext, useState } from 'react'
 import { useRouter } from 'expo-router'
-import { Camera, CameraCapturedPicture } from 'expo-camera'
-import { Box, Button, HStack, Heading, Icon, IconButton, Image, Input, ScrollView, Text, VStack } from 'native-base'
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { useCallback, useRef, useState } from 'react'
+import * as ImagePicker from 'expo-image-picker'
+import { useActionSheet } from '@expo/react-native-action-sheet'
+import { Box, Button, Heading, Icon, IconButton, Image, Input, ScrollView, Text, VStack } from 'native-base'
+import { MaterialIcons } from '@expo/vector-icons'
+import { nanoid } from 'nanoid'
+
+import ViewerContext from '~contexts/ViewerContext'
+
+const pictureOptions = {
+  allowsMultipleSelection: false,
+  quality: 1,
+  mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  base64: true,
+}
+
+const actionSheetOptions = ['Take photo...', 'Choose from Library...', 'Cancel']
+const cancelButtonIndex = 2
 
 function Collect() {
-  const cameraRef = useRef<Camera | null>(null)
+  const { viewer } = useContext(ViewerContext)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [nameError, setNameError] = useState('')
+  const [descriptionError, setDescriptionError] = useState('')
+  const [picture, setPicture] = useState<ImagePicker.ImagePickerAsset | null>(null)
+  const [pictureError, setPictureError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isCameraActive, setIsCameraActive] = useState(false)
-  const [picture, setPicture] = useState<CameraCapturedPicture | null>(null)
   const router = useRouter()
-  const [permission, requestPermission] = Camera.useCameraPermissions()
+  const { showActionSheetWithOptions } = useActionSheet()
 
-  const handleCameraPress = useCallback(async () => {
-    setLoading(true)
+  const handlePictureEnd = useCallback(async (isCamera: boolean) => {
+    const result = await (isCamera ? ImagePicker.launchCameraAsync(pictureOptions) : ImagePicker.launchImageLibraryAsync(pictureOptions))
 
-    const response = await requestPermission()
+    if (result.canceled) return
+    if (!result.assets?.length) return
 
-    if (response.granted) {
-      setIsCameraActive(true)
+    setPicture(result.assets[0])
+  }, [])
+
+  const handlePictureStart = useCallback(() => {
+    showActionSheetWithOptions({
+      options: actionSheetOptions,
+      cancelButtonIndex,
+    },
+    selectedIndex => {
+      switch (selectedIndex) {
+        case 0:
+          handlePictureEnd(true)
+          break
+        case 1:
+          handlePictureEnd(false)
+          break
+      }
+    })
+  }, [showActionSheetWithOptions, handlePictureEnd])
+
+  const handleSubmit = useCallback(async () => {
+    setNameError('')
+    setDescriptionError('')
+    setPictureError('')
+
+    let isError = false
+    const safeName = name.trim()
+    const safeDescription = description.trim()
+
+    if (!safeName) {
+      setNameError('You must add a name')
+
+      isError = true
     }
 
-    setLoading(false)
-  }, [requestPermission])
+    if (!safeDescription) {
+      setDescriptionError('You must add a description')
 
-  const handleTakePicture = useCallback(async () => {
-    if (!cameraRef.current) return
+      isError = true
+    }
 
-    const picture = await cameraRef.current.takePictureAsync()
+    if (!picture) {
+      setPictureError('You must add a picture')
 
-    setPicture(picture)
+      isError = true
+    }
 
-    setIsCameraActive(false)
-  }, [])
+    if (isError) return
 
-  const handleCloseCamera = useCallback(() => {
-    setIsCameraActive(false)
-  }, [])
+    setLoading(true)
 
-  const handleRetakePicture = useCallback(() => {
-    setPicture(null)
-    setIsCameraActive(true)
-  }, [])
+    const { base64 } = picture
+    const id = nanoid()
 
-  const renderOpenCameraButton = useCallback(() => (
-    <Button
-      mt={2}
-      colorScheme="brand"
-      onPress={handleCameraPress}
-      isLoading={loading}
-    >
-      Choose or snap
-    </Button>
-  ), [loading, handleCameraPress])
+    console.log('id', id)
+    // const storageRef = ref(storage, `collectibles/${id}`)
 
-  const renderPicturePreview = useCallback(() => (
-    <>
-      <Image
-        mt={2}
-        width={256}
-        height={256}
-        source={{ uri: picture?.uri }}
-        alt="Picture preview"
-      />
-      <Text
-        onPress={handleRetakePicture}
-        mt={1}
-        color="brand.500"
-      >
-        Snap again
-      </Text>
-    </>
-  ), [picture, handleRetakePicture])
-
-  const renderCamera = useCallback(() => (
-    <Camera
-      ref={cameraRef}
-      style={{
-        flex: 1,
-        width: '100%',
-        position: 'relative',
-      }}
-    >
-      <HStack
-        position="absolute"
-        bottom={12}
-        left={0}
-        right={0}
-        justifyContent="center"
-      >
-        <IconButton
-          _hover={{
-            bg: 'white.600:alpha.20',
-          }}
-          bg="white.500"
-          colorScheme="white"
-          rounded="full"
-          icon={(
-            <Icon
-              size={12}
-              as={MaterialCommunityIcons}
-              name="camera"
-              color="brand.500"
-            />
-          )}
-          onPress={handleTakePicture}
-        />
-      </HStack>
-      <Box
-        position="absolute"
-        top={10}
-        right={4}
-      >
-        <IconButton
-          bg="transparent"
-          _hover={{
-            bg: 'grey.600:alpha.20',
-          }}
-          colorScheme="grey"
-          rounded="xl"
-          icon={(
-            <Icon
-              size="xl"
-              as={MaterialIcons}
-              name="close"
-              color="white.500"
-            />
-          )}
-          onPress={handleCloseCamera}
-        />
-      </Box>
-    </Camera>
-  ), [handleTakePicture, handleCloseCamera])
-
-  if (isCameraActive && permission.granted) return renderCamera()
+  }, [name, description, picture])
 
   return (
     <Box safeAreaTop>
@@ -143,7 +101,7 @@ function Collect() {
         <VStack
           pt={4}
           pb={16}
-          px={2}
+          px={4}
           alignItems="center"
           position="relative"
         >
@@ -208,14 +166,57 @@ function Collect() {
           <Text textAlign="center">
             Make sure it represents your collectible well.
           </Text>
-          {picture ? renderPicturePreview() : renderOpenCameraButton()}
+          {picture ? (
+            <>
+              <Image
+                mt={2}
+                width={256}
+                height={256}
+                source={{ uri: picture?.uri }}
+                alt="Picture preview"
+              />
+              <Text
+                onPress={handlePictureStart}
+                mt={1}
+                color="brand.500"
+              >
+                Snap again
+              </Text>
+            </>
+          ) : (
+            <Button
+              variant="outline"
+              mt={2}
+              colorScheme="brand"
+              onPress={handlePictureStart}
+              isLoading={loading}
+            >
+              Choose or snap
+            </Button>
+          )}
           <Button
-            mt={6}
+            mt={8}
+            mb={2}
             colorScheme="brand"
-            disabled={!(name.trim() && description.trim() && picture)}
+            onPress={handleSubmit}
           >
-            Add it to my collection!
+            Add to my collection!
           </Button>
+          {nameError && (
+            <Text color="brand.500">
+              {nameError}
+            </Text>
+          )}
+          {descriptionError && (
+            <Text color="brand.500">
+              {descriptionError}
+            </Text>
+          )}
+          {pictureError && (
+            <Text color="brand.500">
+              {pictureError}
+            </Text>
+          )}
           <Box
             position="absolute"
             top={2.5}

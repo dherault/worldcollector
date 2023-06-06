@@ -8,7 +8,7 @@ function useRouteTitle(key: string, title: string) {
   useEffect(() => {
     setRouteTitles(x => ({
       ...x,
-      [key]: title ?? x[key] ?? '',
+      [key]: title ?? '',
     }))
   }, [key, title, setRouteTitles])
 }

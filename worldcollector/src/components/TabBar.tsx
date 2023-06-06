@@ -1,7 +1,8 @@
-import { HStack, Icon, IconButton } from 'native-base'
+import { useCallback, useContext } from 'react'
+import { useNavigation, usePathname, useRouter } from 'expo-router'
 import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { usePathname, useRouter } from 'expo-router'
-import { useContext } from 'react'
+import { HStack, Icon, IconButton } from 'native-base'
+import { NavigationActions, StackActions } from 'react-navigation'
 
 import ViewerContext from '~contexts/ViewerContext'
 
@@ -10,20 +11,26 @@ const TAB_HOME = 0
 const TAB_COLLECT = 1
 const TAB_MARKETPLACE = 2
 const TAB_COLLECTIBLE = 3
+const TAB_SEARCH = 4
+const TAB_SETTINGS = 5
 
 const pathnameRegexToTab = {
   '^/$': TAB_HOME,
   '^/collect$': TAB_COLLECT,
   '^/marketplace$': TAB_MARKETPLACE,
   '^/-/': TAB_COLLECTIBLE,
+  '^/search': TAB_SEARCH,
+  '^/settings': TAB_SETTINGS,
 }
 
-const includedTabs = [TAB_HOME, TAB_MARKETPLACE, TAB_COLLECTIBLE]
+const includedTabs = [TAB_HOME, TAB_MARKETPLACE, TAB_COLLECTIBLE, TAB_SEARCH, TAB_SETTINGS]
 const homeTabs = [TAB_HOME, TAB_COLLECTIBLE]
 
 function getTab(pathname: string) {
   for (const [regex, tab] of Object.entries(pathnameRegexToTab)) {
-    if (new RegExp(regex).test(pathname)) return tab
+    if (new RegExp(regex).test(pathname)) {
+      return tab
+    }
   }
 
   return TAB_NONE
@@ -33,8 +40,22 @@ function TabBar() {
   const { viewer } = useContext(ViewerContext)
   const router = useRouter()
   const pathname = usePathname()
+  const navigation = useNavigation()
 
   const tab = getTab(pathname)
+
+  const handleNavigate = useCallback((givenPathname: string) => {
+    if (givenPathname === pathname) {
+      navigation.dispatch(StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: '(home)' })],
+      }))
+
+      return
+    }
+
+    router.push(givenPathname)
+  }, [router, navigation, pathname])
 
   if (!includedTabs.includes(tab)) return null
   if (!viewer) return null
@@ -58,6 +79,24 @@ function TabBar() {
         justifyContent="center"
       >
         <IconButton
+          mr={2}
+          bg={tab === TAB_SEARCH ? 'grey.200' : 'transparent'}
+          _hover={{
+            bg: 'grey.600:alpha.20',
+          }}
+          colorScheme="grey"
+          rounded="xl"
+          icon={(
+            <Icon
+              size="lg"
+              as={MaterialIcons}
+              name="search"
+              color={tab === TAB_SEARCH ? 'brand.500' : 'grey.500'}
+            />
+          )}
+          onPress={() => handleNavigate('/search')}
+        />
+        <IconButton
           bg={homeTabs.includes(tab) ? 'grey.200' : 'transparent'}
           _hover={{
             bg: 'grey.600:alpha.20',
@@ -72,7 +111,7 @@ function TabBar() {
               color={homeTabs.includes(tab) ? 'brand.500' : 'grey.500'}
             />
           )}
-          onPress={() => router.push('/')}
+          onPress={() => handleNavigate('/')}
         />
         <IconButton
           mx={2}
@@ -91,7 +130,7 @@ function TabBar() {
               color="grey.900"
             />
           )}
-          onPress={() => router.push('/collect')}
+          onPress={() => handleNavigate('/collect')}
         />
         <IconButton
           bg={tab === TAB_MARKETPLACE ? 'grey.200' : 'transparent'}
@@ -108,7 +147,25 @@ function TabBar() {
               color={tab === TAB_MARKETPLACE ? 'brand.500' : 'grey.500'}
             />
           )}
-          onPress={() => router.push('/marketplace')}
+          onPress={() => handleNavigate('/marketplace')}
+        />
+        <IconButton
+          ml={2}
+          bg={tab === TAB_SETTINGS ? 'grey.200' : 'transparent'}
+          _hover={{
+            bg: 'grey.600:alpha.20',
+          }}
+          colorScheme="grey"
+          rounded="xl"
+          icon={(
+            <Icon
+              size="lg"
+              as={MaterialIcons}
+              name="settings"
+              color={tab === TAB_SETTINGS ? 'brand.500' : 'grey.500'}
+            />
+          )}
+          onPress={() => handleNavigate('/search')}
         />
       </HStack>
     </HStack>

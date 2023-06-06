@@ -17,7 +17,11 @@ function CollectibleScene() {
   if (loading) return <FullScreenSpinner />
 
   return (
-    <VStack>
+    <VStack
+      safeAreaTop
+      p={2}
+      pt={4}
+    >
       <Text>
         Collectible
         {' '}

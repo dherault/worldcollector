@@ -5,11 +5,7 @@ import UserContext from '~contexts/ViewerContext'
 import UserProfile from '~components/UserProfile'
 import Landing from '~components/Landing'
 
-type HomeSceneProps = {
-  segment: string
-}
-
-function HomeScene({ segment }: HomeSceneProps) {
+function HomeScene() {
   const { viewer } = useContext(UserContext)
 
   return viewer ? (

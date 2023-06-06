@@ -98,7 +98,6 @@ function Collect() {
     const now = new Date().toISOString()
 
     try {
-      console.log('picture.base64', picture.base64)
       const snapshot = await uploadString(ref(storage, `collectible-images/${id}`), picture.base64, 'base64')
 
       const collectible: Collectible = {
@@ -118,6 +117,8 @@ function Collect() {
       router.push(`-/${id}`)
     }
     catch (error) {
+      console.log('error', error)
+
       setError(true)
       setLoading(false)
     }
@@ -228,6 +229,7 @@ function Collect() {
             mb={2}
             colorScheme="brand"
             onPress={handleSubmit}
+            isLoading={loading}
           >
             Add to my collection!
           </Button>

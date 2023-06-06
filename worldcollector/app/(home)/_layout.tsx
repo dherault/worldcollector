@@ -10,19 +10,14 @@ function HomeLayout() {
     <Stack
       initialRouteName="index"
       screenOptions={{
+        headerShown: false,
         contentStyle: {
           backgroundColor: 'white',
         },
       }}
     >
-      <Stack.Screen
-        name="index"
-        options={({ route }) => ({ title: routeTitles.UserProfile ?? '' })}
-      />
-      <Stack.Screen
-        name="-/[id]"
-        options={({ route }) => ({ title: routeTitles.CollectibleScene ?? '' })}
-      />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="-/[id]" />
     </Stack>
   )
 }

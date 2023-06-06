@@ -39,20 +39,20 @@ function UserProfile({ userId }: UserProfileProps) {
 
   return (
     <VStack
+      safeAreaTop
+      pt={4}
       alignItems="center"
     >
       <VStack alignItems="center">
-        <HStack
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box
-            bg="brand.500"
-            w={16}
-            h={16}
-            borderRadius="full"
-          />
-        </HStack>
+        <Box
+          bg="brand.500"
+          w={16}
+          h={16}
+          borderRadius="full"
+        />
+        <Heading textAlign="center">
+          {user.name}
+        </Heading>
       </VStack>
       <CollectiblesList collectibles={collectibles} />
       <Button

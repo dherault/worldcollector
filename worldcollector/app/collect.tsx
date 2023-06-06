@@ -5,7 +5,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Box, Button, Heading, Icon, IconButton, Image, Input, ScrollView, Text, VStack } from 'native-base'
 import { nanoid } from 'nanoid'
-import { ref, uploadString } from 'firebase/storage'
+import { ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 
 import { Collectible, CollectibleStatus } from '~types'
@@ -24,7 +24,7 @@ const pictureOptions = {
 const actionSheetOptions = ['Take photo...', 'Choose from Library...', 'Cancel']
 const cancelButtonIndex = 2
 
-function Collect() {
+function CollectScene() {
   const { viewer } = useContext(ViewerContext)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -36,6 +36,10 @@ function Collect() {
   const [error, setError] = useState(false)
   const router = useRouter()
   const { showActionSheetWithOptions } = useActionSheet()
+
+  const handleClose = useCallback(() => {
+    router.push('/')
+  }, [router])
 
   const handlePictureEnd = useCallback(async (isCamera: boolean) => {
     const result = await (isCamera ? ImagePicker.launchCameraAsync(pictureOptions) : ImagePicker.launchImageLibraryAsync(pictureOptions))
@@ -98,23 +102,36 @@ function Collect() {
     const now = new Date().toISOString()
 
     try {
-      const snapshot = await uploadString(ref(storage, `collectible-images/${id}`), picture.base64, 'base64')
+      const response = await fetch(picture.uri)
+      const blob = await response.blob()
 
-      const collectible: Collectible = {
-        id,
-        name: safeName,
-        description: safeDescription,
-        ownerId: viewer.id,
-        userId: viewer.id,
-        status: CollectibleStatus.pending,
-        imageStoragePath: snapshot.metadata.fullPath,
-        createdAt: now,
-        updatedAt: now,
-      }
+      const uploadTask = await uploadBytesResumable(ref(storage, `collectible-images/${id}`), blob)
 
-      await setDoc(doc(db, `collectibles/${id}`), collectible)
+      uploadTask.task.on('state_changed', snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 
-      router.push(`-/${id}`)
+        console.log(`Upload is ${progress}% done`)
+      }, error => {
+        throw error
+      }, async () => {
+        console.log('Upload complete')
+
+        const collectible: Collectible = {
+          id,
+          name: safeName,
+          description: safeDescription,
+          ownerId: viewer.id,
+          userId: viewer.id,
+          status: CollectibleStatus.pending,
+          imageStoragePath: uploadTask.metadata.fullPath,
+          createdAt: now,
+          updatedAt: now,
+        }
+
+        await setDoc(doc(db, `collectibles/${id}`), collectible)
+
+        router.push(`-/${id}`)
+      })
     }
     catch (error) {
       console.log('error', error)
@@ -285,7 +302,7 @@ function Collect() {
                   color="black"
                 />
               )}
-              onPress={() => router.back()}
+              onPress={handleClose}
             />
           </Box>
         </VStack>
@@ -294,4 +311,4 @@ function Collect() {
   )
 }
 
-export default Collect
+export default CollectScene

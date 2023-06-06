@@ -32,6 +32,7 @@ function UserProfile({ userId }: UserProfileProps) {
     <VStack
       safeAreaTop
       pt={4}
+      px={4}
       alignItems="center"
     >
       <VStack alignItems="center">

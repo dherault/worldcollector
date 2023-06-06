@@ -51,16 +51,23 @@ function Authentication() {
 
     setLoading(true)
 
-    const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', safeEmail)))
+    try {
+      const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', safeEmail)))
 
-    querySnapshot.forEach(doc => {
-      const user = doc.data()
+      querySnapshot.forEach(doc => {
+        const user = doc.data()
 
-      setExistingName(user.name)
-    })
+        setExistingName(user.name)
+      })
 
-    setContinued(true)
-    setLoading(false)
+      setContinued(true)
+      setLoading(false)
+    }
+    catch (error) {
+      console.log(error)
+
+      setError(true)
+    }
   }, [email])
 
   const handleSignUp = useCallback(async () => {

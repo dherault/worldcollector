@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+import Constants from 'expo-constants'
 import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native'
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
@@ -27,9 +28,11 @@ export const db = getFirestore(app)
 export const storage = getStorage(app)
 
 if (process.env.NODE_ENV === 'development') {
-  connectAuthEmulator(authentication, 'http://localhost:9099', { disableWarnings: true })
-  connectFirestoreEmulator(db, 'localhost', 8080)
-  connectStorageEmulator(storage, 'localhost', 9199)
+  const origin = Constants.manifest.debuggerHost?.split(':').shift() || 'localhost'
+
+  connectAuthEmulator(authentication, `http://${origin}:9099`, { disableWarnings: true })
+  connectFirestoreEmulator(db, origin, 8080)
+  connectStorageEmulator(storage, origin, 9199)
 }
 else if (Platform.OS === 'web') {
   initializeAppCheck(app, {

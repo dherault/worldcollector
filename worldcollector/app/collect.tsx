@@ -126,74 +126,81 @@ function Collect() {
   }, [name, description, picture, viewer, router])
 
   return (
-    <Box safeAreaTop>
-      <ScrollView>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
+      <Box
+        safeAreaTop
+        flex={1}
+      >
         <VStack
           pt={4}
-          pb={16}
-          px={4}
-          alignItems="center"
+          pb={8}
+          px={6}
+          flex={1}
           position="relative"
         >
           <Heading
             size="xl"
-            textAlign="center"
           >
             Collect
           </Heading>
           <Heading
-            mt={6}
+            mt={8}
             color="brand.500"
-            textAlign="center"
           >
             1
           </Heading>
-          <Heading textAlign="center">
+          <Heading>
             Name your collectible
           </Heading>
-          <Text textAlign="center">
+          <Text my={2}>
             It must be unique, make sure to check its unicity using the search function first.
           </Text>
           <Input
             mt={2}
+            py={3}
+            px={4}
+            size="xl"
             width="full"
             value={name}
             onChangeText={setName}
             placeholder="The Statue of Liberty"
           />
           <Heading
-            mt={6}
+            mt={8}
             color="brand.500"
-            textAlign="center"
           >
             2
           </Heading>
-          <Heading textAlign="center">
+          <Heading>
             Describe it
           </Heading>
-          <Text textAlign="center">
+          <Text my={2}>
             Be clear and consise.
           </Text>
           <Input
+            mt={2}
+            py={3}
+            px={4}
             multiline
             numberOfLines={3}
-            mt={2}
+            size="xl"
             width="full"
             value={description}
             onChangeText={setDescription}
             placeholder="A colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States."
           />
           <Heading
-            mt={6}
+            mt={8}
             color="brand.500"
-            textAlign="center"
           >
             3
           </Heading>
-          <Heading textAlign="center">
+          <Heading>
             Add a picture
           </Heading>
-          <Text textAlign="center">
+          <Text my={2}>
             Make sure it represents your collectible well.
           </Text>
           {picture ? (
@@ -206,32 +213,37 @@ function Collect() {
                 alt="Picture preview"
               />
               <Text
-                onPress={handlePictureStart}
                 mt={1}
                 color="brand.500"
+                onPress={handlePictureStart}
               >
-                Snap again
+                Reset picture
               </Text>
             </>
           ) : (
             <Button
-              variant="outline"
               mt={2}
+              width="full"
+              size="lg"
+              variant="outline"
               colorScheme="brand"
               onPress={handlePictureStart}
               isLoading={loading}
             >
-              Choose or snap
+              Choose or take photo
             </Button>
           )}
+          <Box flexGrow={1} />
           <Button
-            mt={8}
+            mt={4}
             mb={2}
+            width="100%"
+            size="lg"
             colorScheme="brand"
             onPress={handleSubmit}
             isLoading={loading}
           >
-            Add to my collection!
+            Add it to my collection!
           </Button>
           {nameError && (
             <Text color="brand.500">
@@ -277,8 +289,8 @@ function Collect() {
             />
           </Box>
         </VStack>
-      </ScrollView>
-    </Box>
+      </Box>
+    </ScrollView>
   )
 }
 

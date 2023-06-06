@@ -24,6 +24,7 @@ function MainLayout() {
               <KeyboardAvoidingView
                 flex={1}
                 behavior="height"
+                contentContainerStyle={{ flexGrow: 1 }}
               >
                 <Slot />
                 <TabBar />

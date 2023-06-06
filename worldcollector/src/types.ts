@@ -1,3 +1,5 @@
+export type CollectionsType = 'users' | 'collectibles'
+
 export type User = {
   id: string
   name: string

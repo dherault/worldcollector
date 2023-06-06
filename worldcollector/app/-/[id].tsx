@@ -1,19 +1,27 @@
+import { useLocalSearchParams } from 'expo-router'
 import { Text, VStack } from 'native-base'
 
-type CollectibleProps = {
-  id: string
-}
+import { Collectible } from '~types'
 
-function Collectible({ id }: CollectibleProps) {
+import useQuery from '~hooks/useQuery'
+
+import FullScreenSpinner from '~components/FullScreenSpinner'
+
+function CollectibleScene() {
+  const { id } = useLocalSearchParams()
+  const { data: collectible, loading } = useQuery<Collectible>('collectibles', id as string)
+
+  if (loading) return <FullScreenSpinner />
+
   return (
     <VStack safeAreaTop>
       <Text>
         Collectible
         {' '}
-        {id}
+        {JSON.stringify(collectible, null, 2)}
       </Text>
     </VStack>
   )
 }
 
-export default Collectible
+export default CollectibleScene

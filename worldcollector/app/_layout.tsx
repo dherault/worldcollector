@@ -1,3 +1,4 @@
+import 'react-native-get-random-values' // Crypto polyfill
 import { NativeBaseProvider } from 'native-base'
 import { Navigator, Slot } from 'expo-router'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'

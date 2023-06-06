@@ -2,9 +2,15 @@ import { useCallback, useContext, useState } from 'react'
 import { useRouter } from 'expo-router'
 import * as ImagePicker from 'expo-image-picker'
 import { useActionSheet } from '@expo/react-native-action-sheet'
-import { Box, Button, Heading, Icon, IconButton, Image, Input, ScrollView, Text, VStack } from 'native-base'
 import { MaterialIcons } from '@expo/vector-icons'
+import { Box, Button, Heading, Icon, IconButton, Image, Input, ScrollView, Text, VStack } from 'native-base'
 import { nanoid } from 'nanoid'
+import { ref, uploadString } from 'firebase/storage'
+import { doc, setDoc } from 'firebase/firestore'
+
+import { Collectible, CollectibleStatus } from '~types'
+
+import { db, storage } from '~firebase'
 
 import ViewerContext from '~contexts/ViewerContext'
 
@@ -27,6 +33,7 @@ function Collect() {
   const [picture, setPicture] = useState<ImagePicker.ImagePickerAsset | null>(null)
   const [pictureError, setPictureError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const router = useRouter()
   const { showActionSheetWithOptions } = useActionSheet()
 
@@ -87,13 +94,35 @@ function Collect() {
 
     setLoading(true)
 
-    const { base64 } = picture
     const id = nanoid()
+    const now = new Date().toISOString()
 
-    console.log('id', id)
-    // const storageRef = ref(storage, `collectibles/${id}`)
+    try {
+      console.log('picture.base64', picture.base64)
+      const snapshot = await uploadString(ref(storage, `collectible-images/${id}`), picture.base64, 'base64')
 
-  }, [name, description, picture])
+      const collectible: Collectible = {
+        id,
+        name: safeName,
+        description: safeDescription,
+        ownerId: viewer.id,
+        userId: viewer.id,
+        status: CollectibleStatus.pending,
+        imageStoragePath: snapshot.metadata.fullPath,
+        createdAt: now,
+        updatedAt: now,
+      }
+
+      await setDoc(doc(db, `collectibles/${id}`), collectible)
+
+      router.push(`-/${id}`)
+    }
+    catch (error) {
+      setError(true)
+      setLoading(false)
+    }
+
+  }, [name, description, picture, viewer, router])
 
   return (
     <Box safeAreaTop>
@@ -215,6 +244,11 @@ function Collect() {
           {pictureError && (
             <Text color="brand.500">
               {pictureError}
+            </Text>
+          )}
+          {error && (
+            <Text color="brand.500">
+              An error occured, please try again.
             </Text>
           )}
           <Box

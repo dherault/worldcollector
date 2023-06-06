@@ -6,11 +6,18 @@ export type User = {
   updatedAt: string
 }
 
+export enum CollectibleStatus {
+  pending = 'pending',
+  approved = 'approved',
+  rejected = 'rejected',
+}
+
 export type Collectible = {
   id: string
   name: string
   description: string
-  imageUrl: string
+  imageStoragePath: string
+  status: CollectibleStatus
   ownerId: string
   userId: string
   createdAt: string

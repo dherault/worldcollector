@@ -1,9 +1,15 @@
-import { Box } from 'native-base'
+import { Box, Heading, ScrollView, VStack } from 'native-base'
 
 function Marketplace() {
   return (
     <Box safeAreaTop>
-      Marketplace
+      <ScrollView>
+        <VStack alignItems="center">
+          <Heading my={4}>
+            Marketplace
+          </Heading>
+        </VStack>
+      </ScrollView>
     </Box>
   )
 }

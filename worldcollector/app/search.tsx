@@ -15,7 +15,10 @@ function SearchScene() {
         variant="underlined"
         placeholder="Start typing to search..."
       />
-      <ScrollView flex={1}>
+      <ScrollView
+        flex={1}
+        p={2}
+      >
         <Box>Results</Box>
       </ScrollView>
     </Box>

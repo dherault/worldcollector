@@ -1,20 +1,18 @@
-import { useCallback, useContext, useMemo, useState } from 'react'
-import { Box, Button, HStack, Heading, VStack } from 'native-base'
-import { signOut } from 'firebase/auth'
+import { useContext, useMemo, useState } from 'react'
+import { Box, Heading, VStack } from 'native-base'
 import { collection, query, where } from 'firebase/firestore'
 
 import { Collectible } from '~types'
 
-import { authentication, db } from '~firebase'
+import { db } from '~firebase'
+
+import UserContext from '~contexts/ViewerContext'
 
 import useArrayQuery from '~hooks/useArrayQuery'
-import useRouteTitle from '~hooks/useRouteTitle'
 
-import UserContext from '../contexts/ViewerContext'
-
-import FullScreenSpinner from './FullScreenSpinner'
-import FullScreenNotFound from './FullScreenNotFound'
-import CollectiblesList from './CollectiblesList'
+import FullScreenSpinner from '~components/FullScreenSpinner'
+import FullScreenNotFound from '~components/FullScreenNotFound'
+import CollectiblesList from '~components/CollectiblesList'
 
 type UserProfileProps = {
   userId: string
@@ -26,13 +24,6 @@ function UserProfile({ userId }: UserProfileProps) {
   const collectiblesQuery = useMemo(() => query(collection(db, 'collectibles'), where('ownerId', '==', userId)), [userId])
   const { data: collectibles, loading: collectiblesLoading } = useArrayQuery<Collectible>(collectiblesQuery)
   const user = useMemo(() => userId === viewer?.id ? viewer : null, [userId, viewer])
-
-  useRouteTitle('UserProfile', user?.name)
-
-  const handleSignOut = useCallback(() => {
-    signOut(authentication)
-    setViewer(null)
-  }, [setViewer])
 
   if (userLoading) return <FullScreenSpinner />
   if (!user) return <FullScreenNotFound />
@@ -55,13 +46,6 @@ function UserProfile({ userId }: UserProfileProps) {
         </Heading>
       </VStack>
       <CollectiblesList collectibles={collectibles} />
-      <Button
-        colorScheme="brand"
-        mt={2}
-        onPress={handleSignOut}
-      >
-        Sign Out
-      </Button>
     </VStack>
   )
 }

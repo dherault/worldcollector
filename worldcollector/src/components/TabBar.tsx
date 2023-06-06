@@ -165,7 +165,7 @@ function TabBar() {
               color={tab === TAB_SETTINGS ? 'brand.500' : 'grey.500'}
             />
           )}
-          onPress={() => handleNavigate('/search')}
+          onPress={() => handleNavigate('/settings')}
         />
       </HStack>
     </HStack>

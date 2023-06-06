@@ -1,7 +1,10 @@
+import { Platform } from 'react-native'
 import { initializeApp } from 'firebase/app'
-import { getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native'
-import { getFirestore } from 'firebase/firestore'
+import { connectAuthEmulator, getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native'
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
+import { connectStorageEmulator, getStorage } from 'firebase/storage'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDD9uEDGqg8vQeDHgjBUyZfpC4HcoxSNt4',
@@ -20,3 +23,17 @@ export const authentication = initializeAuth(app, {
 })
 
 export const db = getFirestore(app)
+
+export const storage = getStorage(app)
+
+if (process.env.NODE_ENV === 'development') {
+  connectAuthEmulator(authentication, 'http://localhost:9099', { disableWarnings: true })
+  connectFirestoreEmulator(db, 'localhost', 8080)
+  connectStorageEmulator(storage, 'localhost', 9199)
+}
+else if (Platform.OS === 'web') {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6Lc77XAmAAAAADLO4gsH9i3MGlJ6fJAXlraOwyAw'),
+    isTokenAutoRefreshEnabled: true,
+  })
+}

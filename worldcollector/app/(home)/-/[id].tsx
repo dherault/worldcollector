@@ -4,6 +4,7 @@ import { Text, VStack } from 'native-base'
 import { Collectible } from '~types'
 
 import useQuery from '~hooks/useQuery'
+import useRouteTitle from '~hooks/useRouteTitle'
 
 import FullScreenSpinner from '~components/FullScreenSpinner'
 
@@ -11,10 +12,12 @@ function CollectibleScene() {
   const { id } = useLocalSearchParams()
   const { data: collectible, loading } = useQuery<Collectible>('collectibles', id as string)
 
+  useRouteTitle('CollectibleScene', collectible?.name)
+
   if (loading) return <FullScreenSpinner />
 
   return (
-    <VStack safeAreaTop>
+    <VStack>
       <Text>
         Collectible
         {' '}

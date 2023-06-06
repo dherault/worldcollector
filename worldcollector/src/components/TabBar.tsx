@@ -5,24 +5,36 @@ import { useContext } from 'react'
 
 import ViewerContext from '~contexts/ViewerContext'
 
+const TAB_NONE = -1
 const TAB_HOME = 0
 const TAB_COLLECT = 1
 const TAB_MARKETPLACE = 2
+const TAB_COLLECTIBLE = 3
 
-const pathnameToTab = {
-  '/': TAB_HOME,
-  '/collect': TAB_COLLECT,
-  '/marketplace': TAB_MARKETPLACE,
+const pathnameRegexToTab = {
+  '^/$': TAB_HOME,
+  '^/collect$': TAB_COLLECT,
+  '^/marketplace$': TAB_MARKETPLACE,
+  '^/-/': TAB_COLLECTIBLE,
 }
 
-const includedTabs = [TAB_HOME, TAB_MARKETPLACE]
+const includedTabs = [TAB_HOME, TAB_MARKETPLACE, TAB_COLLECTIBLE]
+const homeTabs = [TAB_HOME, TAB_COLLECTIBLE]
+
+function getTab(pathname: string) {
+  for (const [regex, tab] of Object.entries(pathnameRegexToTab)) {
+    if (new RegExp(regex).test(pathname)) return tab
+  }
+
+  return TAB_NONE
+}
 
 function TabBar() {
   const { viewer } = useContext(ViewerContext)
   const router = useRouter()
   const pathname = usePathname()
 
-  const tab = pathnameToTab[pathname]
+  const tab = getTab(pathname)
 
   if (!includedTabs.includes(tab)) return null
   if (!viewer) return null
@@ -46,7 +58,7 @@ function TabBar() {
         justifyContent="center"
       >
         <IconButton
-          bg={tab === TAB_HOME ? 'grey.200' : 'transparent'}
+          bg={homeTabs.includes(tab) ? 'grey.200' : 'transparent'}
           _hover={{
             bg: 'grey.600:alpha.20',
           }}
@@ -57,7 +69,7 @@ function TabBar() {
               size="lg"
               as={MaterialIcons}
               name="home"
-              color={tab === TAB_HOME ? 'brand.500' : 'grey.500'}
+              color={homeTabs.includes(tab) ? 'brand.500' : 'grey.500'}
             />
           )}
           onPress={() => router.push('/')}

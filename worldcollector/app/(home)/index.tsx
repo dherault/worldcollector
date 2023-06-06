@@ -5,10 +5,20 @@ import UserContext from '~contexts/ViewerContext'
 import UserProfile from '~components/UserProfile'
 import Landing from '~components/Landing'
 
-function Main() {
-  const { viewer } = useContext(UserContext)
-
-  return viewer ? <UserProfile userId={viewer.id} /> : <Landing />
+type HomeSceneProps = {
+  segment: string
 }
 
-export default Main
+function HomeScene({ segment }: HomeSceneProps) {
+  const { viewer } = useContext(UserContext)
+
+  return viewer ? (
+    <UserProfile
+      userId={viewer.id}
+    />
+  ) : (
+    <Landing />
+  )
+}
+
+export default HomeScene

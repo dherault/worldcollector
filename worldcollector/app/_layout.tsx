@@ -5,6 +5,7 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 import TabBar from '~components/TabBar'
 import UserProvider from '~components/UserProvider'
+import WorldCollectorProviders from '~components/WorldCollectorProviders'
 
 import theme from '../src/theme'
 
@@ -13,10 +14,12 @@ function MainLayout() {
     <ActionSheetProvider>
       <NativeBaseProvider theme={theme}>
         <UserProvider>
-          <Navigator>
-            <Slot />
-            <TabBar />
-          </Navigator>
+          <WorldCollectorProviders>
+            <Navigator>
+              <Slot />
+              <TabBar />
+            </Navigator>
+          </WorldCollectorProviders>
         </UserProvider>
       </NativeBaseProvider>
     </ActionSheetProvider>

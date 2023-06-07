@@ -35,7 +35,10 @@ function UserProfile({ userId }: UserProfileProps) {
       px={4}
       alignItems="center"
     >
-      <VStack alignItems="center">
+      <VStack
+        alignItems="center"
+        mb={4}
+      >
         <Box
           bg="brand.500"
           w={16}

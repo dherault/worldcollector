@@ -116,7 +116,7 @@ function TabBar() {
         <IconButton
           mx={2}
           py={1}
-          px={1.5}
+          px={2}
           _hover={{
             bg: 'grey.600:alpha.20',
           }}

@@ -89,26 +89,6 @@ function CollectibleCard({ collectible }: CollectibleCardProps) {
             height={width * TOP_BOTTOM_RATIO}
           />
         </VStack>
-        {/* <Image
-          source={{ uri: imageUrl }}
-          alt={collectible.name}
-          width="100%"
-          height={128}
-        />
-        <Box
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-        >
-          <BlurView tint="dark">
-            <Box p={2}>
-              <Text color="white.500">
-                {collectible.name}
-              </Text>
-            </Box>
-          </BlurView>
-        </Box> */}
       </Box>
     </Pressable>
   )

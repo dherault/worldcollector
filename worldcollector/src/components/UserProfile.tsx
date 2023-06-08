@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
-import { Box, Heading, VStack } from 'native-base'
+import { Box, Heading, ScrollView, VStack } from 'native-base'
 import { collection, query, where } from 'firebase/firestore'
 
 import { Collectible } from '~types'
@@ -12,7 +12,7 @@ import useArrayQuery from '~hooks/useArrayQuery'
 
 import FullScreenSpinner from '~components/FullScreenSpinner'
 import FullScreenNotFound from '~components/FullScreenNotFound'
-import CollectiblesList from '~components/CollectiblesList'
+import CollectibleCard from '~components/CollectibleCard'
 
 type UserProfileProps = {
   userId: string
@@ -29,9 +29,10 @@ function UserProfile({ userId }: UserProfileProps) {
   if (!user) return <FullScreenNotFound />
 
   return (
-    <Box
+    <VStack
       safeAreaTop
       pt={4}
+      flex={1}
       alignItems="center"
       overflow="hidden"
       maxHeight="100%"
@@ -50,8 +51,23 @@ function UserProfile({ userId }: UserProfileProps) {
           {user.name}
         </Heading>
       </VStack>
-      <CollectiblesList collectibles={collectibles} />
-    </Box>
+      <ScrollView
+        px={4}
+        flex={1}
+        width="100%"
+      >
+        {collectibles.map(collectible => (
+          <Box
+            mb={8}
+            width="100%"
+            key={collectible.id}
+          >
+            <CollectibleCard collectible={collectible} />
+          </Box>
+        ))}
+        <Box height={24} />
+      </ScrollView>
+    </VStack>
   )
 }
 

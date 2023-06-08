@@ -29,11 +29,12 @@ function UserProfile({ userId }: UserProfileProps) {
   if (!user) return <FullScreenNotFound />
 
   return (
-    <VStack
+    <Box
       safeAreaTop
       pt={4}
-      px={4}
       alignItems="center"
+      overflow="hidden"
+      maxHeight="100%"
     >
       <VStack
         alignItems="center"
@@ -50,7 +51,7 @@ function UserProfile({ userId }: UserProfileProps) {
         </Heading>
       </VStack>
       <CollectiblesList collectibles={collectibles} />
-    </VStack>
+    </Box>
   )
 }
 

@@ -1,5 +1,5 @@
 import { Link } from 'expo-router'
-import { Box, HStack, Pressable } from 'native-base'
+import { Box, HStack, Pressable, ScrollView } from 'native-base'
 
 import { Collectible } from '~types'
 
@@ -11,20 +11,20 @@ type CollectiblesListProps = {
 
 function CollectiblesList({ collectibles }: CollectiblesListProps) {
   return (
-    <HStack
-      flexWrap="wrap"
-      width="full"
+    <ScrollView
+      width="100%"
+      px={4}
     >
       {collectibles.map(collectible => (
         <Box
-          p={2}
-          width="50%"
+          mb={8}
+          width="100%"
           key={collectible.id}
         >
           <CollectibleCard collectible={collectible} />
         </Box>
       ))}
-    </HStack>
+    </ScrollView>
   )
 }
 

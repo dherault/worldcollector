@@ -1,11 +1,6 @@
 import { Stack } from 'expo-router'
-import { useContext } from 'react'
-
-import RouteTitlesContext from '~contexts/RouteTitlesContext'
 
 function HomeLayout() {
-  const { routeTitles } = useContext(RouteTitlesContext)
-
   return (
     <Stack
       initialRouteName="index"

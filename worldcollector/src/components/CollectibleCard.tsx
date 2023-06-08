@@ -46,7 +46,6 @@ function CollectibleCard({ collectible }: CollectibleCardProps) {
         width="100%"
         onLayout={handleLayout}
         position="relative"
-        shadow={6}
         rounded="md"
         overflow="hidden"
       >

@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid'
 import { ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 
-import { Collectible, CollectibleStatus } from '~types'
+import { Collectible, CollectibleStatus, Searchable } from '~types'
 
 import { db, storage } from '~firebase'
 
@@ -129,6 +129,17 @@ function CollectScene() {
         }
 
         await setDoc(doc(db, `collectibles/${id}`), collectible)
+
+        const searchable: Searchable = {
+          id,
+          name: safeName,
+          description: safeDescription,
+          userId: viewer.id,
+          createdAt: now,
+          updatedAt: now,
+        }
+
+        await setDoc(doc(db, `searchables/${id}`), searchable)
 
         router.push(`-/${id}`)
       })

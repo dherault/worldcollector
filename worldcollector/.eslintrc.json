@@ -61,6 +61,11 @@
             "position": "after"
           },
           {
+            "pattern": "~scripts/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "~data/**",
             "group": "internal",
             "position": "after"

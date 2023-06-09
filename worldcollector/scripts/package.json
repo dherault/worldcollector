@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-fake-data": "node ./create-fake-data.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ngneat/falso": "^6.4.0"
+  }
+}

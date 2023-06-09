@@ -36,12 +36,6 @@
     "owner": "dherault",
     "plugins": [
       [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow World Collector to access your camera."
-        }
-      ],
-      [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to create collectibles."

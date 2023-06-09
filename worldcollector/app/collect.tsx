@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid'
 import { ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 
-import { Collectible, CollectibleStatus, Searchable } from '~types'
+import { Collectible, Searchable } from '~types'
 
 import { db, storage } from '~firebase'
 
@@ -105,7 +105,7 @@ function CollectScene() {
       const response = await fetch(picture.uri)
       const blob = await response.blob()
 
-      const uploadTask = await uploadBytesResumable(ref(storage, `collectible-images/${id}`), blob)
+      const uploadTask = await uploadBytesResumable(ref(storage, `collectibles/${id}`), blob)
 
       uploadTask.task.on('state_changed', snapshot => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -122,7 +122,7 @@ function CollectScene() {
           description: safeDescription,
           ownerId: viewer.id,
           userId: viewer.id,
-          status: CollectibleStatus.pending,
+          status: 'pending',
           imageStoragePath: uploadTask.metadata.fullPath,
           createdAt: now,
           updatedAt: now,
@@ -132,6 +132,7 @@ function CollectScene() {
 
         const searchable: Searchable = {
           id,
+          type: 'collectible',
           name: safeName,
           description: safeDescription,
           userId: viewer.id,

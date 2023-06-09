@@ -186,6 +186,7 @@ function Authentication() {
         w="100%"
         value={password}
         onChangeText={setPassword}
+        onSubmitEditing={handleSignUp}
       />
       <HStack mt={2}>
         <Button

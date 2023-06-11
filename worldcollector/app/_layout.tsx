@@ -8,7 +8,6 @@ import { InstantSearch } from 'react-instantsearch-hooks-web'
 
 import TabBar from '~components/TabBar'
 import UserProvider from '~components/UserProvider'
-import WorldCollectorProviders from '~components/WorldCollectorProviders'
 
 import theme from '../src/theme'
 
@@ -16,11 +15,12 @@ if (typeof atob === 'undefined') {
   global.atob = decode
 }
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 console.log('process.env.ALGOLIA_APP_ID', process.env.ALGOLIA_APP_ID)
 
 const searchClient = algoliasearch(
-  process.env.ALGOLIA_APP_ID || 'T09Y7M6GOZ',
-  process.env.ALGOLIA_API_KEY || 'b563e3fa82ff3bacbdea9c369a2ea633'
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_API_KEY
 )
 
 function MainLayout() {
@@ -32,21 +32,19 @@ function MainLayout() {
           indexName="searchables"
         >
           <UserProvider>
-            <WorldCollectorProviders>
-              <Navigator>
-                <KeyboardAvoidingView
-                  flex={1}
-                  behavior="height"
-                  contentContainerStyle={{
-                    flexGrow: 1,
-                    position: 'relative',
-                  }}
-                >
-                  <Slot />
-                  <TabBar />
-                </KeyboardAvoidingView>
-              </Navigator>
-            </WorldCollectorProviders>
+            <Navigator>
+              <KeyboardAvoidingView
+                flex={1}
+                behavior="height"
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  position: 'relative',
+                }}
+              >
+                <Slot />
+                <TabBar />
+              </KeyboardAvoidingView>
+            </Navigator>
           </UserProvider>
         </InstantSearch>
       </NativeBaseProvider>

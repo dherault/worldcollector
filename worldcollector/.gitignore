@@ -17,4 +17,4 @@ web-build/
 .metro-health-check*
 emulator-data/current-export/
 scripts/output/fake-data.json
-.env*.local
+.env.development

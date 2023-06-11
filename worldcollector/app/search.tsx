@@ -1,26 +1,23 @@
-import { Box, Input, ScrollView } from 'native-base'
+import { useCallback, useRef } from 'react'
+import { Box } from 'native-base'
+
+import SearchBox from '~components/SearchBox'
+import SearchResults from '~components/SearchResults'
 
 function SearchScene() {
+  const listRef = useRef(null)
+
+  const scrollToTop = useCallback(() => {
+    listRef.current?.scrollToOffset({ animated: false, offset: 0 })
+  }, [])
+
   return (
     <Box
       safeAreaTop
       flex={1}
     >
-      <Input
-        px={4}
-        size="xl"
-        colorScheme="grey"
-        focusOutlineColor="grey.500"
-        autoFocus
-        variant="underlined"
-        placeholder="Start typing to search..."
-      />
-      <ScrollView
-        flex={1}
-        p={2}
-      >
-        <Box>Results</Box>
-      </ScrollView>
+      <SearchBox onChange={scrollToTop} />
+      <SearchResults ref={listRef} />
     </Box>
   )
 }

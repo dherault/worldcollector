@@ -25,14 +25,14 @@ const searchClient = algoliasearch(
 
 function MainLayout() {
   return (
-    <ActionSheetProvider>
-      <NativeBaseProvider theme={theme}>
-        <InstantSearch
-          searchClient={searchClient}
-          indexName="searchables"
-        >
-          <UserProvider>
-            <Navigator>
+    <Navigator>
+      <ActionSheetProvider>
+        <NativeBaseProvider theme={theme}>
+          <InstantSearch
+            searchClient={searchClient}
+            indexName="searchables"
+          >
+            <UserProvider>
               <KeyboardAvoidingView
                 flex={1}
                 behavior="height"
@@ -44,11 +44,11 @@ function MainLayout() {
                 <Slot />
                 <TabBar />
               </KeyboardAvoidingView>
-            </Navigator>
-          </UserProvider>
-        </InstantSearch>
-      </NativeBaseProvider>
-    </ActionSheetProvider>
+            </UserProvider>
+          </InstantSearch>
+        </NativeBaseProvider>
+      </ActionSheetProvider>
+    </Navigator>
   )
 }
 

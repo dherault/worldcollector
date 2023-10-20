@@ -1,23 +1,21 @@
-import { PropsWithChildren } from 'react'
-import { StyleSheet, ViewStyle } from 'react-native'
+import { type PressableProps, StyleSheet, type ViewStyle } from 'react-native'
 
 import Hoverable from '~components/Hoverable'
 
 import theme from '~theme'
 
-type TabBarIconProps = PropsWithChildren<{
+type TabBarIconProps = PressableProps & {
   active: boolean
-}>
+}
 
-function TabBarIcon({ children, active }: TabBarIconProps) {
+function TabBarIcon({ active, ...props }: TabBarIconProps) {
 
   return (
     <Hoverable
       style={active ? styles.rootActive : styles.root}
       hoverStyle={styles.rootHovered}
-    >
-      {children}
-    </Hoverable>
+      {...props}
+    />
   )
 }
 

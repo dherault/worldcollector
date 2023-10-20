@@ -74,7 +74,10 @@ function TabBar() {
             color={tab === TAB_SEARCH ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
-        <TabBarIcon active={homeTabs.includes(tab)}>
+        <TabBarIcon
+          active={homeTabs.includes(tab)}
+          onPress={() => handleNavigate('/')}
+        >
           <MaterialIcons
             name="home"
             size={24}
@@ -97,12 +100,14 @@ function TabBar() {
             color={tab === TAB_MARKETPLACE ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
-        <TabBarIcon active={tab === TAB_SETTINGS}>
+        <TabBarIcon
+          active={tab === TAB_SETTINGS}
+          onPress={() => handleNavigate('/settings')}
+        >
           <MaterialIcons
             name="settings"
             size={24}
             color={tab === TAB_SETTINGS ? theme.colors.grey[800] : theme.colors.grey[700]}
-            onPress={() => handleNavigate('/settings')}
           />
         </TabBarIcon>
         {/*

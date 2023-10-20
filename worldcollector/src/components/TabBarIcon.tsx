@@ -25,7 +25,7 @@ const baseStyle: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 8,
-  padding: 4,
+  padding: 8,
 } as const
 
 const styles = StyleSheet.create({

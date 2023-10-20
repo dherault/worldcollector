@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { usePathname, useRouter } from 'expo-router'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 // import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
@@ -69,28 +69,28 @@ function TabBar() {
         <TabBarIcon active={tab === TAB_SEARCH}>
           <MaterialIcons
             name="search"
-            size={28}
+            size={24}
             color={tab === TAB_SEARCH ? 'white' : theme.colors.grey[700]}
           />
         </TabBarIcon>
         <TabBarIcon active={homeTabs.includes(tab)}>
           <MaterialIcons
             name="home"
-            size={28}
+            size={24}
             color={homeTabs.includes(tab) ? 'white' : theme.colors.grey[700]}
           />
         </TabBarIcon>
         <TabBarIcon active={tab === TAB_MARKETPLACE}>
           <MaterialCommunityIcons
             name="home-switch"
-            size={28}
+            size={24}
             color={tab === TAB_MARKETPLACE ? 'white' : theme.colors.grey[700]}
           />
         </TabBarIcon>
         <TabBarIcon active={tab === TAB_SETTINGS}>
           <MaterialIcons
             name="settings"
-            size={28}
+            size={24}
             color={tab === TAB_SETTINGS ? 'white' : theme.colors.grey[700]}
           />
         </TabBarIcon>

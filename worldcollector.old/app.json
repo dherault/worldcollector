@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "World Collector",
-    "slug": "world-collector",
+    "slug": "worldcollector",
     "scheme": "worldcollector",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,20 +25,23 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "fd10d337-8f6d-490f-bff6-d91728766d32"
+        "projectId": "b29d610c-be88-4f1c-9de1-9b6b433e4a79"
       }
     },
     "owner": "dherault",
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to create collectibles."
+        }
+      ],
       "expo-router"
-    ],
-    "experiments": {
-      "tsconfigPaths": true
-    }
+    ]
   }
 }

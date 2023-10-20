@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, createContext } from 'react'
 
-import { User } from '~types'
+import { User } from '../types'
 
 export type ViewerContext = {
   viewer: User | null

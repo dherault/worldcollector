@@ -28,7 +28,7 @@ export const db = getFirestore(app)
 export const storage = getStorage(app)
 
 if (process.env.NODE_ENV === 'development') {
-  const origin = Constants.manifest.debuggerHost?.split(':').shift() || 'localhost'
+  const origin = Constants.expoConfig.hostUri?.split(':').shift() || 'localhost'
 
   connectAuthEmulator(authentication, `http://${origin}:9099`, { disableWarnings: true })
   connectFirestoreEmulator(db, origin, 8080)

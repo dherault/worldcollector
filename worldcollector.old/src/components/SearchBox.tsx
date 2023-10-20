@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { Input } from 'native-base'
-import { useSearchBox } from 'react-instantsearch-hooks'
+import { useSearchBox } from 'react-instantsearch-core'
 
 function SearchBox({ onChange }) {
   const { query, refine } = useSearchBox()

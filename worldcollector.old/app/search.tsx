@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react'
-import { Box } from 'native-base'
+import { Box, ScrollView } from 'native-base'
 
 import SearchBox from '~components/SearchBox'
 import SearchResults from '~components/SearchResults'
@@ -15,9 +15,15 @@ function SearchScene() {
     <Box
       safeAreaTop
       flex={1}
+      maxHeight="100%"
     >
-      <SearchBox onChange={scrollToTop} />
-      <SearchResults ref={listRef} />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        maxHeight="100%"
+      >
+        <SearchBox onChange={scrollToTop} />
+        <SearchResults ref={listRef} />
+      </ScrollView>
     </Box>
   )
 }

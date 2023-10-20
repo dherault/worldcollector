@@ -1,6 +1,6 @@
 import { forwardRef, useCallback } from 'react'
 import { Box, FlatList, Pressable, Text } from 'native-base'
-import { useInfiniteHits } from 'react-instantsearch-hooks'
+import { useInfiniteHits } from 'react-instantsearch-core'
 import { useRouter } from 'expo-router'
 
 function SearchResults(props, ref) {

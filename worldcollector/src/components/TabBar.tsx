@@ -1,10 +1,13 @@
-import { useCallback, useContext } from 'react'
-import { useNavigation, usePathname, useRouter } from 'expo-router'
-import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { HStack, Icon, IconButton } from 'native-base'
-import { NavigationActions, StackActions } from 'react-navigation'
+import { useCallback } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { usePathname, useRouter } from 'expo-router'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+// import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
-import ViewerContext from '~contexts/ViewerContext'
+// import ViewerContext from '~contexts/ViewerContext'
+import TabBarIcon from '~components/TabBarIcon'
+
+import theme from '~theme'
 
 const TAB_NONE = -1
 const TAB_HOME = 0
@@ -37,82 +40,61 @@ function getTab(pathname: string) {
 }
 
 function TabBar() {
-  const { viewer } = useContext(ViewerContext)
+  // const { viewer } = useContext(ViewerContext)
   const router = useRouter()
   const pathname = usePathname()
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   const tab = getTab(pathname)
 
   const handleNavigate = useCallback((givenPathname: string) => {
     if (givenPathname === pathname) {
-      navigation.dispatch(StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: '(home)' })],
-      }))
+      // navigation.dispatch(StackActions.reset({
+      //   index: 0,
+      //   actions: [NavigationActions.navigate({ routeName: '(home)' })],
+      // }))
 
       return
     }
 
     router.push(givenPathname)
-  }, [router, navigation, pathname])
+  }, [router, pathname])
 
   if (!includedTabs.includes(tab)) return null
-  if (!viewer) return null
+  // if (!viewer) return null
 
   return (
-    <HStack
-      justifyContent="center"
-      position="absolute"
-      bottom={0}
-      left={0}
-      right={0}
-    >
-      <HStack
-        rounded="xl"
-        bg="grey.100"
-        shadow={4}
-        py={2}
-        px={4}
-        mx={4}
-        mb={8}
-        justifyContent="center"
-      >
-        <IconButton
-          mr={2}
-          bg={tab === TAB_SEARCH ? 'grey.200' : 'transparent'}
-          _hover={{
-            bg: 'grey.600:alpha.20',
-          }}
-          colorScheme="grey"
-          rounded="xl"
-          icon={(
-            <Icon
-              size="lg"
-              as={MaterialIcons}
-              name="search"
-              color={tab === TAB_SEARCH ? 'brand.500' : 'grey.500'}
-            />
-          )}
-          onPress={() => handleNavigate('/search')}
-        />
-        <IconButton
-          bg={homeTabs.includes(tab) ? 'grey.200' : 'transparent'}
-          _hover={{
-            bg: 'grey.600:alpha.20',
-          }}
-          colorScheme="grey"
-          rounded="xl"
-          icon={(
-            <Icon
-              size="lg"
-              as={MaterialIcons}
-              name="home"
-              color={homeTabs.includes(tab) ? 'brand.500' : 'grey.500'}
-            />
-          )}
-          onPress={() => handleNavigate('/')}
-        />
+    <View style={styles.root}>
+      <View style={styles.main}>
+        <TabBarIcon active={tab === TAB_SEARCH}>
+          <MaterialIcons
+            name="search"
+            size={28}
+            color={tab === TAB_SEARCH ? 'white' : theme.colors.grey[700]}
+          />
+        </TabBarIcon>
+        <TabBarIcon active={homeTabs.includes(tab)}>
+          <MaterialIcons
+            name="home"
+            size={28}
+            color={homeTabs.includes(tab) ? 'white' : theme.colors.grey[700]}
+          />
+        </TabBarIcon>
+        <TabBarIcon active={tab === TAB_MARKETPLACE}>
+          <MaterialCommunityIcons
+            name="home-switch"
+            size={28}
+            color={tab === TAB_MARKETPLACE ? 'white' : theme.colors.grey[700]}
+          />
+        </TabBarIcon>
+        <TabBarIcon active={tab === TAB_SETTINGS}>
+          <MaterialIcons
+            name="settings"
+            size={28}
+            color={tab === TAB_SETTINGS ? 'white' : theme.colors.grey[700]}
+          />
+        </TabBarIcon>
+        {/*
         <IconButton
           mx={2}
           py={1}
@@ -133,23 +115,6 @@ function TabBar() {
           onPress={() => handleNavigate('/collect')}
         />
         <IconButton
-          bg={tab === TAB_MARKETPLACE ? 'grey.200' : 'transparent'}
-          _hover={{
-            bg: 'grey.600:alpha.20',
-          }}
-          colorScheme="grey"
-          rounded="xl"
-          icon={(
-            <Icon
-              size="lg"
-              as={MaterialCommunityIcons}
-              name="home-switch"
-              color={tab === TAB_MARKETPLACE ? 'brand.500' : 'grey.500'}
-            />
-          )}
-          onPress={() => handleNavigate('/marketplace')}
-        />
-        <IconButton
           ml={2}
           bg={tab === TAB_SETTINGS ? 'grey.200' : 'transparent'}
           _hover={{
@@ -166,10 +131,37 @@ function TabBar() {
             />
           )}
           onPress={() => handleNavigate('/settings')}
-        />
-      </HStack>
-    </HStack>
+        /> */}
+      </View>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    // flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  main: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 16,
+    borderRadius: 8,
+    backgroundColor: theme.colors.grey[200],
+    elevation: 4,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginBottom: 24,
+    // marginHorizontal: 'auto',
+    // alignSelf: 'center',
+  },
+})
 
 export default TabBar

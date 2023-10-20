@@ -4,7 +4,7 @@ import { Navigator, Slot } from 'expo-router'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { decode } from 'base-64'
 import algoliasearch from 'algoliasearch/lite'
-import { InstantSearch } from 'react-instantsearch-hooks-web'
+import { InstantSearch } from 'react-instantsearch-core'
 
 import TabBar from '~components/TabBar'
 import UserProvider from '~components/UserProvider'

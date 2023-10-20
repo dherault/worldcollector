@@ -67,7 +67,10 @@ function TabBar() {
   return (
     <View style={styles.root}>
       <View style={styles.main}>
-        <TabBarIcon active={tab === TAB_SEARCH}>
+        <TabBarIcon
+          active={tab === TAB_SEARCH}
+          onPress={() => handleNavigate('/search')}
+        >
           <MaterialIcons
             name="search"
             size={24}
@@ -85,7 +88,7 @@ function TabBar() {
           />
         </TabBarIcon>
         <View style={styles.plusContainer}>
-          <TabBarIconRounded>
+          <TabBarIconRounded onPress={() => handleNavigate('/collect')}>
             <MaterialCommunityIcons
               name="plus"
               size={32}
@@ -93,7 +96,10 @@ function TabBar() {
             />
           </TabBarIconRounded>
         </View>
-        <TabBarIcon active={tab === TAB_MARKETPLACE}>
+        <TabBarIcon
+          active={tab === TAB_MARKETPLACE}
+          onPress={() => handleNavigate('/marketplace')}
+        >
           <MaterialCommunityIcons
             name="home-switch"
             size={24}

@@ -1,12 +1,12 @@
-import { PropsWithChildren, useState } from 'react'
-import { Pressable, ViewStyle } from 'react-native'
+import { useState } from 'react'
+import { Pressable, PressableProps, type ViewStyle } from 'react-native'
 
-type HoverableProps = PropsWithChildren<{
+type HoverableProps = PressableProps & {
   style: ViewStyle
   hoverStyle: ViewStyle
-}>
+}
 
-function Hoverable({ children, style, hoverStyle }: HoverableProps) {
+function Hoverable({ children, style, hoverStyle, ...props }: HoverableProps) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -14,6 +14,7 @@ function Hoverable({ children, style, hoverStyle }: HoverableProps) {
       style={hovered ? hoverStyle : style}
       onTouchStart={() => setHovered(true)}
       onTouchEnd={() => setHovered(false)}
+      {...props}
     >
       {children}
     </Pressable>

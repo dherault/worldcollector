@@ -48,18 +48,18 @@ function TabBar() {
 
   const tab = getTab(pathname)
 
-  const handleNavigate = useCallback((givenPathname: string) => {
-    if (givenPathname === pathname) {
-      // navigation.dispatch(StackActions.reset({
-      //   index: 0,
-      //   actions: [NavigationActions.navigate({ routeName: '(home)' })],
-      // }))
+  const handleNavigate = useCallback((to: string) => {
+    // if (givenPathname === pathname) {
+    //   // navigation.dispatch(StackActions.reset({
+    //   //   index: 0,
+    //   //   actions: [NavigationActions.navigate({ routeName: '(home)' })],
+    //   // }))
 
-      return
-    }
+    //   return
+    // }
 
-    router.push(givenPathname)
-  }, [router, pathname])
+    router.push(to)
+  }, [router])
 
   if (!includedTabs.includes(tab)) return null
   // if (!viewer) return null
@@ -102,6 +102,7 @@ function TabBar() {
             name="settings"
             size={24}
             color={tab === TAB_SETTINGS ? theme.colors.grey[800] : theme.colors.grey[700]}
+            onPress={() => handleNavigate('/settings')}
           />
         </TabBarIcon>
         {/*
@@ -150,9 +151,6 @@ function TabBar() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
@@ -169,8 +167,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     marginBottom: 24,
-    // marginHorizontal: 'auto',
-    // alignSelf: 'center',
   },
   plusContainer: {
     marginHorizontal: 8,

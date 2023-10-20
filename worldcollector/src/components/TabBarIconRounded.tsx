@@ -5,15 +5,13 @@ import Hoverable from '~components/Hoverable'
 
 import theme from '~theme'
 
-type TabBarIconProps = PropsWithChildren<{
-  active: boolean
-}>
+type TabBarIconRoundedProps = PropsWithChildren
 
-function TabBarIcon({ children, active }: TabBarIconProps) {
+function TabBarIconRounded({ children }: TabBarIconRoundedProps) {
 
   return (
     <Hoverable
-      style={active ? styles.rootActive : styles.root}
+      style={styles.root}
       hoverStyle={styles.rootHovered}
     >
       {children}
@@ -24,21 +22,17 @@ function TabBarIcon({ children, active }: TabBarIconProps) {
 const baseStyle: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 8,
-  paddingHorizontal: 12,
-  paddingVertical: 8,
+  borderRadius: 24,
+  padding: 8,
+  backgroundColor: theme.colors.red[500],
 } as const
 
 const styles = StyleSheet.create({
   root: baseStyle,
-  rootActive: {
-    ...baseStyle,
-    backgroundColor: theme.colors.grey[200],
-  },
   rootHovered: {
     ...baseStyle,
-    backgroundColor: theme.colors.grey[300],
+    backgroundColor: theme.colors.red[600],
   },
 })
 
-export default TabBarIcon
+export default TabBarIconRounded

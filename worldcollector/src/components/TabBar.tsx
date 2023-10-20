@@ -6,6 +6,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
 // import ViewerContext from '~contexts/ViewerContext'
 import TabBarIcon from '~components/TabBarIcon'
+import TabBarIconRounded from '~components/TabBarIconRounded'
 
 import theme from '~theme'
 
@@ -70,28 +71,37 @@ function TabBar() {
           <MaterialIcons
             name="search"
             size={24}
-            color={tab === TAB_SEARCH ? 'white' : theme.colors.grey[700]}
+            color={tab === TAB_SEARCH ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
         <TabBarIcon active={homeTabs.includes(tab)}>
           <MaterialIcons
             name="home"
             size={24}
-            color={homeTabs.includes(tab) ? 'white' : theme.colors.grey[700]}
+            color={homeTabs.includes(tab) ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
+        <View style={styles.plusContainer}>
+          <TabBarIconRounded>
+            <MaterialCommunityIcons
+              name="plus"
+              size={32}
+              color="white"
+            />
+          </TabBarIconRounded>
+        </View>
         <TabBarIcon active={tab === TAB_MARKETPLACE}>
           <MaterialCommunityIcons
             name="home-switch"
             size={24}
-            color={tab === TAB_MARKETPLACE ? 'white' : theme.colors.grey[700]}
+            color={tab === TAB_MARKETPLACE ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
         <TabBarIcon active={tab === TAB_SETTINGS}>
           <MaterialIcons
             name="settings"
             size={24}
-            color={tab === TAB_SETTINGS ? 'white' : theme.colors.grey[700]}
+            color={tab === TAB_SETTINGS ? theme.colors.grey[800] : theme.colors.grey[700]}
           />
         </TabBarIcon>
         {/*
@@ -152,15 +162,18 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     flexDirection: 'row',
-    gap: 16,
+    gap: 8,
     borderRadius: 8,
-    backgroundColor: theme.colors.grey[200],
+    backgroundColor: theme.colors.grey[100],
     elevation: 4,
     paddingVertical: 8,
     paddingHorizontal: 16,
     marginBottom: 24,
     // marginHorizontal: 'auto',
     // alignSelf: 'center',
+  },
+  plusContainer: {
+    marginHorizontal: 8,
   },
 })
 

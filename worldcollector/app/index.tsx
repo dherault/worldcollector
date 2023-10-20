@@ -1,9 +1,9 @@
 import React, { Text } from 'react-native'
 
-function Page() {
+function HomeScene() {
   return (
     <Text>Home page</Text>
   )
 }
 
-export default Page
+export default HomeScene

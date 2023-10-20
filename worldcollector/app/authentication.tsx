@@ -16,7 +16,7 @@ import Button from '~components/Button'
 
 import theme from '~theme'
 
-function Page() {
+function AuthenticationScene() {
   const { viewer, setViewer } = useContext(ViewerContext)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
@@ -332,4 +332,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Page
+export default AuthenticationScene

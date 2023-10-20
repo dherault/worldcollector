@@ -1,5 +1,6 @@
 import { Slot } from 'expo-router'
 import { SafeAreaView, StyleSheet } from 'react-native'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 import TabBar from '~components/TabBar'
 import UserProvider from '~components/UserProvider'
@@ -8,12 +9,14 @@ import '~firebase'
 
 function Layout() {
   return (
-    <UserProvider>
-      <SafeAreaView style={styles.safeAreaView}>
-        <Slot />
-        <TabBar />
-      </SafeAreaView>
-    </UserProvider>
+    <ActionSheetProvider>
+      <UserProvider>
+        <SafeAreaView style={styles.safeAreaView}>
+          <Slot />
+          <TabBar />
+        </SafeAreaView>
+      </UserProvider>
+    </ActionSheetProvider>
   )
 }
 

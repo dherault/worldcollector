@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 
 import Heading from '~components/Heading'
 
-function SettingsScene() {
+function MarketplaceScene() {
   return (
     <View style={styles.root}>
       <Heading>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SettingsScene
+export default MarketplaceScene

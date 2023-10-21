@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useRouter } from 'expo-router'
+import { Image } from 'expo-image'
 import { validate as validateEmail } from 'email-validator'
 
 import { User } from '~types'
@@ -263,6 +264,10 @@ function AuthenticationScene() {
 
   return (
     <View style={styles.root}>
+      <Image
+        source={require('../assets/images/logo.png')}
+        style={styles.logo}
+      />
       <Text style={styles.header}>
         Welcome, collector!
       </Text>
@@ -301,6 +306,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 32,
     paddingHorizontal: 16,
+  },
+  logo: {
+    width: 128,
+    height: 128,
+    marginBottom: 32,
   },
   header: {
     fontSize: 24,

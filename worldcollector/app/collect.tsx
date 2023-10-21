@@ -174,128 +174,119 @@ function CollectScene() {
   }, [name, description, picture, viewer, router])
 
   return (
-    <KeyboardAvoidingView
-      enabled
-      behavior="padding"
-      style={styles.root}
-    >
-      <ScrollView>
-        <View style={styles.container}>
-          <HeadingLarge>
-            Collect
-          </HeadingLarge>
-          <Heading style={styles.headingRed}>
-            1
-          </Heading>
-          <Heading>
-            Name your collectible
-          </Heading>
-          <Text style={styles.textInfo}>
-            It must be unique, make sure to check its unicity using the search function first.
-          </Text>
-          <TextInput
-            value={name}
-            onChangeText={setName}
-            placeholder="The Statue of Liberty"
-            style={styles.input}
-          />
-          <Heading style={styles.headingRed}>
-            2
-          </Heading>
-          <Heading>
-            Describe it
-          </Heading>
-          <Text style={styles.textInfo}>
-            Be clear and consise.
-          </Text>
-          <TextInput
-            multiline
-            numberOfLines={3}
-            value={description}
-            onChangeText={setDescription}
-            placeholder="A colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States."
-            style={styles.input}
-          />
-          <Heading style={styles.headingRed}>
-            3
-          </Heading>
-          <Heading>
-            Add a picture
-          </Heading>
-          <Text style={styles.textInfo}>
-            Make sure it represents your collectible well.
-          </Text>
-          <View style={styles.marginTop}>
-            {picture ? (
-              <>
-                <Image
-                  source={{ uri: picture?.uri }}
-                  alt="Picture preview"
-                  style={styles.image}
-                />
-                <Text
-                  onPress={handlePictureStart}
-                  style={styles.reset}
-                >
-                  Reset picture
-                </Text>
-              </>
-            ) : !loading && (
-              <ButtonPrimaryLarge onPress={handlePictureStart}>
-                Choose or take photo
-              </ButtonPrimaryLarge>
-            )}
-          </View>
-          <View style={styles.grow} />
-          <View style={styles.buttonSubmit}>
-            {!loading && (
-              <ButtonPrimaryLarge onPress={handleSubmit}>
-                Add it to my collection!
-              </ButtonPrimaryLarge>
-            )}
-            {loading && (
-              <ActivityIndicator />
-            )}
-          </View>
-          {nameError && (
-            <Text style={styles.textError}>
-              {nameError}
-            </Text>
-          )}
-          {descriptionError && (
-            <Text style={styles.textError}>
-              {descriptionError}
-            </Text>
-          )}
-          {pictureError && (
-            <Text style={styles.textError}>
-              {pictureError}
-            </Text>
-          )}
-          {error && (
-            <Text style={styles.textError}>
-              An error occured, please try again.
-            </Text>
-          )}
-          <View style={styles.close}>
-            <ButtonIcon onPress={handleClose}>
-              <MaterialIcons
-                name="close"
-                size={24}
-                color="black"
+    <ScrollView>
+      <View style={styles.container}>
+        <HeadingLarge>
+          Collect
+        </HeadingLarge>
+        <Heading style={styles.headingRed}>
+          1
+        </Heading>
+        <Heading>
+          Name your collectible
+        </Heading>
+        <Text style={styles.textInfo}>
+          It must be unique, make sure to check its unicity using the search function first.
+        </Text>
+        <TextInput
+          value={name}
+          onChangeText={setName}
+          placeholder="The Statue of Liberty"
+          style={styles.input}
+        />
+        <Heading style={styles.headingRed}>
+          2
+        </Heading>
+        <Heading>
+          Describe it
+        </Heading>
+        <Text style={styles.textInfo}>
+          Be clear and consise.
+        </Text>
+        <TextInput
+          multiline
+          numberOfLines={3}
+          value={description}
+          onChangeText={setDescription}
+          placeholder="A colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States."
+          style={styles.input}
+        />
+        <Heading style={styles.headingRed}>
+          3
+        </Heading>
+        <Heading>
+          Add a picture
+        </Heading>
+        <Text style={styles.textInfo}>
+          Make sure it represents your collectible well.
+        </Text>
+        <View style={styles.marginTop}>
+          {picture ? (
+            <>
+              <Image
+                source={{ uri: picture?.uri }}
+                alt="Picture preview"
+                style={styles.image}
               />
-            </ButtonIcon>
-          </View>
+              <Text
+                onPress={handlePictureStart}
+                style={styles.reset}
+              >
+                Reset picture
+              </Text>
+            </>
+          ) : !loading && (
+            <ButtonPrimaryLarge onPress={handlePictureStart}>
+              Choose or take photo
+            </ButtonPrimaryLarge>
+          )}
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <View style={styles.grow} />
+        <View style={styles.buttonSubmit}>
+          {!loading && (
+            <ButtonPrimaryLarge onPress={handleSubmit}>
+              Add it to my collection!
+            </ButtonPrimaryLarge>
+          )}
+          {loading && (
+            <ActivityIndicator />
+          )}
+        </View>
+        {nameError && (
+          <Text style={styles.textError}>
+            {nameError}
+          </Text>
+        )}
+        {descriptionError && (
+          <Text style={styles.textError}>
+            {descriptionError}
+          </Text>
+        )}
+        {pictureError && (
+          <Text style={styles.textError}>
+            {pictureError}
+          </Text>
+        )}
+        {error && (
+          <Text style={styles.textError}>
+            An error occured, please try again.
+          </Text>
+        )}
+        <View style={styles.close}>
+          <ButtonIcon onPress={handleClose}>
+            <MaterialIcons
+              name="close"
+              size={24}
+              color="black"
+            />
+          </ButtonIcon>
+        </View>
+      </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flexGrow: 1,
-  },
   container: {
     position: 'relative',
     paddingTop: 16,

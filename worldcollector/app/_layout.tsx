@@ -1,3 +1,4 @@
+import 'react-native-get-random-values' // Crypto polyfill
 import { Slot } from 'expo-router'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { SafeAreaProvider } from 'react-native-safe-area-context'

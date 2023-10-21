@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderBottomColor: theme.colors.grey[100],
     borderBottomWidth: 1,
-    borderBottStyle: 'solid',
+    borderBottomStyle: 'solid',
   },
 })
 

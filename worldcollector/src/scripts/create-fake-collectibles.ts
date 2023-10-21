@@ -7,7 +7,7 @@ import { Collectible, Searchable, User } from '~types'
 
 import { authentication, db, storage } from '~firebase'
 
-import fakeData from '~data/fake-data.json'
+import fakeData from './output/fake-data.json'
 
 const N_USERS = 24
 const N_COLLECTIBLES = 256

@@ -37,6 +37,7 @@ const baseRootStyle: ViewStyle = {
 const baseTextStyle: TextStyle = {
   paddingVertical: 8,
   paddingHorizontal: 16,
+  fontSize: 16,
 }
 
 const styles = StyleSheet.create({

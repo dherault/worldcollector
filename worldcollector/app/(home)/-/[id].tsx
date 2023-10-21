@@ -1,24 +1,12 @@
-import { Text } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 
-import type { Collectible } from '~types'
-
-import useQuery from '~hooks/useQuery'
-
-import FullScreenSpinner from '~components/FullScreenSpinner'
+import CollectibleProfile from '~components/CollectibleProfile'
 
 function CollectibleScene() {
-  const { id } = useLocalSearchParams()
-  const { data: collectible, loading } = useQuery<Collectible>('collectibles', id as string)
-
-  if (loading) return <FullScreenSpinner />
+  const { id } = useLocalSearchParams<{ id: string }>()
 
   return (
-    <Text>
-      Collectible
-      {' '}
-      {JSON.stringify(collectible, null, 2)}
-    </Text>
+    <CollectibleProfile collectibleId={id} />
   )
 }
 

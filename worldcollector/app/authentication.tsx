@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useRouter } from 'expo-router'
@@ -14,6 +14,8 @@ import ViewerContext from '~contexts/ViewerContext'
 
 import TextInput from '~components/TextInput'
 import Button from '~components/Button'
+import TextInputLabel from '~components/TextInputLabel'
+import Heading from '~components/Heading'
 
 import theme from '~theme'
 
@@ -25,6 +27,7 @@ function AuthenticationScene() {
   const [existingName, setExistingName] = useState('')
   const [name, setUserName] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [nameError, setNameError] = useState('')
@@ -91,6 +94,12 @@ function AuthenticationScene() {
       hasError = true
     }
 
+    if (password && password !== passwordConfirmation) {
+      setPasswordError('Passwords do not match')
+
+      hasError = true
+    }
+
     if (hasError) return
 
     setLoading(true)
@@ -123,7 +132,13 @@ function AuthenticationScene() {
     await setDoc(doc(db, 'users', id), user)
 
     setViewer(user)
-  }, [email, name, password, setViewer])
+  }, [
+    email,
+    name,
+    password,
+    passwordConfirmation,
+    setViewer,
+  ])
 
   const handleSignIn = useCallback(async () => {
     let id = ''
@@ -150,16 +165,24 @@ function AuthenticationScene() {
     catch (error) {
       console.log(error)
     }
-  }, [email, password, setViewer])
+  }, [
+    email,
+    password,
+    setViewer,
+  ])
 
   const renderEmailPrompt = useCallback(() => (
     <>
       <Text style={styles.infoText}>
         Please enter your email to log in or sign up:
       </Text>
+      <TextInputLabel>
+        Email:
+      </TextInputLabel>
       <TextInput
         autoFocus
-        placeholder="Email"
+        autoCorrect={false}
+        placeholder="you@example.com"
         keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
@@ -176,27 +199,45 @@ function AuthenticationScene() {
         )}
       </View>
     </>
-  ), [email, handleCheckEmail, loading])
+  ), [
+    email,
+    handleCheckEmail,
+    loading,
+  ])
 
   const renderSignUp = useCallback(() => (
     <>
       <Text style={styles.infoText}>
         New here? Sign up!
       </Text>
+      <TextInputLabel>
+        User name:
+      </TextInputLabel>
       <TextInput
-        placeholder="User name"
+        autoCorrect={false}
         value={name}
         onChangeText={setUserName}
+        placeholder="eg: CoolCollector, Myself007, ..."
       />
-      <View style={styles.input}>
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          onSubmitEditing={handleSignUp}
-        />
-      </View>
+      <TextInputLabel style={styles.marginTop}>
+        Password:
+      </TextInputLabel>
+      <TextInput
+        secureTextEntry
+        placeholder="Choose a strong password"
+        value={password}
+        onChangeText={setPassword}
+      />
+      <TextInputLabel style={styles.marginTop}>
+        Password confirmation:
+      </TextInputLabel>
+      <TextInput
+        secureTextEntry
+        placeholder="Repeat your password"
+        value={passwordConfirmation}
+        onChangeText={setPasswordConfirmation}
+        onSubmitEditing={handleSignUp}
+      />
       <View style={styles.marginTop}>
         {loading && (
           <ActivityIndicator />
@@ -216,7 +257,14 @@ function AuthenticationScene() {
         )}
       </View>
     </>
-  ), [name, password, loading, handleReset, handleSignUp])
+  ), [
+    name,
+    password,
+    passwordConfirmation,
+    loading,
+    handleReset,
+    handleSignUp,
+  ])
 
   const renderSignIn = useCallback(() => (
     <>
@@ -254,7 +302,13 @@ function AuthenticationScene() {
         )}
       </View>
     </>
-  ), [existingName, password, loading, handleReset, handleSignIn])
+  ), [
+    existingName,
+    password,
+    loading,
+    handleReset,
+    handleSignIn,
+  ])
 
   useEffect(() => {
     if (!viewer) return
@@ -263,14 +317,16 @@ function AuthenticationScene() {
   }, [viewer, router])
 
   return (
-    <View style={styles.root}>
+    <ScrollView
+      contentContainerStyle={styles.rootContainer}
+    >
       <Image
         source={require('../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.header}>
+      <Heading style={styles.heading}>
         Welcome, collector!
-      </Text>
+      </Heading>
       {!continued && renderEmailPrompt()}
       {continued && !existingName && renderSignUp()}
       {continued && existingName && renderSignIn()}
@@ -296,38 +352,32 @@ function AuthenticationScene() {
           </Text>
         )}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
+  rootContainer: {
     alignItems: 'center',
-    paddingVertical: 32,
-    paddingHorizontal: 16,
+    paddingHorizontal: 32,
+    paddingTop: 32,
   },
   logo: {
     width: 128,
     height: 128,
     marginBottom: 32,
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  heading: {
     textAlign: 'center',
     marginBottom: 32,
   },
   infoText: {
     textAlign: 'center',
     marginBottom: 16,
+    fontSize: 16,
   },
   errorText: {
     color: theme.colors.red[500],
-  },
-  input: {
-    marginTop: 16,
-    width: '100%',
   },
   row: {
     display: 'flex',

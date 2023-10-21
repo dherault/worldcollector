@@ -155,7 +155,7 @@ function AuthenticationScene() {
   const renderEmailPrompt = useCallback(() => (
     <>
       <Text style={styles.infoText}>
-        Please enter your email to sign in or sign up:
+        Please enter your email to log in or sign up:
       </Text>
       <TextInput
         autoFocus

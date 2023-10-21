@@ -20,5 +20,8 @@
       "enabled": true
     },
     "singleProjectMode": true
+  },
+  "extensions": {
+    "firestore-algolia-search": "algolia/firestore-algolia-search@1.1.3"
   }
 }

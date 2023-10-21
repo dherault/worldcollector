@@ -51,8 +51,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 16,
     alignItems: 'center',
-    // maxHeight: '100%',
-    // paddingBottom: 64,
   },
   image: {
     backgroundColor: theme.colors.red[500],

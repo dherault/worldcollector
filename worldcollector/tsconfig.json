@@ -4,7 +4,7 @@
     "baseUrl": "./src",
     "paths": {
       "~types": ["types.ts"],
-      "~theme": ["theme"],
+      "~theme": ["theme.ts"],
       "~constants": ["constants.ts"],
       "~firebase": ["firebase.ts"],
       "~contexts/*": ["contexts/*"],

@@ -1,8 +1,16 @@
-import React, { Text } from 'react-native'
+import { useContext } from 'react'
+
+import ViewerContext from '~contexts/ViewerContext'
+
+import UserProfile from '~components/UserProfile'
 
 function HomeScene() {
+  const { viewer } = useContext(ViewerContext)
+
+  if (!viewer) return null
+
   return (
-    <Text>Home page</Text>
+    <UserProfile userId={viewer.id} />
   )
 }
 

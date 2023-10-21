@@ -19,6 +19,7 @@ function CollectiblesList({ collectibles }: CollectiblesListProps) {
           <CollectibleCard collectible={collectible} />
         </View>
       ))}
+      <View style={styles.paddingBottom} />
     </ScrollView>
   )
 }
@@ -27,10 +28,14 @@ const styles = StyleSheet.create({
   root: {
     width: '100%',
     paddingHorizontal: 16,
+    paddingTop: 16,
   },
   container: {
     width: '100%',
     marginBottom: 32,
+  },
+  paddingBottom: {
+    height: 64 + 32,
   },
 })
 

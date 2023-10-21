@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 16,
     alignItems: 'center',
-    overflow: 'hidden',
-    maxHeight: '100%',
+    // maxHeight: '100%',
+    // paddingBottom: 64,
   },
   image: {
     backgroundColor: theme.colors.red[500],
@@ -63,12 +63,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginTop: 8,
-    marginBottom: 32,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 16,
-    width: '100%',
+    marginBottom: 16,
   },
 })
 

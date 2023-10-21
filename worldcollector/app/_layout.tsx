@@ -1,30 +1,26 @@
-import 'react-native-get-random-values' // Crypto polyfill
-import { SafeAreaView, StyleSheet } from 'react-native'
 import { Slot } from 'expo-router'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import TabBar from '~components/TabBar'
 import UserProvider from '~components/UserProvider'
+import Layout from '~components/Layout'
+import TabBar from '~components/TabBar'
 
 import '~firebase'
 
-function Layout() {
+function RootLayout() {
   return (
-    <ActionSheetProvider>
-      <UserProvider>
-        <SafeAreaView style={styles.safeAreaView}>
-          <Slot />
-          <TabBar />
-        </SafeAreaView>
-      </UserProvider>
-    </ActionSheetProvider>
+    <SafeAreaProvider>
+      <ActionSheetProvider>
+        <UserProvider>
+          <Layout>
+            <Slot />
+            <TabBar />
+          </Layout>
+        </UserProvider>
+      </ActionSheetProvider>
+    </SafeAreaProvider>
   )
 }
 
-const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-  },
-})
-
-export default Layout
+export default RootLayout

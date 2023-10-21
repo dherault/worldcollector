@@ -8,6 +8,8 @@ import type { Collectible } from '~types'
 
 import { storage } from '~firebase'
 
+import CollectibleCartouche from '~components/CollectibleCartouche'
+
 type CollectibleCardProps = {
   collectible: Collectible
 }
@@ -67,6 +69,9 @@ function CollectibleCard({ collectible }: CollectibleCardProps) {
           source={require('../../assets/images/frames/frame-gold-bottom.png')}
           style={[styles.imageVertical, { height: width * TOP_BOTTOM_RATIO }]}
         />
+        <View style={styles.cartouche}>
+          <CollectibleCartouche collectible={collectible} />
+        </View>
       </View>
     </Pressable>
   )
@@ -104,7 +109,12 @@ const styles = StyleSheet.create({
   imageHorizontal: {
     height: '100%',
   },
-
+  cartouche: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 16,
+    marginHorizontal: 16,
+  },
 })
 
 export default CollectibleCard

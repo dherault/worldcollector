@@ -21,6 +21,7 @@ import theme from '~theme'
 
 function AuthenticationScene() {
   const { viewer, setViewer } = useContext(ViewerContext)
+
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
@@ -32,6 +33,7 @@ function AuthenticationScene() {
   const [passwordError, setPasswordError] = useState('')
   const [nameError, setNameError] = useState('')
   const [error, setError] = useState(false)
+
   const router = useRouter()
 
   const handleReset = useCallback(() => {

@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { Image } from 'expo-image'
 import { collection, query, where } from 'firebase/firestore'
 
 import type { Collectible } from '~types'
@@ -21,6 +22,8 @@ type UserProfileProps = {
   userId: string
 }
 
+const EMPTY_IMAGE_RATIO = 691 / 756
+
 function UserProfile({ userId }: UserProfileProps) {
   const { viewer } = useContext(ViewerContext)
 
@@ -30,18 +33,49 @@ function UserProfile({ userId }: UserProfileProps) {
 
   const { data: collectibles, loading: collectiblesLoading } = useArrayQuery<Collectible>(collectiblesQuery)
 
-  const user = useMemo(() => userId === viewer?.id ? viewer : null, [userId, viewer])
+  const isViewer = userId === viewer?.id
+  const user = useMemo(() => isViewer ? viewer : null, [isViewer, viewer])
 
-  if (userLoading || collectiblesLoading) return <FullScreenSpinner />
   if (!user) return <FullScreenNotFound />
+  if (userLoading || collectiblesLoading) return <FullScreenSpinner />
 
   return (
     <View style={styles.root}>
-      <View style={styles.image} />
+      <Image
+        source={require('../../assets/images/logo.png')}
+        style={styles.image}
+      />
       <Heading style={styles.title}>
         {user.name}
       </Heading>
-      <CollectiblesList collectibles={collectibles} />
+      {!!collectibles.length && (
+        <CollectiblesList collectibles={collectibles} />
+      )}
+      {!collectibles.length && (
+        <Text>
+          {isViewer ? 'Your' : 'This'}
+          {' '}
+          collection is empty.
+        </Text>
+      )}
+      {!collectibles.length && isViewer && (
+        <>
+          <View style={styles.emptyContainer}>
+            <Image
+              source={require('../../assets/images/beach.svg')}
+              style={styles.emptyImage}
+            />
+          </View>
+          <View style={styles.tooltipContainer}>
+            <View style={styles.tooltip}>
+              <Text style={styles.tooltipText}>
+                Start collecting!
+              </Text>
+            </View>
+            <View style={styles.arrow} />
+          </View>
+        </>
+      )}
     </View>
   )
 }
@@ -51,17 +85,56 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 16,
     alignItems: 'center',
+    maxHeight: '100%',
   },
   image: {
-    backgroundColor: theme.colors.red[500],
     width: 64,
     height: 64,
-    borderRadius: 32,
   },
   title: {
     textAlign: 'center',
     marginTop: 8,
     marginBottom: 16,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 128 + 32,
+  },
+  emptyImage: {
+    width: (256 - 64),
+    height: (256 - 64) / EMPTY_IMAGE_RATIO,
+  },
+  tooltipContainer: {
+    position: 'absolute',
+    bottom: 64 + 32,
+    left: 0,
+    right: 0,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  tooltip: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.red[500],
+    borderRadius: 4,
+  },
+  tooltipText: {
+    color: 'white',
+  },
+  arrow: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 6,
+    borderRightWidth: 6,
+    borderBottomWidth: 6,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'red',
+    transform: [{ rotate: '180deg' }],
   },
 })
 

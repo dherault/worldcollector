@@ -10,17 +10,18 @@ import Hoverable from '~components/Hoverable'
 
 import theme from '~theme'
 
-type ButtonProps = Omit<PressableProps, 'children'> & {
+type ButtonProps = Omit<PressableProps, 'children' | 'style'> & {
   children: string
   variant?: 'ghost' | 'contained'
+  style?: ViewStyle
 }
 
-function Button({ children, variant = 'contained', ...props }: ButtonProps) {
+function Button({ children, style, variant = 'contained', ...props }: ButtonProps) {
   return (
     <Hoverable
       {...props}
-      style={variant === 'ghost' ? styles.rootGhost : styles.rootContained}
-      hoverStyle={variant === 'ghost' ? styles.rootGhostHover : styles.rootContainedHover}
+      style={[variant === 'ghost' ? styles.rootGhost : styles.rootContained, style]}
+      styleHover={[variant === 'ghost' ? styles.rootGhostHover : styles.rootContainedHover, style]}
     >
       <Text style={variant === 'ghost' ? styles.textGhost : styles.textContained}>
         {children}

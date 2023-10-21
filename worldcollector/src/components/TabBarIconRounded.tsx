@@ -9,7 +9,7 @@ function TabBarIconRounded(props: PressableProps) {
   return (
     <Hoverable
       style={styles.root}
-      hoverStyle={styles.rootHovered}
+      styleHover={styles.rootHovered}
       {...props}
     />
   )

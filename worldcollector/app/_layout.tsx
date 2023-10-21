@@ -1,5 +1,6 @@
-import { Slot } from 'expo-router'
+import 'react-native-get-random-values' // Crypto polyfill
 import { SafeAreaView, StyleSheet } from 'react-native'
+import { Slot } from 'expo-router'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 import TabBar from '~components/TabBar'

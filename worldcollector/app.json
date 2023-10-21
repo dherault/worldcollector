@@ -39,7 +39,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to create collectibles."
+          "photosPermission": "The app accesses your photos to create collectibles.",
+          "cameraPermission": "The app accesses your camera to create collectibles."
         }
       ]
     ],

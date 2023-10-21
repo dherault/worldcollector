@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { TextInput as ReactNativeTextInput, StyleSheet, type TextInputProps, ViewStyle } from 'react-native'
+import { TextInput as ReactNativeTextInput, StyleSheet, type TextInputProps, type ViewStyle } from 'react-native'
 
 import theme from '~theme'
 
-function TextInput(props: TextInputProps) {
+function TextInput({ style, ...props }: TextInputProps) {
   const [focused, setFocused] = useState(false)
 
   return (
     <ReactNativeTextInput
-      style={focused ? styles.rootFocused : styles.root}
+      style={[focused ? styles.rootFocused : styles.root, style]}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       {...props}

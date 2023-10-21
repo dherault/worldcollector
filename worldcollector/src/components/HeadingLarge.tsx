@@ -11,7 +11,7 @@ function Heading({ style, ...props }: TextProps) {
 
 const styles = StyleSheet.create({
   root: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
   },
 })

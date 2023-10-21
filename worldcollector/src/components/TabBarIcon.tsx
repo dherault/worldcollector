@@ -13,7 +13,7 @@ function TabBarIcon({ active, ...props }: TabBarIconProps) {
   return (
     <Hoverable
       style={active ? styles.rootActive : styles.root}
-      hoverStyle={styles.rootHovered}
+      styleHover={styles.rootHovered}
       {...props}
     />
   )

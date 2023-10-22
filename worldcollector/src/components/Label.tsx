@@ -1,6 +1,6 @@
 import { StyleSheet, Text, type TextProps } from 'react-native'
 
-function TextInputLabel({ style, ...props }: TextProps) {
+function Label({ style, ...props }: TextProps) {
   return (
     <Text
       style={[styles.root, style]}
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TextInputLabel
+export default Label

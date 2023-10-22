@@ -9,7 +9,7 @@ import UserContext from '~contexts/ViewerContext'
 import Heading from '~components/Heading'
 import ButtonPrimaryLarge from '~components/ButtonPrimaryLarge'
 import SettingsEditableField from '~components/SettingsEditableField'
-import TextInputLabel from '~components/TextInputLabel'
+import Label from '~components/Label'
 
 function SettingsScene() {
   const { viewer, setViewer } = useContext(UserContext)
@@ -29,9 +29,9 @@ function SettingsScene() {
       <Text style={styles.sectionTitle}>
         Account
       </Text>
-      <TextInputLabel>
+      <Label>
         Account id
-      </TextInputLabel>
+      </Label>
       <Text
         style={styles.id}
         selectable

@@ -14,8 +14,9 @@ import ViewerContext from '~contexts/ViewerContext'
 
 import TextInput from '~components/TextInput'
 import Button from '~components/Button'
-import TextInputLabel from '~components/TextInputLabel'
+import Label from '~components/Label'
 import Heading from '~components/Heading'
+import UsernameInput from '~components/UsernameInput'
 
 import theme from '~theme'
 
@@ -26,7 +27,8 @@ function AuthenticationScene() {
   const [loading, setLoading] = useState(false)
   const [continued, setContinued] = useState(false)
   const [existingName, setExistingName] = useState('')
-  const [name, setUserName] = useState('')
+  const [username, setUsername] = useState('')
+  const [isUsernameValid, setIsUsernameValid] = useState(false)
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -41,7 +43,7 @@ function AuthenticationScene() {
     setLoading(false)
     setContinued(false)
     setExistingName('')
-    setUserName('')
+    setUsername('')
     setPassword('')
     setEmailError('')
     setPasswordError('')
@@ -84,7 +86,7 @@ function AuthenticationScene() {
   const handleSignUp = useCallback(async () => {
     let hasError = false
 
-    if (!name.trim()) {
+    if (!username.trim()) {
       setNameError('Name is required')
 
       hasError = true
@@ -125,7 +127,7 @@ function AuthenticationScene() {
     const now = new Date().toISOString()
     const user: User = {
       id,
-      name,
+      name: username,
       email: safeEmail,
       createdAt: now,
       updatedAt: now,
@@ -136,7 +138,7 @@ function AuthenticationScene() {
     setViewer(user)
   }, [
     email,
-    name,
+    username,
     password,
     passwordConfirmation,
     setViewer,
@@ -178,9 +180,9 @@ function AuthenticationScene() {
       <Text style={styles.infoText}>
         Please enter your email to log in or sign up:
       </Text>
-      <TextInputLabel>
+      <Label>
         Email:
-      </TextInputLabel>
+      </Label>
       <TextInput
         autoFocus
         autoCorrect={false}
@@ -212,27 +214,27 @@ function AuthenticationScene() {
       <Text style={styles.infoText}>
         New here? Sign up!
       </Text>
-      <TextInputLabel>
+      <Label>
         User name:
-      </TextInputLabel>
-      <TextInput
-        autoCorrect={false}
-        value={name}
-        onChangeText={setUserName}
-        placeholder="eg: CoolCollector, Myself007, ..."
+      </Label>
+      <UsernameInput
+        value={username}
+        setValue={setUsername}
+        isValid={isUsernameValid}
+        setIsValid={setIsUsernameValid}
       />
-      <TextInputLabel style={styles.marginTop}>
+      <Label style={styles.marginTop}>
         Password:
-      </TextInputLabel>
+      </Label>
       <TextInput
         secureTextEntry
         placeholder="Choose a strong password"
         value={password}
         onChangeText={setPassword}
       />
-      <TextInputLabel style={styles.marginTop}>
+      <Label style={styles.marginTop}>
         Password confirmation:
-      </TextInputLabel>
+      </Label>
       <TextInput
         secureTextEntry
         placeholder="Repeat your password"
@@ -260,7 +262,8 @@ function AuthenticationScene() {
       </View>
     </>
   ), [
-    name,
+    username,
+    isUsernameValid,
     password,
     passwordConfirmation,
     loading,

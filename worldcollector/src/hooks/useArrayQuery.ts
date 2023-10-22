@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Query, getDocs } from 'firebase/firestore'
 
-function useArrayQuery<T>(query: Query) {
+function useArrayQuery<T>(query: Query, enabled = true) {
   const [data, setData] = useState<T[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -18,8 +18,10 @@ function useArrayQuery<T>(query: Query) {
   }, [query])
 
   useEffect(() => {
+    if (!enabled) return
+
     fetch()
-  }, [fetch])
+  }, [enabled, fetch])
 
   return { data, loading }
 }

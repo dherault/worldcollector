@@ -12,7 +12,7 @@ import { authentication, db } from '~firebase'
 
 import ViewerContext from '~contexts/ViewerContext'
 
-import TextInputLabel from '~components/TextInputLabel'
+import Label from '~components/Label'
 import ButtonIcon from '~components/ButtonIcon'
 import TextInput from '~components/TextInput'
 
@@ -78,9 +78,9 @@ function SettingsEditableField({ fieldKey, fieldLabel }: SettingsEditableFieldPr
 
   return (
     <>
-      <TextInputLabel>
+      <Label>
         {fieldLabel}
-      </TextInputLabel>
+      </Label>
       <View style={styles.row}>
         {!edited && (
           <>

@@ -28,7 +28,7 @@ function SettingsEditableField({ fieldKey, fieldLabel }: SettingsEditableFieldPr
 
   const [edited, setEdited] = useState(false)
   const [value, setValue] = useState(viewer[fieldKey] ?? '')
-  const [errorCode, setErrorCode] = useState<string | null>(null)
+  const [errorCode, setErrorCode] = useState('')
   const [success, setSuccess] = useState(false)
 
   const error = authenticationErrors[errorCode as keyof typeof authenticationErrors] ?? (errorCode ? authenticationErrors.default : null)

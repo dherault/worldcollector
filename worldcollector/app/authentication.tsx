@@ -1,12 +1,14 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useRouter } from 'expo-router'
 import { Image } from 'expo-image'
 import { validate as validateEmail } from 'email-validator'
 
 import { User } from '~types'
+
+import { authenticationErrors } from '~constants'
 
 import { authentication, db } from '~firebase'
 
@@ -34,12 +36,14 @@ function AuthenticationScene() {
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [nameError, setNameError] = useState('')
-  const [error, setError] = useState(false)
+  const [errorCode, setErrorCode] = useState('')
+
+  const error = authenticationErrors[errorCode as keyof typeof authenticationErrors] ?? (errorCode ? authenticationErrors.default : null)
 
   const router = useRouter()
 
   const handleReset = useCallback(() => {
-    setEmail('')
+    // setEmail('')
     setLoading(false)
     setContinued(false)
     setExistingName('')
@@ -48,7 +52,7 @@ function AuthenticationScene() {
     setEmailError('')
     setPasswordError('')
     setNameError('')
-    setError(false)
+    setErrorCode('')
   }, [])
 
   const handleCheckEmail = useCallback(async () => {
@@ -74,17 +78,28 @@ function AuthenticationScene() {
       })
 
       setContinued(true)
-      setLoading(false)
     }
     catch (error) {
       console.log(error)
 
-      setError(true)
+      setErrorCode(error.code)
     }
+
+    setLoading(false)
   }, [email])
 
   const handleSignUp = useCallback(async () => {
     let hasError = false
+
+    setNameError('')
+    setPasswordError('')
+    setErrorCode('')
+
+    if (!isUsernameValid) {
+      setNameError('User name is already taken')
+
+      hasError = true
+    }
 
     if (!username.trim()) {
       setNameError('Name is required')
@@ -119,7 +134,8 @@ function AuthenticationScene() {
     catch (error) {
       console.log(error)
 
-      setError(true)
+      setErrorCode(error.code)
+      setLoading(false)
 
       return
     }
@@ -139,40 +155,45 @@ function AuthenticationScene() {
   }, [
     email,
     username,
+    isUsernameValid,
     password,
     passwordConfirmation,
     setViewer,
   ])
 
   const handleSignIn = useCallback(async () => {
-    let id = ''
+    // let id = ''
     const safeEmail = email.trim().toLowerCase()
 
-    try {
-      const userCredentials = await signInWithEmailAndPassword(authentication, safeEmail, password)
+    setLoading(true)
 
-      id = userCredentials.user.uid
+    try {
+      // const userCredentials = await signInWithEmailAndPassword(authentication, safeEmail, password)
+      await signInWithEmailAndPassword(authentication, safeEmail, password)
+
+      // id = userCredentials.user.uid
     }
     catch (error) {
       console.log(error)
 
-      setError(true)
+      setErrorCode(error.code)
+      setLoading(false)
 
-      return
+      // return
     }
 
-    try {
-      const user = await getDoc(doc(db, 'users', id))
+    // try {
+    //   const user = await getDoc(doc(db, 'users', id))
 
-      setViewer(user.data() as User)
-    }
-    catch (error) {
-      console.log(error)
-    }
+    //   setViewer(user.data() as User)
+    // }
+    // catch (error) {
+    //   console.log(error)
+    // }
   }, [
     email,
     password,
-    setViewer,
+    // setViewer,
   ])
 
   const renderEmailPrompt = useCallback(() => (
@@ -351,9 +372,9 @@ function AuthenticationScene() {
             {nameError}
           </Text>
         )}
-        {error && (
+        {!!error && (
           <Text style={styles.errorText}>
-            An error occured
+            {error}
           </Text>
         )}
       </View>

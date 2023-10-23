@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   image: {
     width: 64,
     height: 64,
+    flexShrink: 0,
   },
   title: {
     textAlign: 'center',

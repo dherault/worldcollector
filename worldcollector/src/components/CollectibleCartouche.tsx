@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     height: 16 / IMAGE_RATIO,
     width: 16,
     tintColor: theme.colors.gold[400],
+    // flexShrink: 0,
   },
   content: {
     width: '100%',

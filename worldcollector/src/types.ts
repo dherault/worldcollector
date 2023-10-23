@@ -4,6 +4,7 @@ export type User = {
   id: string
   name: string
   email: string
+  hasSwearedOath: boolean
   createdAt: string
   updatedAt: string
 }

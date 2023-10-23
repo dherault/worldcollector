@@ -145,6 +145,7 @@ function AuthenticationScene() {
       id,
       name: username,
       email: safeEmail,
+      hasSwearedOath: false,
       createdAt: now,
       updatedAt: now,
     }

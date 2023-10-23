@@ -20,6 +20,7 @@ import ButtonPrimaryLarge from '~components/ButtonPrimaryLarge'
 import Heading from '~components/Heading'
 import HeadingLarge from '~components/HeadingLarge'
 import ButtonIcon from '~components/ButtonIcon'
+import Oath from '~components/Oath'
 
 import theme from '~theme'
 
@@ -172,6 +173,9 @@ function CollectScene() {
     }
 
   }, [name, description, picture, viewer, router])
+
+  if (!viewer) return null
+  if (!viewer.hasSwearedOath) return <Oath />
 
   return (
     <ScrollView>

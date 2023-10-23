@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import theme from '~theme'
 
 const WIDTH = 400
-const HEIGHT = 844
+const HEIGHT = 800
 
 function Layout({ children }: PropsWithChildren) {
   const insets = useSafeAreaInsets()
@@ -29,7 +29,7 @@ function Layout({ children }: PropsWithChildren) {
             width: WIDTH,
             maxHeight: HEIGHT,
             backgroundColor: 'white',
-            borderRadius: 16,
+            borderRadius: 32,
             border: `1px solid ${theme.colors.grey[200]}`,
             position: 'relative',
           }}

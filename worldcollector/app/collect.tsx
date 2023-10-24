@@ -21,6 +21,7 @@ import Heading from '~components/Heading'
 import HeadingLarge from '~components/HeadingLarge'
 import ButtonIcon from '~components/ButtonIcon'
 import Oath from '~components/Oath'
+import CollectPartOne from '~components/CollectPartOne'
 
 import theme from '~theme'
 
@@ -34,8 +35,17 @@ const pictureOptions = {
 const actionSheetOptions = ['Take photo...', 'Choose from Library...', 'Cancel']
 const cancelButtonIndex = 2
 
+const PARTS = [
+  0,
+  1,
+  2,
+  3,
+]
+
 function CollectScene() {
   const { viewer } = useContext(ViewerContext)
+
+  const [part, setPart] = useState(PARTS[0])
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -183,6 +193,14 @@ function CollectScene() {
         <HeadingLarge>
           Collect
         </HeadingLarge>
+        {part === PARTS[0] && (
+          <CollectPartOne
+            name={name}
+            setName={setName}
+            nameError={nameError}
+            setNameError={setNameError}
+          />
+        )}
         <Heading style={styles.headingRed}>
           1
         </Heading>

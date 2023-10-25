@@ -29,7 +29,10 @@ export const storage = getStorage(app)
 
 if (process.env.NODE_ENV === 'development') {
   const origin = Constants.expoConfig.hostUri?.split(':').shift() || 'localhost'
+  // const origin = '127.0.0.1'
+  // const origin = 'localhost'
 
+  console.log('origin', origin)
   connectAuthEmulator(authentication, `http://${origin}:9099`, { disableWarnings: true })
   connectFirestoreEmulator(db, origin, 8080)
   connectStorageEmulator(storage, origin, 9199)

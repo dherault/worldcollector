@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "World Collector",
-    "slug": "world-collector",
+    "slug": "worldcollector-alpha",
     "scheme": "worldcollector",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -30,7 +33,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "fd10d337-8f6d-490f-bff6-d91728766d32"
+        "projectId": "c2a2f60b-2494-4c40-b35c-d06bffec75cf"
+      },
+      "router": {
+        "origin": false
       }
     },
     "owner": "dherault",

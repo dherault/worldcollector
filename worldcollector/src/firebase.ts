@@ -2,7 +2,7 @@ import { Platform } from 'react-native'
 import Constants from 'expo-constants'
 import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native'
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
+import { connectFirestoreEmulator, getFirestore, setLogLevel } from 'firebase/firestore'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
 import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -24,6 +24,8 @@ export const authentication = initializeAuth(app, {
 })
 
 export const db = getFirestore(app)
+
+setLogLevel('debug')
 
 export const storage = getStorage(app)
 

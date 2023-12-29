@@ -1,11 +1,12 @@
 import { Platform } from 'react-native'
 import Constants from 'expo-constants'
 import { initializeApp } from 'firebase/app'
-import { connectAuthEmulator, getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native'
-import { connectFirestoreEmulator, getFirestore, setLogLevel } from 'firebase/firestore'
+// @ts-expect-error
+import { connectAuthEmulator, getAuth, getReactNativePersistence, initializeAuth } from '@firebase/auth'
+import { connectFirestoreEmulator, getFirestore, initializeFirestore } from 'firebase/firestore'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
 import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDD9uEDGqg8vQeDHgjBUyZfpC4HcoxSNt4',
@@ -17,28 +18,34 @@ const firebaseConfig = {
   measurementId: 'G-G1FN71BKX5',
 }
 
+console.log('Platform.OS', Platform.OS)
+
 const app = initializeApp(firebaseConfig)
 
-export const authentication = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-})
+export const authentication = Platform.OS === 'web'
+  ? getAuth(app)
+  : initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+  })
 
-export const db = getFirestore(app)
-
-setLogLevel('debug')
+export const db = Platform.OS === 'web'
+  ? getFirestore(app)
+  : initializeFirestore(app, {
+    experimentalForceLongPolling: true,
+    // experimentalAutoDetectLongPolling: true,
+  })
 
 export const storage = getStorage(app)
 
 if (process.env.NODE_ENV === 'development') {
   const origin = Constants.expoConfig.hostUri?.split(':').shift() || 'localhost'
-  // const origin = '127.0.0.1'
-  // const origin = 'localhost'
 
   console.log('origin', origin)
   connectAuthEmulator(authentication, `http://${origin}:9099`, { disableWarnings: true })
-  connectFirestoreEmulator(db, origin, 8080)
+  // connectFirestoreEmulator(db, origin, 8080)
   connectStorageEmulator(storage, origin, 9199)
 }
+
 else if (Platform.OS === 'web') {
   initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider('6Lc77XAmAAAAADLO4gsH9i3MGlJ6fJAXlraOwyAw'),

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"],
       "~types": ["types.ts"],
       "~theme": ["theme.ts"],
       "~constants": ["constants.ts"],

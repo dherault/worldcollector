@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { doc, updateDoc } from 'firebase/firestore'
-import { updatePassword } from 'firebase/auth/react-native'
+import { updatePassword } from 'firebase/auth'
 
 import type { User } from '~types'
 

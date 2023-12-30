@@ -42,21 +42,17 @@ function UsernameInput({ value, setValue, isValid, setIsValid }: UsernameInputPr
           onChangeText={setValue}
           style={styles.input}
         />
-        {!touched && (
-          <MaterialIcons
-            name="more-horiz"
-            size={24}
-            color={theme.colors.grey[300]}
-          />
+        {(!touched || !value.length) && (
+          <View style={styles.iconPlaceholder} />
         )}
-        {touched && isValid && (
+        {touched && !!value.length && isValid && (
           <MaterialIcons
             name="check"
             size={24}
             color={theme.colors.green[500]}
           />
         )}
-        {touched && !isValid && (
+        {touched && !!value.length && !isValid && (
           <MaterialIcons
             name="close"
             size={24}
@@ -78,6 +74,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    width: '100%',
   },
   input: {
     width: 'auto',
@@ -87,6 +84,9 @@ const styles = StyleSheet.create({
     color: theme.colors.red[500],
     alignSelf: 'flex-start',
     marginTop: 2,
+  },
+  iconPlaceholder: {
+    width: 24,
   },
 })
 

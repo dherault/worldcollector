@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     alignItems: 'center',
     maxHeight: '100%',
+    // height: '100%',
   },
   image: {
     width: 64,
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     paddingBottom: 128 + 32,
   },
   emptyImage: {
-    width: (256 - 64),
+    width: 256 - 64,
     height: (256 - 64) / EMPTY_IMAGE_RATIO,
   },
   tooltipContainer: {

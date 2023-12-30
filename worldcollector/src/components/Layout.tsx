@@ -32,6 +32,7 @@ function Layout({ children }: PropsWithChildren) {
             borderRadius: 32,
             border: `1px solid ${theme.colors.grey[200]}`,
             position: 'relative',
+            display: 'flex',
           }}
         >
           {children}

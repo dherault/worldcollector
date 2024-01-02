@@ -33,7 +33,6 @@ if (process.env.NODE_ENV === 'development') {
   connectAuthEmulator(authentication, `http://${origin}:9099`, { disableWarnings: true })
   connectFirestoreEmulator(db, origin, 8080)
   connectStorageEmulator(storage, origin, 9199)
-
 }
 else if (Platform.OS === 'web') {
   initializeAppCheck(app, {

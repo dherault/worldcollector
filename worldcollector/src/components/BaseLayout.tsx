@@ -31,6 +31,7 @@ function BaseLayout({ children }: PropsWithChildren) {
             border: `1px solid ${theme.colors.grey[200]}`,
             position: 'relative',
             display: 'flex',
+            flex: 1,
             overflow: 'hidden',
           }}
         >

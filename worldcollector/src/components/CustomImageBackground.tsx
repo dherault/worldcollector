@@ -9,7 +9,12 @@ function CustomImageBackground({ children, source }: PropsWithChildren<{ source:
 
   if (Platform.OS === 'web') {
     return (
-      <div style={{ position: 'relative' }}>
+      <div style={{
+        position: 'relative',
+        display: 'flex',
+        flex: 1,
+      }}
+      >
         <Image
           source={source}
           resizeMode="cover"

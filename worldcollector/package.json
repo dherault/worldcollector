@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "emulators": "firebase emulators:start --only auth,firestore,storage,extensions --import=./emulator-data/current-export --export-on-exit=./emulator-data/current-export",
+    "data:import": "firebase emulators:start --only auth,firestore,storage,extensions` --import=./emulator-data/starter-export"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",

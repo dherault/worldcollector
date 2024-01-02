@@ -1,13 +1,15 @@
 import { Slot } from 'expo-router'
 
+import UserProvider from '~components/UserProvider'
 import BaseLayout from '~components/BaseLayout'
-import '~firebase'
 
 function Layout() {
   return (
-    <BaseLayout>
-      <Slot />
-    </BaseLayout>
+    <UserProvider>
+      <BaseLayout>
+        <Slot />
+      </BaseLayout>
+    </UserProvider>
   )
 }
 

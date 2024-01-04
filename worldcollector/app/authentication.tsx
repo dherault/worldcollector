@@ -35,17 +35,22 @@ function Page() {
           <Text style={styles.text}>
             World Collector is a game about collecting elements from the world.
           </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <FadeInView>
-            <ButtonPrimaryLarge onPress={handleStartGamePress}>
-              Start game
-            </ButtonPrimaryLarge>
-          </FadeInView>
+          <Text style={[styles.text, styles.marginTop]}>
+            The rules are simple:
+          </Text>
+          <Text style={[styles.text, styles.marginTop]}>
+            1 - You can collect something only once. If another player has it you cannot have it.
+          </Text>
+          <Text style={[styles.text, styles.marginTop]}>
+            2 - You cannot collect living beings.
+          </Text>
+          <Text style={[styles.text, styles.marginTop]}>
+            3 - If you spend 30 days without login in your collectible are released.
+          </Text>
         </View>
       </SafeLayout>
     </CustomImageBackground>
-  ), [handleStartGamePress])
+  ), [])
 
   switch (step) {
     case 0: return renderStepZero()
@@ -67,10 +72,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     paddingHorizontal: 32,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   text: {
     color: 'white',
     fontSize: 18,
+    textAlign: 'center',
+  },
+  marginTop: {
+    marginTop: 16,
   },
 })
 

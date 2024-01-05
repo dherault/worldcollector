@@ -54,6 +54,7 @@ function Page() {
 
   switch (step) {
     case 0: return renderStepZero()
+
     case 1: return renderStepOne()
   }
 }

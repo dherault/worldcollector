@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
   connectFirestoreEmulator(db, origin, 8080)
   connectStorageEmulator(storage, origin, 9199)
 }
+
 else if (Platform.OS === 'web') {
   initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider('6Lc77XAmAAAAADLO4gsH9i3MGlJ6fJAXlraOwyAw'),

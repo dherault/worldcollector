@@ -99,6 +99,7 @@ function Page() {
     case 1: return renderStepOne()
     case 2: return renderStepTwo()
     case 3: return renderStepThree()
+    default: return null
   }
 }
 

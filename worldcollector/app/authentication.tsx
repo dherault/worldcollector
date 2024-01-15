@@ -333,6 +333,7 @@ function Page() {
     case 2: return renderStepTwo()
     case 3: return renderStepThree()
     case 4: return renderStepFour()
+
     default: return null
   }
 }

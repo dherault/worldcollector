@@ -17,7 +17,6 @@ const searchClient = algoliasearch(
 )
 
 function RootLayout() {
-
   return (
     <InstantSearch
       searchClient={searchClient}

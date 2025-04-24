@@ -8,6 +8,7 @@ import App from '~app/page'
 import NotFound from '~components/common/NotFound'
 import CenteredSpinner from '~components/common/CenteredSpinner'
 
+const DashSubRouter = lazy(() => import('~router/subRouters/DashSubRouter'))
 const AuthenticationSubRouter = lazy(() => import('~router/subRouters/AuthenticationSubRouter'))
 const SignoutSubRouter = lazy(() => import('~router/subRouters/SignoutSubRouter'))
 const SupportSubRouter = lazy(() => import('~router/subRouters/SupportSubRouter'))
@@ -25,6 +26,10 @@ function Router() {
             <Route
               index
               element={<App />}
+            />
+            <Route
+              path="-/*"
+              element={<Suspense fallback={<CenteredSpinner source="Router Dash" />}><DashSubRouter /></Suspense>}
             />
             <Route
               path="authentication/*"

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:ios": "npm run tauri ios dev --open --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",

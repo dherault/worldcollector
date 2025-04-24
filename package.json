@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "lint": "npm run lint:app",
+    "lint:app": "cd worldcollector && npm run lint"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-dherault-typescript": "^1.4.0"
+  }
+}

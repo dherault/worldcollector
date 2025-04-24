@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-// import LogRocket from 'logrocket'
+import LogRocket from 'logrocket'
 
 import LazyLoadingErrorBoundary from '~components/common/LazyLoadingErrorBoundary'
 
@@ -13,6 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </LazyLoadingErrorBoundary>
 )
 
-// if (import.meta.env.PROD) {
-//   LogRocket.init('worldcollector/worldcollector')
-// }
+if (import.meta.env.PROD) {
+  LogRocket.init('world-collector/world-collector')
+}

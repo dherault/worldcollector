@@ -11,7 +11,7 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 import { connectFunctionsEmulator, getFunctions, httpsCallable } from 'firebase/functions'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
 import { getPerformance } from 'firebase/performance'
-// import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
+import { ReCaptchaV3Provider, initializeAppCheck } from 'firebase/app-check'
 
 /* ---
   Firebase app
@@ -56,14 +56,6 @@ type CreateStripePortalLinkResponse = {
 export const invokeCreateStripePortalLink = httpsCallable<CreateStripePortalLinkParams, CreateStripePortalLinkResponse>(functions, 'ext-firestore-stripe-payments-createPortalLink')
 
 /* ---
-  Performance
---- */
-
-if (import.meta.env.PROD) {
-  getPerformance(app)
-}
-
-/* ---
   Authentication
 --- */
 
@@ -82,6 +74,25 @@ export const logAnalytics = (eventName: string, eventParams?: Record<string, any
 }
 
 /* ---
+  Performance
+--- */
+
+if (import.meta.env.PROD) {
+  getPerformance(app)
+}
+
+/* ---
+  App check
+--- */
+
+if (import.meta.env.PROD) {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6LcyeiMrAAAAAEjg1rI7kiZA95CpalJ3WBAheDrK'),
+    isTokenAutoRefreshEnabled: true,
+  })
+}
+
+/* ---
   Emulators
 --- */
 
@@ -93,14 +104,3 @@ if (import.meta.env.DEV) {
   connectStorageEmulator(storage, 'localhost', 9199)
   connectFunctionsEmulator(functions, '127.0.0.1', 5001)
 }
-
-/* ---
-  App check
---- */
-
-// if (import.meta.env.PROD) {
-//   initializeAppCheck(app, {
-//     provider: new ReCaptchaV3Provider('6Lf61ZcqAAAAANCNg60uAW1da7btM9bSKqJf7SLy'),
-//     isTokenAutoRefreshEnabled: true,
-//   })
-// }

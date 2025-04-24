@@ -1,4 +1,6 @@
 {
+  "private": true,
+  "name": "world-collector-monorepo",
   "scripts": {
     "lint": "npm run lint:app",
     "lint:app": "cd worldcollector && npm run lint"
